@@ -1,0 +1,24 @@
+.registerContainer {
+  padding-top: 2rem;
+}
+
+.registerCard {
+  max-width: 500px;
+  flex-direction: column;
+  margin: 0 auto;
+  border: 1px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .ant-card-body {
+    width: 100%;
+
+    .ant-form {
+      .ant-row {
+        width: 100%;
+        gap: 1.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.user__card {
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+
+  .ant-card-head {
+    background-color: #f0f2f5;
+    border-bottom: 1px solid #ccc;
+  }
+}
