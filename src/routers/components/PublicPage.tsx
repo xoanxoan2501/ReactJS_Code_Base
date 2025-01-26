@@ -25,10 +25,18 @@ const PublicPage: React.FC = () => {
     return r?.masterLayout
   }, [location.pathname, routes])
 
+  const showSideBar = React.useMemo(() => {
+    const r = routes.find(
+      (it) => it.path && matchPath(it.path, location.pathname)
+    )
+
+    return r?.showSideBar
+  }, [location.pathname, routes])
+
   return (
     <DefaultLayout
-      hideHeader={!showDefaultLayout}
-      hideSideBar={!showDefaultLayout}
+      showHeader={showDefaultLayout}
+      showSideBar={showSideBar}
     >
       <Routes>{views}</Routes>
     </DefaultLayout>

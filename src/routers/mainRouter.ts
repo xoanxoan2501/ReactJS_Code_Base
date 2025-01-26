@@ -5,11 +5,16 @@ import { routerLogin } from '@/views/Auth/components/Login/router'
 import { routerRegister } from '@/views/Auth/components/Register/router'
 import { routerPageError } from '@/views/error/router'
 
-export const privatePage: IRouter[] = [routerHome, routerPageError]
+const privatePage: IRouter[] = [routerPageError]
 
-export const publicPage: IRouter[] = [
+const publicPage: IRouter[] = [
   routerMainPublicPage,
   routerLogin,
   routerRegister,
-  routerPageError
+  routerHome
 ]
+
+privatePage.push(routerPageError)
+publicPage.push(routerPageError)
+
+export { privatePage, publicPage }

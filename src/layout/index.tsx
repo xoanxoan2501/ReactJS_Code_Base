@@ -1,12 +1,13 @@
 import { PropsWithChildren } from 'react'
 import Header from '@/layout/header'
 import Footer from '@/layout/footer'
+import SideBar from '@/layout/sideBar'
 
 interface IDefaultLayoutProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   history?: any
-  hideSideBar?: boolean
-  hideHeader?: boolean
+  showSideBar?: boolean
+  showHeader?: boolean
   loading?: boolean
 }
 
@@ -15,9 +16,9 @@ const DefaultLayout: React.FC<PropsWithChildren<IDefaultLayoutProps>> = (
 ) => {
   return (
     <div className="app__container">
-      {!props.hideHeader && <Header />}
+      {props.showHeader && <Header />}
       <div className="app__content">
-        {/* {!props.hideSideBar && <SideBar />} */}
+        {props.showSideBar && <SideBar />}
         <div className="app__main">
           {props.loading ? (
             <div className="app__loading">Loading...</div>

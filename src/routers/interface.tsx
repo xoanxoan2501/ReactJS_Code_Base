@@ -16,6 +16,7 @@ export type IRouter = {
   name?: string
   masterLayout?: boolean
   adminLayout?: boolean
+  showSideBar?: boolean
   icon?: ReactNode
   menu?: {
     icon?: ReactNode

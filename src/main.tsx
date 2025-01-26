@@ -4,17 +4,24 @@ import './views/styles/styles.scss'
 import { BrowserRouter as Router } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, Bounce } from 'react-toastify'
+import CssBaseline from '@mui/material/CssBaseline'
 
 // * Configuring the redux persist
 import store, { persistor } from '@/core/store/redux.ts'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 
+import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles'
+import theme from '@/theme.tsx'
+
 createRoot(document.getElementById('root')!).render(
   <Router>
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        <App />
+        <CssVarsProvider theme={theme}>
+          <App />
+          <CssBaseline />
+        </CssVarsProvider>
       </PersistGate>
     </Provider>
     <ToastContainer

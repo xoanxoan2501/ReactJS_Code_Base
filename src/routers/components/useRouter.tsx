@@ -41,14 +41,14 @@ const useRouter = ({ routers, privateRoute }: IShowRouter) => {
       )
       return { views: pages.map((it) => renderRoute(it)), routes: pages }
     }
-    const pages = routers.filter(
-      (it: IRouter) =>
-        it.permissionCode === 'ALLOW' ||
-        it.permissionCode === null ||
-        it.permissionCode === undefined
-      // || CheckPermissionFunc(it.permissionCode, listPermissionCode),
-    )
-    return { views: pages.map((it) => renderRoute(it)), routes: pages }
+    // const pages = routers.filter(
+    //   (it: IRouter) =>
+    //     it.permissionCode === 'ALLOW' ||
+    //     it.permissionCode === null ||
+    //     it.permissionCode === undefined
+    //   // || CheckPermissionFunc(it.permissionCode, listPermissionCode),
+    // )
+    return { views: routers.map((it) => renderRoute(it)), routes: routers }
   }, [routers, privateRoute, listPermissionCode])
 }
 
