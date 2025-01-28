@@ -44,7 +44,7 @@ export default tseslint.config(
 			'object-curly-spacing': [1, 'always'],
 			indent: ['warn', 2],
 			semi: [1, 'never'],
-			quotes: ['warn', 'single'],
+			quotes: ['error', 'single'],
 			'array-bracket-spacing': 1,
 			'linebreak-style': 0,
 			'no-unexpected-multiline': 'warn',

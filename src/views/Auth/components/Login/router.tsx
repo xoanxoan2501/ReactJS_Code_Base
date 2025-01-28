@@ -5,5 +5,5 @@ export const routerLogin: IRouter = {
   path: '/login',
   loader: React.lazy(() => import('./Login')),
   exact: true,
-  masterLayout: false
+  masterLayout: true
 }

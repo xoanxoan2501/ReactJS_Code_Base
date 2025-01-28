@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Button, Card, FormProps, Typography } from 'antd'
 import './Register.scss'
 import { DatePicker, Form, Input } from 'antd'

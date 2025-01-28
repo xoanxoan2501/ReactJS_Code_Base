@@ -13,12 +13,14 @@ import { Provider } from 'react-redux'
 
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles'
 import theme from '@/theme.tsx'
+import { GlobalStyles } from '@mui/material'
 
 createRoot(document.getElementById('root')!).render(
   <Router>
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <CssVarsProvider theme={theme}>
+          <GlobalStyles styles={{ a: { textDecoration: 'none' } }} />
           <App />
           <CssBaseline />
         </CssVarsProvider>

@@ -32,7 +32,7 @@ export default function CakeMenu({ title, isMenu = true }: { title: string, isMe
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         endIcon={isMenu ? <ExpandMoreIcon /> : null}
-        sx={{ color: 'customText.primary' }}
+        sx={{ fontWeight: 600 }}
       >
         {title}
       </Button>

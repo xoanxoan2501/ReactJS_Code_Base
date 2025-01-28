@@ -4,12 +4,10 @@ import { createTheme } from '@mui/material/styles'
 const theme = createTheme({
   colorSchemes: {
     light: {
-      palette: {
-      }
+      palette: {}
     },
     dark: {
-      palette: {
-      }
+      palette: {}
     }
   },
   components: {
@@ -26,7 +24,8 @@ const theme = createTheme({
           },
           '*::-webkit-scrollbar-thumb:hover': {
             backgroundColor: '#2c3e50'
-          }
+          },
+          fontFamily: 'Itim, sans-serif'
         }
       }
     },
@@ -35,7 +34,11 @@ const theme = createTheme({
       styleOverrides: {
         // Name of the slot
         root: {
-          color: 'black'
+          color: 'black',
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none'
+          }
         }
       }
     },
@@ -89,6 +92,9 @@ const theme = createTheme({
         }
       }
     }
+  },
+  typography: {
+    fontFamily: 'Itim, sans-serif'
   }
 })
 

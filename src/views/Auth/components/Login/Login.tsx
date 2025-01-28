@@ -1,14 +1,5 @@
-import { Card, Typography } from 'antd'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import './Login.scss'
-import type { FormProps } from 'antd'
-import { Button, Form, Input } from 'antd'
-import authenticationPresenter from '@/modules/authentication/presenter'
-import { useAppDispatch } from '@/shared/hook/reduxHooks'
-import { resetToken } from '@/modules/authentication/profileStore'
-import { Link, useNavigate } from 'react-router-dom'
-import { routerRegister } from '@/views/Auth/components/Register/router'
-import { toast } from 'react-toastify'
-import { routerHome } from '@/views/home/router'
 
 type FieldType = {
   username: string
@@ -16,93 +7,88 @@ type FieldType = {
   remember?: string
 }
 
-const CardTiTle = () => {
-  return (
-    <div>
-      <h2 style={{ textAlign: 'center' }}>Login</h2>
-    </div>
-  )
-}
-
 const Login = () => {
-  const dispath = useAppDispatch()
-  const navigate = useNavigate()
-
-  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    try {
-      const response = await authenticationPresenter.login(
-        values.username,
-        values.password
-      )
-
-      dispath(
-        resetToken({
-          accessToken: await response.user.getIdToken(),
-          refreshToken: response.user.refreshToken
-        })
-      )
-
-      navigate(routerHome.path)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-    } catch (error) {
-      toast.error('Email or password is incorrect!')
-    }
-  }
-
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (
-    errorInfo
-  ) => {
-    // eslint-disable-next-line no-console
-    console.log('Failed:', errorInfo)
-  }
 
   return (
-    <div className={'loginContainer'}>
-      <Card title={<CardTiTle />} className={'loginCard'}>
-        <Form
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
+    <Box sx={{ 
+		padding: '2rem 0'
+	 }}>
+      <Typography
+        sx={{
+          fontSize: '2rem',
+          fontWeight: 'bold',
+          textAlign: 'center',
+          marginTop: '2.5rem'
+        }}
+        variant="h5"
+      >
+		Đăng nhập vào tài khoản
+      </Typography>
+      <Box
+        className="form_login"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '1.5rem',
+          marginTop: '2rem'
+        }}
+      >
+        <TextField
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
+          sx={{ width: '500px' }}
+        />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          sx={{ width: '500px' }}
+        />
+        <Button
+          sx={{
+            backgroundColor: '#F2C2CF80'
+          }}
+          variant="contained"
         >
-          <Form.Item<FieldType>
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+			Đăng nhập
+        </Button>
+        <Box
+          sx={{
+            width: '500px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginTop: '0.75rem'
+          }}
+        >
+          <Typography
+            sx={{
+              cursor: 'pointer',
+              '&:hover': {
+                textDecoration: 'underline'
+              }
+            }}
+            variant="subtitle1"
           >
-            <Input />
-          </Form.Item>
-
-          <Form.Item<FieldType>
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+			Bạn không có tài khoản? Đăng ký
+          </Typography>
+          <Typography
+            sx={{
+              cursor: 'pointer',
+              '&:hover': {
+                textDecoration: 'underline'
+              }
+            }}
+            variant="subtitle1"
           >
-            <Input.Password />
-          </Form.Item>
-
-          {/* <Form.Item<FieldType> name="remember" label={null}>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
-
-          <Form.Item label={null}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-          <div className="register__link__container">
-            <Typography.Text className="register__link">
-              You don't have account.{' '}
-              <Link to={routerRegister.path}>Register account!</Link>
-            </Typography.Text>
-          </div>
-        </Form>
-      </Card>
-    </div>
+			Quên mật khẩu?
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 
