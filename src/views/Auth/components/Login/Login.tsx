@@ -10,8 +10,8 @@ type FieldType = {
 const Login = () => {
 
   return (
-    <Box sx={{ 
-		padding: '2rem 0'
+    <Box sx={{
+      padding: '2rem 0'
 	 }}>
       <Typography
         sx={{

@@ -91,6 +91,11 @@ const theme = createTheme({
           }
         }
       }
+    },
+    MuiMenu: {
+      defaultProps: {
+        disableScrollLock: true
+      }
     }
   },
   typography: {
