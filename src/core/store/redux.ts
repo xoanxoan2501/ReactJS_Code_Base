@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage'
 
 import CONFIG from '@/config/index'
 import appReducer, { RootState } from '@/modules/index'
+import { configureStore } from '@reduxjs/toolkit'
 
 // const profile = createWhitelistFilter('profile', [
 //   'token',
@@ -26,7 +27,11 @@ const middleware: any = []
 if (import.meta.env.DEV) {
   middleware.push(logger)
 }
-const store = createStore(persistedReducer, applyMiddleware(...middleware))
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false })
+})
 export const persistor = persistStore(store)
 
 export default store
@@ -38,7 +43,7 @@ interface IToken {
 
 export const TokenSelector: Selector<RootState, IToken> = (state) => {
   return {
-    token: state.profile.token,
+    token: state.profile.accessToken,
     refreshToken: state.profile.refreshToken
   }
 }

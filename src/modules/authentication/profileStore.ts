@@ -5,10 +5,12 @@ import { RootState } from '@/modules'
 import UserEntity from '@/modules/user/entity'
 import {
   createAction,
+  createAsyncThunk,
   createSlice,
   PayloadAction,
   Selector
 } from '@reduxjs/toolkit'
+import httpRepoInstance from '@/core/http/http'
 
 interface IStore {
   statusLogin?: boolean
@@ -27,10 +29,19 @@ interface IStore {
   user?: UserEntity
   listPermissionCode?: Array<string>
   linkImage?: string
-  token?: string
+  accessToken?: string
   refreshToken?: string
   remember: boolean
 }
+
+export const loginAPI = createAsyncThunk(
+  'profile/login',
+  async (data: { email: string; password: string }) => {
+    const response = await httpRepoInstance.post('/users/login', data)
+
+    return response.data
+  }
+)
 
 const profileStore = createSlice({
   name: 'profileStore',
@@ -39,7 +50,7 @@ const profileStore = createSlice({
     user: null,
     linkImage: '',
     listPermissionCode: [],
-    token: null,
+    accessToken: null,
     refreshToken: null,
     remember: false
   } as unknown as IStore,
@@ -109,11 +120,17 @@ const profileStore = createSlice({
           statusLogin: !lodash.isEmpty(action.payload.token)
         })
       )
+      .addCase(loginAPI.fulfilled, (state, action) => {
+        Object.assign(state, {
+          statusLogin: true,
+          user: action.payload.user
+        })
+      })
   }
 })
 
 export const TokenSelector: Selector<RootState, string> = (state) => {
-  return state.profile.token || ''
+  return state.profile.accessToken || ''
 }
 
 interface IUser {

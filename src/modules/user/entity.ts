@@ -1,25 +1,21 @@
 import dayjs from 'dayjs'
 
-import RoleEntity from '@/modules/roles/entity'
-
 class UserEntity {
-  username?: string
-
-  id?: string
+  _id?: string
 
   email?: string
 
-  name?: string
+  displayName?: string
 
   phoneNumber?: string
 
-  dayOfBirth?: string
+  avatar?: string
 
-  status?: number
+  require_2fa?: boolean
 
-  roleId?: Array<string>
+  role?: string
 
-  role?: Array<RoleEntity>
+  isActive?: boolean
 
   updatedAt?: dayjs.Dayjs
 
@@ -27,19 +23,17 @@ class UserEntity {
 
   identifierNumber?: string
 
-  avatarPicture?: string
+  accessToken?: string
 
-  avatar?: string
+  refreshToken?: string
 
   constructor(user?: Partial<UserEntity>) {
     if (!user) {
       return
     }
     Object.assign(this, user)
-    this.dayOfBirth = user.dayOfBirth
-      ? dayjs(user.dayOfBirth).format('DD/MM/YYYY')
-      : ''
-    this.avatar = user.avatarPicture
+    this.updatedAt = dayjs(user.updatedAt)
+    this.createdAt = dayjs(user.createdAt)
   }
 
   static createArrayUser(

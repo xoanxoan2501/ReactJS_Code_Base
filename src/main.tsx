@@ -14,6 +14,9 @@ import { Provider } from 'react-redux'
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles'
 import theme from '@/theme.tsx'
 import { GlobalStyles } from '@mui/material'
+import { injectStore } from '@/core/http/http.ts'
+
+injectStore(store)
 
 createRoot(document.getElementById('root')!).render(
   <Router>
