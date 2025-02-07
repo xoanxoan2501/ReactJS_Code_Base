@@ -11,6 +11,7 @@ import {
   Selector
 } from '@reduxjs/toolkit'
 import httpRepoInstance from '@/core/http/http'
+import { ILogin } from '@/modules/authentication/interface'
 
 interface IStore {
   statusLogin?: boolean
@@ -36,7 +37,7 @@ interface IStore {
 
 export const loginAPI = createAsyncThunk(
   'profile/login',
-  async (data: { email: string; password: string }) => {
+  async (data: ILogin) => {
     const response = await httpRepoInstance.post('/users/login', data)
 
     return response.data
@@ -121,10 +122,8 @@ const profileStore = createSlice({
         })
       )
       .addCase(loginAPI.fulfilled, (state, action) => {
-        Object.assign(state, {
-          statusLogin: true,
-          user: action.payload.user
-        })
+        state.statusLogin = true
+        state.user = action.payload
       })
   }
 })

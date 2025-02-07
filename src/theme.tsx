@@ -1,4 +1,5 @@
 // import { blueGrey, cyan, grey, teal } from '@mui/material/colors'
+
 import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
@@ -95,6 +96,25 @@ const theme = createTheme({
     MuiMenu: {
       defaultProps: {
         disableScrollLock: true
+      }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            '&:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'rgba(242, 194, 207, 0.5)',
+              color: 'rgba(242, 194, 207, 0.5)'
+            },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+              borderColor: 'rgba(242, 194, 207, 0.5)',
+              color: 'rgba(242, 194, 207, 0.5)'
+            }
+          },
+          '& label.Mui-focused': {
+            color: 'rgba(242, 194, 207, 1)'
+          }
+        }
       }
     }
   },

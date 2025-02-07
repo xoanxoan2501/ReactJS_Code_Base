@@ -27,7 +27,7 @@ function Register() {
     confirmPassword: '',
     city: 'Thành phố Hồ Chí Minh',
     location: '',
-    district: '',
+    district: ''
   })
   const [districts, setDistricts] = useState<string[]>([])
 
@@ -135,8 +135,8 @@ function Register() {
               onChange={handleChange}
               slotProps={{
                 input: {
-                  readOnly: true,
-                },
+                  readOnly: true
+                }
               }}
             />
             {/* <TextField
@@ -193,8 +193,8 @@ function Register() {
                   height: '40px',
                   '&:hover': {
                     color: '#D6003A',
-                    backgroundColor: 'transparent',
-                  },
+                    backgroundColor: 'transparent'
+                  }
                 }}
               >
                 Quay lại
@@ -211,8 +211,8 @@ function Register() {
                   '&:hover': {
                     backgroundColor: 'white',
                     border: '2px solid rgba(242, 194, 207, 0.5)',
-                    boxShadow: 'none',
-                  },
+                    boxShadow: 'none'
+                  }
                 }}
                 onClick={handleSubmit}
               >

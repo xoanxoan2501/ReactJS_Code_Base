@@ -1,5 +1,4 @@
 import { Selector } from 'react-redux'
-import { applyMiddleware, createStore } from 'redux'
 import { logger } from 'redux-logger'
 import { PersistConfig, persistReducer, persistStore } from 'redux-persist'
 // import { createWhitelistFilter } from 'redux-persist-transform-filter'

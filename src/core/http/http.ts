@@ -15,7 +15,7 @@ class HttpRepository {
   constructor() {
     this.instance = axios.create({
       baseURL: CONFIG.API_BASE_URL,
-      timeout: 1000 * 60 * 5
+      timeout: 1000 * 60 * 10
     })
   }
 

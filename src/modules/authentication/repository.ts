@@ -1,10 +1,14 @@
 import { auth, db } from '@/config/firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import store from '@/core/store/redux'
-import { fetchProfile, logOut } from '@/modules/authentication/profileStore'
+import {
+  fetchProfile,
+  loginAPI,
+  logOut
+} from '@/modules/authentication/profileStore'
 import UserEntity from '@/modules/user/entity'
 import { toast } from 'react-toastify'
+import { ILogin } from '@/modules/authentication/interface'
 
 const getProfile = async () => {
   auth.onAuthStateChanged(async (user) => {
@@ -21,8 +25,8 @@ const getProfile = async () => {
   })
 }
 
-const login = async (username: string, password: string) => {
-  return await signInWithEmailAndPassword(auth, username, password)
+const login = async (data: ILogin) => {
+  return await store.dispatch(loginAPI(data)).unwrap()
 }
 
 const logOutAuth = async () => {
