@@ -1,146 +1,225 @@
-import { Button, Card, FormProps, Typography } from 'antd'
+import React, { useEffect, useState } from 'react'
+import TextField from '@mui/material/TextField'
+import { Box, Container, FormControl, MenuItem } from '@mui/material'
+import axios from 'axios'
+import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
 import './Register.scss'
-import { DatePicker, Form, Input } from 'antd'
-import { toast } from 'react-toastify'
-import { setDoc, doc } from 'firebase/firestore'
-import { auth, db } from '@/config/firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { Dayjs } from 'dayjs'
-import { Link } from 'react-router-dom'
-import { routerLogin } from '@/views/Auth/components/Login/router'
-
-interface IRegisterField {
-  email: string
-  username: string
-  password: string
-  confirmPassword: string
+import { Select } from 'antd'
+interface IUser {
   name: string
+  email: string
   phoneNumber: string
-  dayOfBirth: Dayjs
+  passWord: string
+  confirmPassword: string
+  city: string
+  location: string
+  district: string
 }
+function Register() {
+  const [user, setUser] = useState<IUser>({
+    name: '',
+    email: '',
+    phoneNumber: '',
+    passWord: '',
+    confirmPassword: '',
+    city: 'Thành phố Hồ Chí Minh',
+    location: '',
+    district: '',
+  })
+  const [districts, setDistricts] = useState<string[]>([])
 
-const CardTiTle = () => {
+  useEffect(() => {
+    const fetchDistricts = async () => {
+      try {
+        const response = await axios.get(
+          'https://provinces.open-api.vn/api/p/79?depth=2'
+        )
+        const districtNames = response.data.districts.map(
+          (district: { name: string }) => district.name
+        )
+        setDistricts(districtNames)
+      } catch (error) {
+        console.error('Lỗi khi gọi API:', error)
+      }
+    }
+
+    fetchDistricts()
+  }, [])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setUser((prev) => ({ ...prev, [name]: value }))
+  }
+  const handleDistrictChange = (value: string) => {
+    setUser((prev) => ({ ...prev, district: value }))
+  }
+  const handleSubmit = () => {
+    console.log('Thông tin người dùng:', user)
+  }
+
   return (
     <div>
-      <h2 style={{ textAlign: 'center' }}>Register</h2>
-    </div>
-  )
-}
+      <Container className="registerContainer">
+        <Box className="registerBox">
+          <Box>
+            <h1 style={{ textAlign: 'center' }}>Tạo tài khoản </h1>
+          </Box>
 
-const initialValues: IRegisterField = {
-  email: '',
-  username: '',
-  password: '',
-  confirmPassword: '',
-  name: '',
-  phoneNumber: '',
-  dayOfBirth: null as unknown as Dayjs
-}
+          <TextField
+            id="outlined-basic"
+            label="Họ và tên "
+            name="name"
+            variant="outlined"
+            className="textField"
+            sx={{ width: '100%' }}
+            value={user.name}
+            onChange={handleChange}
+          />
+          <Box className="registerRow">
+            <TextField
+              id="outlined-basic"
+              label="Email"
+              name="email"
+              variant="outlined"
+              className="textField"
+              sx={{ width: '70%' }}
+              value={user.email}
+              onChange={handleChange}
+            />
+            <TextField
+              id="outlined-basic"
+              name="phoneNumber"
+              label="Số điện thoại "
+              variant="outlined"
+              className="textField"
+              sx={{ width: '30%' }}
+              value={user.phoneNumber}
+              onChange={handleChange}
+            />
+          </Box>
+          <Box className="registerRow">
+            <TextField
+              id="outlined-basic"
+              label="Mật khẩu"
+              name="passWord"
+              variant="outlined"
+              className="textField"
+              sx={{ width: '50%' }}
+              value={user.passWord}
+              onChange={handleChange}
+            />
+            <TextField
+              id="outlined-basic"
+              name="confirmPassword"
+              label="Xác nhận lại mật khẩu "
+              variant="outlined"
+              className="textField"
+              sx={{ width: '50%' }}
+              value={user.confirmPassword}
+              onChange={handleChange}
+            />
+          </Box>
 
-const Register = () => {
-  const [form] = Form.useForm()
-
-  const onFinish: FormProps<IRegisterField>['onFinish'] = async (values) => {
-    if (values.password !== values.confirmPassword) {
-      toast.error('Password and confirmPassword are not the same')
-      return
-    }
-    try {
-      await createUserWithEmailAndPassword(auth, values.email, values.password)
-      const user = auth.currentUser
-      if (user) {
-        await setDoc(doc(db, 'users', user.uid), {
-          email: user.email,
-          name: values.name,
-          username: values.username,
-          phoneNumber: values.phoneNumber,
-          dayOfBirth: values.dayOfBirth.format('YYYY-MM-DD')
-        })
-      }
-      console.log('🚀 ~ constonFinish: ', user)
-      form.resetFields()
-      toast.success('Register successfully!')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const onFinishFailed: FormProps<IRegisterField>['onFinishFailed'] = (
-    errorInfo
-  ) => {
-    console.log('Failed:', errorInfo)
-  }
-
-  return (
-    <div className={'registerContainer'}>
-      <Card title={<CardTiTle />} className={'registerCard'}>
-        <Form
-          labelCol={{ span: 4 }}
-          initialValues={initialValues}
-          wrapperCol={{ span: 14 }}
-          form={form}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          layout="horizontal"
-        >
-          <Form.Item<IRegisterField>
-            label="email"
-            name="email"
-            rules={[{ required: true, message: 'Please input your email!' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item<IRegisterField>
-            label="username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item<IRegisterField>
-            label="password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item<IRegisterField>
-            label="confirmPassword"
-            name="confirmPassword"
-            rules={[
-              { required: true, message: 'Please input your confirmPassword!' }
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item<IRegisterField> label="name" name="name">
-            <Input />
-          </Form.Item>
-          <Form.Item<IRegisterField> label="phoneNumber" name="phoneNumber">
-            <Input />
-          </Form.Item>
-          <Form.Item<IRegisterField>
-            label="dayOfBirth"
-            name="dayOfBirth"
-            rules={[
-              { required: true, message: 'Please input your dayOfBirth!' }
-            ]}
-          >
-            <DatePicker />
-          </Form.Item>
-
-          <Form.Item label={null}>
-            <Button type="primary" htmlType="submit">
-              Register
-            </Button>
-          </Form.Item>
-
-          <Typography.Text>
-            You already have an account!.{' '}
-            <Link to={routerLogin.path}>Login now!</Link>
-          </Typography.Text>
-        </Form>
-      </Card>
+          <Box className="registerRow">
+            <TextField
+              sx={{ width: '30%' }}
+              className="textField"
+              name="city"
+              id="outlined-read-only-input"
+              label="Thành phố"
+              defaultValue="Thành phố Hồ Chí Minh "
+              value={user.city}
+              onChange={handleChange}
+              slotProps={{
+                input: {
+                  readOnly: true,
+                },
+              }}
+            />
+            {/* <TextField
+              id="outlined-basic"
+              select
+              label="Quận / huyện"
+              name="district"
+              variant="outlined"
+              className="textField"
+              sx={{ width: '70%' }}
+              value={user.district}
+              onChange={handleChange}
+            /> */}
+            <FormControl fullWidth className="selectDistrict">
+              <Select
+                labelId="district-select-label"
+                id="district-select"
+                value={user.district}
+                onChange={handleDistrictChange}
+                label="Quận/Huyện"
+                style={{ height: '47.38px' }} // Áp dụng chiều cao đồng nhất
+              >
+                <MenuItem value="">
+                  <em>Chọn quận/huyện</em>
+                </MenuItem>
+                {districts.map((district) => (
+                  <MenuItem key={district} value={district}>
+                    {district}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+          <Box>
+            <TextField
+              id="outlined-basic"
+              label="Địa chỉ"
+              name="location"
+              variant="outlined"
+              className="textField"
+              sx={{ width: '100%' }}
+              value={user.location}
+              onChange={handleChange}
+            />
+          </Box>
+          <Box className="registerRow">
+            <Stack spacing={2} direction="row">
+              <Button
+                variant="text"
+                sx={{
+                  color: 'black',
+                  fontSize: '1.2rem',
+                  padding: '12px 24px',
+                  height: '40px',
+                  '&:hover': {
+                    color: '#D6003A',
+                    backgroundColor: 'transparent',
+                  },
+                }}
+              >
+                Quay lại
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: 'rgba(242, 194, 207, 0.6)',
+                  color: 'black',
+                  fontSize: '1.2rem',
+                  padding: '12px 24px',
+                  height: '40px',
+                  boxShadow: 'none',
+                  '&:hover': {
+                    backgroundColor: 'white',
+                    border: '2px solid rgba(242, 194, 207, 0.5)',
+                    boxShadow: 'none',
+                  },
+                }}
+                onClick={handleSubmit}
+              >
+                Đăng kí
+              </Button>
+            </Stack>
+          </Box>
+        </Box>
+      </Container>
     </div>
   )
 }
