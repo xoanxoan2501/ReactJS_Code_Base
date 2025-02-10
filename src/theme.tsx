@@ -113,6 +113,9 @@ const theme = createTheme({
           },
           '& label.Mui-focused': {
             color: 'rgba(242, 194, 207, 1)'
+          },
+          '&:hover label': {
+            color: 'rgba(242, 194, 207, 1)'
           }
         }
       }

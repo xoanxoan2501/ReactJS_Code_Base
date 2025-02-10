@@ -7,12 +7,14 @@ function Home() {
 
   return (
     <div className="home__container">
-      <Card className="user__card" title="User Detail">
-        <p>email: {userLogin?.email}</p>
-        <p>username: {userLogin?.username}</p>
-        <p>name: {userLogin?.name}</p>
-        <p>phoneNumber: {userLogin?.phoneNumber}</p>
-        <p>dayOfBirth: {userLogin?.dayOfBirth}</p>
+      <Card title="Home" className="home__card">
+        <h1>Home page</h1>
+        <p>Chào mừng bạn đến với trang Home!</p>
+        <p>
+          {userLogin
+            ? `Xin chào ${userLogin.displayName}`
+            : 'Bạn chưa đăng nhập'}
+        </p>
       </Card>
     </div>
   )

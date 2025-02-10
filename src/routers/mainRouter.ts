@@ -14,7 +14,7 @@ const publicPage: IRouter[] = [
   routerRegister,
   routerHome,
   routerPageError,
-  routerProduct,
+  routerProduct
 ]
 
 privatePage.push(routerPageError)

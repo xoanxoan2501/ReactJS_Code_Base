@@ -98,7 +98,7 @@ const profileStore = createSlice({
         user: null,
         linkImage: '',
         listPermissionCode: [],
-        token: null,
+        accessToken: null,
         refreshToken: null,
         remember: false
       }
@@ -124,8 +124,6 @@ const profileStore = createSlice({
       .addCase(loginAPI.fulfilled, (state, action) => {
         state.statusLogin = true
         state.user = action.payload
-        state.accessToken = action.payload.accessToken
-        state.refreshToken = action.payload.refreshToken
       })
   }
 })

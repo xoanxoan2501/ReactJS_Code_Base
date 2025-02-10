@@ -6,9 +6,14 @@ import {
   LoginSchemaType
 } from '@/modules/authentication/validationSchemas'
 import { zodResolver } from '@hookform/resolvers/zod'
-import authenticationPresenter from '@/modules/authentication/presenter'
+import { useAppDispatch } from '@/shared/hook/reduxHooks'
+import { loginAPI } from '@/apis/auth'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -18,7 +23,9 @@ const Login = () => {
   })
 
   const handleLogin = (data: LoginSchemaType) => {
-    authenticationPresenter.login(data)
+    dispatch(loginAPI(data))
+      .unwrap()
+      .then(() => navigate('/home'))
   }
 
   return (

@@ -7,15 +7,15 @@ import { useAppSelector } from '@/shared/hook/reduxHooks'
 import { routerHome } from '@/views/home/router'
 
 const PublicPage: React.FC = () => {
-  const token = useAppSelector((state) => state.profile.token)
+  const token = useAppSelector((state) => state.profile.accessToken)
   const location = useLocation()
   const { views, routes } = useRouter({ routers: publicPage })
 
   useEffect(() => {
-    if (token) {
+    if (token && (location.pathname == '/' || location.pathname == '/login')) {
       window.location.href = routerHome.path
     }
-  }, [token])
+  }, [location.pathname, token])
 
   const showDefaultLayout = React.useMemo(() => {
     const r = routes.find(
@@ -34,10 +34,7 @@ const PublicPage: React.FC = () => {
   }, [location.pathname, routes])
 
   return (
-    <DefaultLayout
-      showHeader={showDefaultLayout}
-      showSideBar={showSideBar}
-    >
+    <DefaultLayout showHeader={showDefaultLayout} showSideBar={showSideBar}>
       <Routes>{views}</Routes>
     </DefaultLayout>
   )
