@@ -36,8 +36,8 @@ export const persistor = persistStore(store)
 export default store
 
 interface IToken {
-  token?: string
-  refreshToken?: string
+  accessToken?: string | null
+  refreshToken?: string | null
 }
 
 export const TokenSelector: Selector<RootState, IToken> = (state) => {

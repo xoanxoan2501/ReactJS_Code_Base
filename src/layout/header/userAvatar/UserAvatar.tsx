@@ -10,14 +10,16 @@ import Tooltip from '@mui/material/Tooltip'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import { USER_ROLES } from '@/utils/constants'
-import { logOut } from '@/apis/auth'
+import { logoutAPI } from '@/apis/auth'
+import { routerHome } from '@/views/home/router'
 
 export default function UserAvatar() {
   const currentUser = useAppSelector((state) => state.profile.user)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -29,7 +31,9 @@ export default function UserAvatar() {
   }
 
   const handleLogout = () => {
-    dispatch(logOut())
+    dispatch(logoutAPI())
+      .unwrap()
+      .then(() => navigate(routerHome.path))
   }
 
   return (

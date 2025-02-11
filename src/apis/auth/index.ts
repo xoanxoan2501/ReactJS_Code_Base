@@ -15,7 +15,7 @@ import { ILogin } from '@/modules/authentication/interface'
 
 interface IStore {
   statusLogin?: boolean
-  user?: UserEntity
+  user?: UserEntity | null
   listPermissionCode?: Array<string>
 }
 export const removeProfile = createAction('authentication/removeProfile')
@@ -27,11 +27,11 @@ export const setToken = createAction<{
 
 interface IStore {
   statusLogin?: boolean
-  user?: UserEntity
+  user?: UserEntity | null
   listPermissionCode?: Array<string>
   linkImage?: string
-  accessToken?: string
-  refreshToken?: string
+  accessToken?: string | null
+  refreshToken?: string | null
   remember: boolean
 }
 
@@ -44,8 +44,14 @@ export const loginAPI = createAsyncThunk(
   }
 )
 
+export const logoutAPI = createAsyncThunk('profile/logout', async () => {
+  const response = await httpRepoInstance.post('/users/logout')
+
+  return response.data
+})
+
 const profileStore = createSlice({
-  name: 'profileStore',
+  name: 'profile',
   initialState: {
     statusLogin: false,
     user: null,
@@ -91,7 +97,7 @@ const profileStore = createSlice({
         linkImage: action.payload
       }
     },
-    logOut: (state: any) => {
+    logOut: (state) => {
       return {
         ...state,
         statusLogin: false,
@@ -124,6 +130,24 @@ const profileStore = createSlice({
       .addCase(loginAPI.fulfilled, (state, action) => {
         state.statusLogin = true
         state.user = action.payload
+        state.accessToken = action.payload.accessToken
+        state.refreshToken = action.payload.refreshToken
+      })
+      .addCase(logoutAPI.fulfilled, (state, action) => {
+        if (action.payload.isLogout) {
+          return {
+            ...state,
+            statusLogin: false,
+            user: null,
+            linkImage: '',
+            listPermissionCode: [],
+            accessToken: null,
+            refreshToken: null,
+            remember: false
+          }
+        }
+
+        return state
       })
   }
 })
@@ -131,9 +155,8 @@ const profileStore = createSlice({
 export const TokenSelector: Selector<RootState, string> = (state) => {
   return state.profile.accessToken || ''
 }
-
 interface IUser {
-  user?: UserEntity
+  user?: UserEntity | null
   status: boolean
 }
 

@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import profileStore from '@/modules/authentication/profileStore'
+import profileStore from '@/apis/auth'
 
 const appReducer = combineReducers({
   profile: profileStore.reducer
