@@ -8,7 +8,8 @@ const ErrorPage = () => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: '100px'
       }}
     >
       <h1>Error!</h1>

@@ -12,7 +12,7 @@ function Home() {
         <p>Chào mừng bạn đến với trang Home!</p>
         <p>
           {userLogin
-            ? `Xin chào ${userLogin.displayName}`
+            ? `Xin chào ${userLogin?.displayName}`
             : 'Bạn chưa đăng nhập'}
         </p>
       </Card>

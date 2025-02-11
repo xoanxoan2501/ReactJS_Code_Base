@@ -12,7 +12,7 @@ import AdminLayout from '@/layout/AdminLayout'
 import { routerLogin } from '@/views/Auth/components/Login/router'
 
 const PrivatePage: React.FC = () => {
-  const token = useAppSelector((state) => state.profile.token)
+  const token = useAppSelector((state) => state.profile.accessToken)
   const location = useLocation()
   const getProfile = useSingleAsync(authPresenter.getProfile)
 
