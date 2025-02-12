@@ -20,12 +20,14 @@ export const verifyOTPAPI = async (userId: string, otp: string) => {
 export const resetPasswordAPI = async (
   userId: string,
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
+  verifyToken: string
 ) => {
   const response = await httpRepoInstance.post('/users/reset-password', {
     userId,
     password,
-    confirmPassword
+    confirmPassword,
+    verifyToken
   })
 
   return response.data

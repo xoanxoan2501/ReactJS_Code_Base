@@ -15,6 +15,7 @@ const ResetPassword = () => {
 
   const location = useLocation()
   const userId = location.state?.userId
+  const verifyToken = location.state?.verifyToken
 
   const {
     register,
@@ -25,7 +26,7 @@ const ResetPassword = () => {
   })
 
   const handleChangePassword = (data: ResetPasswordSchemaType) => {
-    resetPasswordAPI(userId, data.password, data.confirmPassword)
+    resetPasswordAPI(userId, data.password, data.confirmPassword, verifyToken)
       .then((res) => {
         if (res.isResetPassword) {
           navigate(routerLogin.path, { replace: true })
@@ -71,6 +72,7 @@ const ResetPassword = () => {
             <TextField
               id="outlined-password"
               label="Mật khẩu"
+              type="password"
               variant="outlined"
               error={errors.password ? true : false}
               {...register('password')}
@@ -86,6 +88,7 @@ const ResetPassword = () => {
             <TextField
               id="outlined-confirm-password"
               label="Xác nhận mật khẩu"
+              type="password"
               variant="outlined"
               error={errors.confirmPassword ? true : false}
               {...register('confirmPassword')}

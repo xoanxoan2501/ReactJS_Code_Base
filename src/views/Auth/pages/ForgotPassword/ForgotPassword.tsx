@@ -51,13 +51,17 @@ const ForgotPassword = () => {
 
   const handleValidateOTP = (data: OTPSchemaType) => {
     verifyOTPAPI(userId, data.otp)
-      .then((res) => {
-        if (res.isCorrect) {
-          reset()
-          toast.success(res.message)
-          navigate(routerResetPassword.path, { state: { userId } })
+      .then(
+        (res: { isCorrect: boolean; message: string; verifyToken: string }) => {
+          if (res.isCorrect) {
+            reset()
+            toast.success(res.message)
+            navigate(routerResetPassword.path, {
+              state: { userId, verifyToken: res.verifyToken }
+            })
+          }
         }
-      })
+      )
       .catch((error) => {
         // eslint-disable-next-line no-console
         console.error(error)
