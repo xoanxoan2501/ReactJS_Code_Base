@@ -13,25 +13,25 @@ import './Register.scss'
 import { registerAPI } from '@/apis/auth'
 
 interface IUser {
-  name: string
+  fullname: string
   email: string
   phoneNumber: string
-  passWord: string
+  password: string
   confirmPassword: string
-  city: string
-  location: string
+  province: string
+  address: string
   district: string
 }
 
 function Register() {
   const [user, setUser] = useState<IUser>({
-    name: '',
+    fullname: '',
     email: '',
     phoneNumber: '',
-    passWord: '',
+    password: '',
     confirmPassword: '',
-    city: 'Thành phố Hồ Chí Minh',
-    location: '',
+    province: 'Thành phố Hồ Chí Minh',
+    address: '',
     district: '',
   })
   const [districts, setDistricts] = useState<string[]>([])
@@ -60,25 +60,25 @@ function Register() {
     const { name, value } = e.target
     setUser((prev) => ({ ...prev, [name]: value }))
   }
-
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const handleDistrictChange = (value: string) => {
     setUser((prev) => ({ ...prev, district: value }))
   }
 
   const validateForm = () => {
     if (
-      !user.name ||
+      !user.fullname ||
       !user.email ||
       !user.phoneNumber ||
-      !user.passWord ||
+      !user.password ||
       !user.confirmPassword ||
       !user.district ||
-      !user.location
+      !user.address
     ) {
       message.error('Vui lòng điền đầy đủ thông tin!')
       return false
     }
-    if (user.passWord !== user.confirmPassword) {
+    if (user.password !== user.confirmPassword) {
       message.error('Mật khẩu xác nhận không khớp!')
       return false
     }
@@ -88,43 +88,18 @@ function Register() {
   const handleSubmit = async () => {
     if (!validateForm()) return
 
-    console.log('Dữ liệu gửi lên API:', {
-      email: user.email,
-      password: user.passWord,
-      confirmPassword: user.confirmPassword,
-      fullname: user.name,
-      phoneNumber: user.phoneNumber,
-      address: user.location,
-      province: user.city,
-      district: user.district,
-    })
+    console.log('Dữ liệu gửi lên API:', user)
 
     try {
-      const response = await dispatch(
-        registerAPI({
-          email: user.email,
-          password: user.passWord,
-          confirmPassword: user.confirmPassword,
-          fullname: user.name,
-          phoneNumber: user.phoneNumber,
-          address: user.location,
-          province: user.city,
-          district: user.district,
-        })
-      ).unwrap() // Lấy dữ liệu từ API nếu thành công
-
-      console.log('Phản hồi từ API:', response) // Kiểm tra API trả về gì
+      const response = await dispatch(registerAPI(user)).unwrap()
+      console.log('Phản hồi từ API:', response)
       message.success('Đăng ký thành công!')
       navigate('/login')
     } catch (error) {
-      console.error('Lỗi từ API:', error) // Log lỗi từ API
+      console.error('Lỗi từ API:', error)
 
-      if (error?.response?.data) {
-        console.error('Chi tiết lỗi từ API:', error.response.data)
-        message.error(
-          error.response.data.message ||
-            'Đăng ký thất bại, vui lòng kiểm tra lại dữ liệu!'
-        )
+      if (error?.response?.data?.errors) {
+        setErrors(error.response.data.errors) // Lưu lỗi vào state
       } else {
         message.error('Đăng ký thất bại, vui lòng thử lại!')
       }
@@ -141,12 +116,14 @@ function Register() {
 
           <TextField
             label="Họ và tên "
-            name="name"
+            name="fullname"
             variant="outlined"
             className="textField"
             sx={{ width: '100%' }}
-            value={user.name}
+            value={user.fullname}
             onChange={handleChange}
+            error={!!errors.fullname}
+            helperText={errors.fullname || ''}
           />
           <Box className="registerRow">
             <TextField
@@ -157,6 +134,8 @@ function Register() {
               sx={{ width: '70%' }}
               value={user.email}
               onChange={handleChange}
+              error={!!errors.email}
+              helperText={errors.email || ''}
             />
             <TextField
               name="phoneNumber"
@@ -166,18 +145,22 @@ function Register() {
               sx={{ width: '30%' }}
               value={user.phoneNumber}
               onChange={handleChange}
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber || ''}
             />
           </Box>
           <Box className="registerRow">
             <TextField
               label="Mật khẩu"
-              name="passWord"
+              name="password"
               variant="outlined"
               className="textField"
               sx={{ width: '50%' }}
               type="password"
-              value={user.passWord}
+              value={user.password}
               onChange={handleChange}
+              error={!!errors.password}
+              helperText={errors.password || ''}
             />
             <TextField
               name="confirmPassword"
@@ -188,6 +171,8 @@ function Register() {
               type="password"
               value={user.confirmPassword}
               onChange={handleChange}
+              error={!!errors.confirmPassword}
+              helperText={errors.confirmPassword || ''}
             />
           </Box>
 
@@ -195,9 +180,9 @@ function Register() {
             <TextField
               sx={{ width: '30%' }}
               className="textField"
-              name="city"
-              label="Thành phố"
-              value={user.city}
+              name="province"
+              label="Tỉnh/Thành phố"
+              value={user.province}
               InputProps={{ readOnly: true }}
             />
             <FormControl fullWidth className="selectDistrict">
@@ -220,11 +205,11 @@ function Register() {
           <Box>
             <TextField
               label="Địa chỉ"
-              name="location"
+              name="address"
               variant="outlined"
               className="textField"
               sx={{ width: '100%' }}
-              value={user.location}
+              value={user.address}
               onChange={handleChange}
             />
           </Box>
