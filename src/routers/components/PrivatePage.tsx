@@ -9,7 +9,7 @@ import { useSingleAsync } from '@/shared/hook/useAsync'
 import useRouter from './useRouter'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
 import AdminLayout from '@/layout/AdminLayout'
-import { routerLogin } from '@/views/Auth/components/Login/router'
+import { routerLogin } from '@/views/Auth/pages/Login/router'
 
 const PrivatePage: React.FC = () => {
   const token = useAppSelector((state) => state.profile.accessToken)

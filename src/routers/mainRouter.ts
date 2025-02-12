@@ -1,10 +1,11 @@
 import { routerHome } from '@/views/home/router'
 import { IRouter } from './interface'
 import { routerMainPublicPage } from '@/views/Auth/router'
-import { routerLogin } from '@/views/Auth/components/Login/router'
-import { routerRegister } from '@/views/Auth/components/Register/router'
+import { routerLogin } from '@/views/Auth/pages/Login/router'
+import { routerRegister } from '@/views/Auth/pages/Register/router'
 import { routerPageError } from '@/views/error/router'
-import { routerProduct } from '@/views/Auth/components/Product/router'
+import { routerProduct } from '@/views/Auth/pages/Product/router'
+import { routerForgotPassword } from '@/views/Auth/pages/ForgotPassword/router'
 
 const privatePage: IRouter[] = [routerPageError]
 
@@ -14,7 +15,8 @@ const publicPage: IRouter[] = [
   routerRegister,
   routerHome,
   routerPageError,
-  routerProduct
+  routerProduct,
+  routerForgotPassword
 ]
 
 privatePage.push(routerPageError)

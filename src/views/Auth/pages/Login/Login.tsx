@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAppDispatch } from '@/shared/hook/reduxHooks'
 import { loginAPI } from '@/apis/auth'
 import { useNavigate } from 'react-router-dom'
+import { routerHome } from '@/views/home/router'
 
 const Login = () => {
   const dispatch = useAppDispatch()
@@ -25,7 +26,7 @@ const Login = () => {
   const handleLogin = (data: LoginSchemaType) => {
     dispatch(loginAPI(data))
       .unwrap()
-      .then(() => navigate('/home'))
+      .then(() => navigate(routerHome.path))
   }
 
   return (

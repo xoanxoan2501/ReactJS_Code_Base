@@ -8,7 +8,7 @@ import CakeMenu from '@/layout/header/menu/CakeMenu'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
 import { Button, styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { routerLogin } from '@/views/Auth/components/Login/router'
+import { routerLogin } from '@/views/Auth/pages/Login/router'
 import { routerHome } from '@/views/home/router'
 
 const cakeCategories = [
