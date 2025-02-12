@@ -6,6 +6,7 @@ import { routerRegister } from '@/views/Auth/pages/Register/router'
 import { routerPageError } from '@/views/error/router'
 import { routerProduct } from '@/views/Auth/pages/Product/router'
 import { routerForgotPassword } from '@/views/Auth/pages/ForgotPassword/router'
+import { routerResetPassword } from '@/views/Auth/pages/ResetPassword/router'
 
 const privatePage: IRouter[] = [routerPageError]
 
@@ -16,7 +17,8 @@ const publicPage: IRouter[] = [
   routerHome,
   routerPageError,
   routerProduct,
-  routerForgotPassword
+  routerForgotPassword,
+  routerResetPassword
 ]
 
 privatePage.push(routerPageError)

@@ -10,6 +10,7 @@ import { useAppDispatch } from '@/shared/hook/reduxHooks'
 import { loginAPI } from '@/apis/auth'
 import { useNavigate } from 'react-router-dom'
 import { routerHome } from '@/views/home/router'
+import { routerForgotPassword } from '@/views/Auth/pages/ForgotPassword/router'
 
 const Login = () => {
   const dispatch = useAppDispatch()
@@ -126,6 +127,7 @@ const Login = () => {
                 }
               }}
               variant="subtitle1"
+              onClick={() => navigate(routerForgotPassword.path)}
             >
               Quên mật khẩu?
             </Typography>
