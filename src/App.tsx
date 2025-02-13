@@ -8,7 +8,7 @@ const MainView = memo(({ statusLogin }: { statusLogin: boolean }) => {
 })
 
 function App() {
-  const token = useAppSelector((state) => state.profile.token)
+  const token = useAppSelector((state) => state.profile.accessToken)
 
   return (
     <>

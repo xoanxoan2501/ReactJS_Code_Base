@@ -2,9 +2,7 @@ import React, { useEffect } from 'react'
 import { matchPath, Routes, useLocation } from 'react-router-dom'
 
 import DefaultLayout from '@/layout/index'
-import authPresenter from '@/modules/authentication/presenter'
 import { privatePage } from '@/routers/mainRouter'
-import { useSingleAsync } from '@/shared/hook/useAsync'
 
 import useRouter from './useRouter'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
@@ -14,15 +12,11 @@ import { routerLogin } from '@/views/Auth/pages/Login/router'
 const PrivatePage: React.FC = () => {
   const token = useAppSelector((state) => state.profile.accessToken)
   const location = useLocation()
-  const getProfile = useSingleAsync(authPresenter.getProfile)
 
   useEffect(() => {
-    if (token) {
-      getProfile.execute()
-    } else {
+    if (!token) {
       window.location.href = routerLogin.path
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
   const { views, routes } = useRouter({
@@ -38,6 +32,22 @@ const PrivatePage: React.FC = () => {
     return r?.adminLayout
   }, [location.pathname, routes])
 
+  const showDefaultLayout = React.useMemo(() => {
+    const r = routes.find(
+      (it) => it.path && matchPath(it.path, location.pathname)
+    )
+
+    return r?.masterLayout
+  }, [location.pathname, routes])
+
+  const showSideBar = React.useMemo(() => {
+    const r = routes.find(
+      (it) => it.path && matchPath(it.path, location.pathname)
+    )
+
+    return r?.showSideBar
+  }, [location.pathname, routes])
+
   return (
     <>
       {showAdminLayout ? (
@@ -45,7 +55,7 @@ const PrivatePage: React.FC = () => {
           <Routes>{views}</Routes>
         </AdminLayout>
       ) : (
-        <DefaultLayout loading={getProfile.status !== 'ready'}>
+        <DefaultLayout showHeader={showDefaultLayout} showSideBar={showSideBar}>
           <Routes>{views}</Routes>
         </DefaultLayout>
       )}

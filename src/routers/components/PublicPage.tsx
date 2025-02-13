@@ -12,7 +12,7 @@ const PublicPage: React.FC = () => {
   const { views, routes } = useRouter({ routers: publicPage })
 
   useEffect(() => {
-    if (token && (location.pathname == '/' || location.pathname == '/login')) {
+    if (token) {
       window.location.href = routerHome.path
     }
   }, [location.pathname, token])

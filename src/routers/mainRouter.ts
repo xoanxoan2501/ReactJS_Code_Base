@@ -8,20 +8,21 @@ import { routerProduct } from '@/views/Auth/pages/Product/router'
 import { routerForgotPassword } from '@/views/Auth/pages/ForgotPassword/router'
 import { routerResetPassword } from '@/views/Auth/pages/ResetPassword/router'
 
-const privatePage: IRouter[] = [routerPageError]
+const privatePage: IRouter[] = []
 
 const publicPage: IRouter[] = [
   routerMainPublicPage,
   routerLogin,
   routerRegister,
-  routerHome,
   routerPageError,
   routerProduct,
   routerForgotPassword,
   routerResetPassword
 ]
 
-privatePage.push(routerPageError)
-publicPage.push(routerPageError)
+const middlepage = [routerHome]
 
-export { privatePage, publicPage }
+privatePage.push(...middlepage, routerPageError)
+publicPage.push(...middlepage, routerPageError)
+
+export { privatePage, publicPage, middlepage }

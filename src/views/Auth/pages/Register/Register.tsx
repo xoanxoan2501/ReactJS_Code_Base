@@ -115,7 +115,7 @@ function Register() {
           </Box>
 
           <TextField
-            label="Họ và tên "
+            label="Họ và tên"
             name="fullname"
             variant="outlined"
             className="textField"

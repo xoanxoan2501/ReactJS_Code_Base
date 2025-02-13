@@ -1,3 +1,4 @@
+import { routerHome } from '@/views/home/router'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
 
@@ -13,7 +14,7 @@ const ErrorPage = () => {
       }}
     >
       <h1>Error!</h1>
-      <Link to="/">
+      <Link to={routerHome.path}>
         <Button>Go back to home</Button>
       </Link>
     </div>
