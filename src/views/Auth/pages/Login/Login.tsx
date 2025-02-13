@@ -11,6 +11,7 @@ import { loginAPI } from '@/apis/auth'
 import { useNavigate } from 'react-router-dom'
 import { routerHome } from '@/views/home/router'
 import { routerForgotPassword } from '@/views/Auth/pages/ForgotPassword/router'
+import { routerRegister } from '@/views/Auth/pages/Register/router'
 
 const Login = () => {
   const dispatch = useAppDispatch()
@@ -116,6 +117,7 @@ const Login = () => {
                 }
               }}
               variant="subtitle1"
+              onClick={() => navigate(routerRegister.path)}
             >
               Bạn không có tài khoản? Đăng ký
             </Typography>

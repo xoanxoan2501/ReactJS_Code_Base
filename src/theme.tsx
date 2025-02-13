@@ -38,7 +38,9 @@ const theme = createTheme({
           color: 'black',
           boxShadow: 'none',
           '&:hover': {
-            boxShadow: 'none'
+            boxShadow: 'none',
+            borderColor: 'rgba(242, 194, 207, 0.5)',
+            color: 'rgba(242, 194, 207, 0.5)'
           }
         }
       }

@@ -32,7 +32,7 @@ function Register() {
     confirmPassword: '',
     province: 'Thành phố Hồ Chí Minh',
     address: '',
-    district: '',
+    district: ''
   })
   const [districts, setDistricts] = useState<string[]>([])
   const navigate = useNavigate()
@@ -178,7 +178,7 @@ function Register() {
 
           <Box className="registerRow">
             <TextField
-              sx={{ width: '30%' }}
+              sx={{ width: '40%' }}
               className="textField"
               name="province"
               label="Tỉnh/Thành phố"
@@ -215,10 +215,10 @@ function Register() {
           </Box>
           <Box className="registerRow">
             <Stack spacing={2} direction="row">
-              <Button variant="text" onClick={() => navigate('/')}>
+              <Button variant="text" onClick={() => navigate(-1)}>
                 Quay lại
               </Button>
-              <Button variant="contained" onClick={handleSubmit}>
+              <Button variant="text" onClick={handleSubmit}>
                 Đăng kí
               </Button>
             </Stack>
