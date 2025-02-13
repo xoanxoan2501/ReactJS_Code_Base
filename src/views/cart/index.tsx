@@ -14,6 +14,7 @@ const CartPage = () => {
       >
         Giỏ hàng
       </Typography>
+      <Typography>Test</Typography>
     </Box>
   )
 }
