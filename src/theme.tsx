@@ -39,8 +39,8 @@ const theme = createTheme({
           boxShadow: 'none',
           '&:hover': {
             boxShadow: 'none',
-            borderColor: 'rgba(242, 194, 207, 0.5)',
-            color: 'rgba(242, 194, 207, 0.5)'
+            borderColor: '#dc567a',
+            color: '#dc567a'
           }
         }
       }
@@ -105,19 +105,19 @@ const theme = createTheme({
         root: {
           '& .MuiOutlinedInput-root': {
             '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'rgba(242, 194, 207, 0.5)',
-              color: 'rgba(242, 194, 207, 0.5)'
+              borderColor: '#dc567a',
+              color: '#dc567a'
             },
             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'rgba(242, 194, 207, 0.5)',
-              color: 'rgba(242, 194, 207, 0.5)'
+              borderColor: '#dc567a',
+              color: '#dc567a'
             }
           },
           '& label.Mui-focused': {
-            color: 'rgba(242, 194, 207, 1)'
+            color: '#dc567a'
           },
           '&:hover label': {
-            color: 'rgba(242, 194, 207, 1)'
+            color: '#dc567a'
           }
         }
       }
