@@ -7,8 +7,9 @@ import { routerPageError } from '@/views/error/router'
 import { routerProduct } from '@/views/Auth/pages/Product/router'
 import { routerForgotPassword } from '@/views/Auth/pages/ForgotPassword/router'
 import { routerResetPassword } from '@/views/Auth/pages/ResetPassword/router'
+import { routerCart } from '@/views/cart/router'
 
-const privatePage: IRouter[] = []
+const privatePage: IRouter[] = [routerCart]
 
 const publicPage: IRouter[] = [
   routerMainPublicPage,

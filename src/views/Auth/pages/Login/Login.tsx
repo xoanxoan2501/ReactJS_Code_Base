@@ -34,7 +34,8 @@ const Login = () => {
   return (
     <Box
       sx={{
-        padding: '2rem 0'
+        padding: '2rem 0',
+        backgroundColor: '#F5F5F5'
       }}
     >
       <Typography

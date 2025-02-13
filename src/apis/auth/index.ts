@@ -8,7 +8,7 @@ import {
   createAsyncThunk,
   createSlice,
   PayloadAction,
-  Selector,
+  Selector
 } from '@reduxjs/toolkit'
 import httpRepoInstance from '@/core/http/http'
 import { ILogin, IRegister } from '@/modules/authentication/interface'
@@ -57,6 +57,7 @@ export const registerAPI = createAsyncThunk(
     return response.data
   }
 )
+
 const profileStore = createSlice({
   name: 'profile',
   initialState: {
@@ -66,7 +67,7 @@ const profileStore = createSlice({
     listPermissionCode: [],
     accessToken: null,
     refreshToken: null,
-    remember: false,
+    remember: false
   } as unknown as IStore,
   reducers: {
     fetchProfile: (
@@ -80,7 +81,7 @@ const profileStore = createSlice({
         Object.assign(state, {
           statusLogin: true,
           user: action.payload.user,
-          listPermissionCode: action.payload.listPermissionCode || [],
+          listPermissionCode: action.payload.listPermissionCode || []
         })
     },
     resetToken: (
@@ -89,7 +90,7 @@ const profileStore = createSlice({
     ) =>
       Object.assign(state, {
         token: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
+        refreshToken: action.payload.refreshToken
       }),
     updateProfile: (
       state,
@@ -101,7 +102,7 @@ const profileStore = createSlice({
     saveImageGroup: (state, action) => {
       return {
         ...state,
-        linkImage: action.payload,
+        linkImage: action.payload
       }
     },
     logOut: (state) => {
@@ -113,9 +114,9 @@ const profileStore = createSlice({
         listPermissionCode: [],
         accessToken: null,
         refreshToken: null,
-        remember: false,
+        remember: false
       }
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -126,12 +127,12 @@ const profileStore = createSlice({
           user: null,
           listPermissionCode: [],
           token: null,
-          remember: false,
+          remember: false
         }
       })
       .addCase(setToken, (state, action) =>
         Object.assign(state, action.payload, {
-          statusLogin: !lodash.isEmpty(action.payload.token),
+          statusLogin: !lodash.isEmpty(action.payload.token)
         })
       )
       .addCase(loginAPI.fulfilled, (state, action) => {
@@ -150,7 +151,7 @@ const profileStore = createSlice({
             listPermissionCode: [],
             accessToken: null,
             refreshToken: null,
-            remember: false,
+            remember: false
           }
         }
 
@@ -165,7 +166,7 @@ const profileStore = createSlice({
       .addCase(registerAPI.rejected, (state, action) => {
         console.error('Đăng ký thất bại:', action.error.message)
       })
-  },
+  }
 })
 
 export const TokenSelector: Selector<RootState, string> = (state) => {
@@ -179,7 +180,7 @@ interface IUser {
 export const UserSelector: Selector<RootState, IUser> = (state) => {
   return {
     user: state.profile.user,
-    status: state.profile.statusLogin || false,
+    status: state.profile.statusLogin || false
   }
 }
 
@@ -192,7 +193,7 @@ export const PermissionsSelector: Selector<RootState, IPermissions> = (
 ) => {
   return {
     listPermissionCode: state.profile.listPermissionCode || [],
-    status: state.profile.statusLogin || false,
+    status: state.profile.statusLogin || false
   }
 }
 
@@ -201,7 +202,7 @@ export const {
   resetToken,
   updateProfile,
   saveImageGroup,
-  logOut,
+  logOut
 } = profileStore.actions
 
 export default profileStore
