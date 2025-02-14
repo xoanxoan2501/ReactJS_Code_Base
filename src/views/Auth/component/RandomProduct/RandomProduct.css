@@ -1,0 +1,33 @@
+.product_random {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.Random_1 {
+  width: 75%;
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  justify-content: space-between;
+  /* margin-top: 20px; */
+  justify-items: center;
+  gap: 30px;
+}
+.banner {
+  width: 25%;
+  justify-content: center;
+  display: flex;
+}
+.banner_customer {
+  width: 250px;
+  height: 100%;
+  border-radius: 15px;
+  box-shadow: none;
+  background-color: #fcf0f3;
+  position: relative;
+}
+.card_text {
+  position: absolute;
+  align-items: flex-end;
+  color: #dc567a; /* Màu chữ hồng đậm */
+  font-weight: bold;
+}

@@ -8,3 +8,11 @@
     border-bottom: 1px solid #ccc;
   }
 }
+.line_home {
+  height: 3px;
+  width: 70%;
+  margin: 30px auto;
+  background: linear-gradient(90deg, #762e41 0%, #dc567a 100%);
+  display: block;
+  border: none;
+}
