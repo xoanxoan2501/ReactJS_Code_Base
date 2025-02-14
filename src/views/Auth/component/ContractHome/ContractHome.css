@@ -1,0 +1,55 @@
+.contract_home {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 500px;
+}
+.contract_cc {
+  background-color: #f2c2cf;
+  width: 50%;
+  border-radius: 30px 0px 0px 30px;
+  padding: 24px;
+}
+.contract_inf {
+  width: 50%;
+  background-color: #f2f2f2;
+  border-radius: 0px 30px 30px 0px;
+  justify-content: center;
+  justify-items: auto;
+  padding: 24px;
+}
+.cc_cc {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+
+  margin-top: 20px;
+}
+.icon_cc {
+  display: flex;
+  border-radius: 50%;
+  background-color: white;
+  align-items: center;
+  height: 45px;
+  width: 45px;
+  justify-content: center;
+}
+.textField_contract {
+  margin: 15px;
+}
+.button_cc {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.custom_button {
+  background-color: #f2c2cf;
+  color: black;
+  border-radius: 15px;
+}
+.custom-button:hover {
+  background-color: white;
+  border-radius: 15px;
+
+  border: 2px solid #f2c2cf; /* Viền hồng */
+}
