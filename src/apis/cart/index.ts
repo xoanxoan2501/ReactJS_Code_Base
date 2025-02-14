@@ -1,7 +1,7 @@
 import httpRepoInstance from '@/core/http/http'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-interface ICartItem {
+export interface ICartItem {
   productId: string
   title: string
   quantity: number
