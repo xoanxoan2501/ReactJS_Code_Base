@@ -12,7 +12,6 @@ import { routerCart } from '@/views/cart/router'
 const privatePage: IRouter[] = [routerCart]
 
 const publicPage: IRouter[] = [
-  routerMainPublicPage,
   routerLogin,
   routerRegister,
   routerPageError,
@@ -21,7 +20,7 @@ const publicPage: IRouter[] = [
   routerResetPassword
 ]
 
-const middlepage = [routerHome]
+const middlepage = [routerMainPublicPage, routerHome]
 
 privatePage.push(...middlepage, routerPageError)
 publicPage.push(...middlepage, routerPageError)
