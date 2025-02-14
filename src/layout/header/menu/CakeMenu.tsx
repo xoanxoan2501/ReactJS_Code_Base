@@ -12,18 +12,26 @@ import ContentCopy from '@mui/icons-material/ContentCopy'
 import ContentPaste from '@mui/icons-material/ContentPaste'
 import Cloud from '@mui/icons-material/Cloud'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { useNavigate } from 'react-router-dom'
 
 export default function CakeMenu({
   title,
-  isMenu = true
+  isMenu = true,
+  route
 }: {
   title: string
   isMenu?: boolean
+  route?: string
 }) {
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
+    if (isMenu) {
+      setAnchorEl(event.currentTarget)
+    } else if (route) {
+      navigate(route)
+    }
   }
   const handleClose = () => {
     setAnchorEl(null)

@@ -1,9 +1,5 @@
 import { Stack, Typography } from '@mui/material'
-import {
-  GridColDef,
-  GridRenderCellParams,
-  GridRowSelectionModel
-} from '@mui/x-data-grid'
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 export const renderProductImage = (params: GridRenderCellParams) => {
   return (
@@ -44,12 +40,6 @@ const ActionIcon = ({
   )
 }
 
-export const handleRowSelectionModelChange = (
-  selection: GridRowSelectionModel
-) => {
-  console.log(selection)
-}
-
 export const renderAction = (params: GridRenderCellParams) => {
   return (
     <Stack
@@ -76,11 +66,18 @@ export const headerConfigs: GridColDef[] = [
   {
     field: 'product',
     headerName: 'Sản phẩm',
-    flex: 1.5,
+    flex: 2,
     sortable: false,
     renderCell: renderProductImage,
     align: 'left', // Align content to the left
     headerAlign: 'left' // Align header to the left,
+  },
+  {
+    field: 'size',
+    headerName: 'Kích cỡ',
+    flex: 1,
+    align: 'left', // Align content to the left
+    headerAlign: 'left' // Align header to the left
   },
   {
     field: 'price',

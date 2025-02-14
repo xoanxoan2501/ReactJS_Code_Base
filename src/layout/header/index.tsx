@@ -14,7 +14,7 @@ import { routerCart } from '@/views/cart/router'
 import { toast } from 'react-toastify'
 
 const cakeCategories = [
-  { title: 'Trang chủ', isMenu: false },
+  { title: 'Trang chủ', isMenu: false, route: routerHome.path },
   { title: 'Bánh sinh nhật', isMenu: true },
   { title: 'Bánh mì & Bánh mặn', isMenu: true },
   { title: 'Cookies & minicake', isMenu: true },
@@ -34,7 +34,12 @@ const Header = () => {
   const renderMenu = () => {
     return cakeCategories.map((category, index) => {
       return (
-        <CakeMenu isMenu={category.isMenu} key={index} title={category.title} />
+        <CakeMenu
+          route={category?.route}
+          isMenu={category.isMenu}
+          key={index}
+          title={category.title}
+        />
       )
     })
   }

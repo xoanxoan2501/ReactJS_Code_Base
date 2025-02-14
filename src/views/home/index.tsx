@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <div className="home__container">
-      <Container>
+      <Container sx={{ marginTop: '2rem' }}>
         <MySlider />
         <div className="line_home"> </div>
         <BestSeller />
