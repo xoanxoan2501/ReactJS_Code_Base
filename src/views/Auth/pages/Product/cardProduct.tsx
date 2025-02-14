@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -18,9 +17,10 @@ export default function CardProduct() {
         flexDirection: 'column',
         height: '300px',
         position: 'relative',
-        overflow: 'hidden', // Để tránh nội dung vượt ra ngoài
+        overflow: 'hidden',
         '&:hover .zoom-content': {
-          transform: 'scale(1.05)', // Phóng to nội dung
+          transform: 'scale(1.05)',
+          backgroundColor: 'rgba(242, 194, 207, 0.5)',
         },
       }}
     >

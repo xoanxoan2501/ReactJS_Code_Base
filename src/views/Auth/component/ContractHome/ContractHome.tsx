@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Typography, TextField, Button, Container } from '@mui/material'
 import './ContractHome.css'
 import PhoneIcon from '@mui/icons-material/Phone'
