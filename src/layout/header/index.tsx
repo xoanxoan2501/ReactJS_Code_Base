@@ -10,6 +10,8 @@ import { Button, styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { routerLogin } from '@/views/Auth/pages/Login/router'
 import { routerHome } from '@/views/home/router'
+import { routerCart } from '@/views/cart/router'
+import { toast } from 'react-toastify'
 
 const cakeCategories = [
   { title: 'Trang chủ', isMenu: false },
@@ -56,7 +58,16 @@ const Header = () => {
               />
             </div>
             <div className="header_top_left">
-              <div className="header_top_left_first">
+              <div
+                onClick={() => {
+                  if (accessToken && user) {
+                    navigate(routerCart.path)
+                  } else {
+                    toast.error('Vui lòng đăng nhập để xem giỏ hàng')
+                  }
+                }}
+                className="header_top_left_first"
+              >
                 <img src={cartIcon} alt="cart" className="icon_hover" />
               </div>
               <div className="header_top_left_second">

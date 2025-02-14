@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import lodash from 'lodash'
 
 import { RootState } from '@/modules'
@@ -20,8 +19,8 @@ interface IStore {
 }
 export const removeProfile = createAction('authentication/removeProfile')
 export const setToken = createAction<{
-  token: any
-  refreshToken: any
+  token: string
+  refreshToken: string
   remember?: boolean
 }>('authentication/setToken')
 
@@ -120,7 +119,7 @@ const profileStore = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(removeProfile, (state: any) => {
+      .addCase(removeProfile, (state) => {
         return {
           ...state,
           statusLogin: false,
@@ -156,15 +155,6 @@ const profileStore = createSlice({
         }
 
         return state
-      })
-      .addCase(registerAPI.fulfilled, (state, action) => {
-        state.statusLogin = true
-        state.user = action.payload
-        state.accessToken = action.payload.accessToken
-        state.refreshToken = action.payload.refreshToken
-      })
-      .addCase(registerAPI.rejected, (state, action) => {
-        console.error('Đăng ký thất bại:', action.error.message)
       })
   }
 })
