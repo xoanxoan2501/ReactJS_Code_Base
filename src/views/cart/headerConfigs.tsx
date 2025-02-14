@@ -1,5 +1,9 @@
 import { Stack, Typography } from '@mui/material'
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import {
+  GridColDef,
+  GridRenderCellParams,
+  GridRowSelectionModel
+} from '@mui/x-data-grid'
 
 export const renderProductImage = (params: GridRenderCellParams) => {
   return (
@@ -19,6 +23,33 @@ export const renderProductImage = (params: GridRenderCellParams) => {
   )
 }
 
+const ActionIcon = ({
+  icon,
+  title,
+  actionKey
+}: {
+  icon: string
+  title: string
+  actionKey: string
+}) => {
+  return (
+    <img
+      src={icon}
+      alt={title}
+      style={{ width: 24, height: 24, cursor: 'pointer' }}
+      onClick={(event) => {
+        event.stopPropagation()
+      }}
+    />
+  )
+}
+
+export const handleRowSelectionModelChange = (
+  selection: GridRowSelectionModel
+) => {
+  console.log(selection)
+}
+
 export const renderAction = (params: GridRenderCellParams) => {
   return (
     <Stack
@@ -28,15 +59,12 @@ export const renderAction = (params: GridRenderCellParams) => {
       alignItems="center"
     >
       {params.value?.map(
-        (action: { title: string; icon: string }, index: number) => (
-          <img
-            key={index}
-            src={action.icon}
-            alt={action.title}
-            style={{ width: 24, height: 24, cursor: 'pointer' }}
-            onClick={(event) => {
-              event.stopPropagation()
-            }}
+        (action: { title: string; icon: string; key: string }) => (
+          <ActionIcon
+            key={action.key}
+            icon={action.icon}
+            title={action.title}
+            actionKey={action.title}
           />
         )
       )}
