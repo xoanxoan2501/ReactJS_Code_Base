@@ -8,6 +8,7 @@ import { routerProduct } from '@/views/Auth/pages/Product/router'
 import { routerForgotPassword } from '@/views/Auth/pages/ForgotPassword/router'
 import { routerResetPassword } from '@/views/Auth/pages/ResetPassword/router'
 import { routerCart } from '@/views/cart/router'
+import { routerListProduct } from '@/views/Auth/pages/ListProduct/router'
 
 const privatePage: IRouter[] = [routerCart]
 
@@ -18,7 +19,8 @@ const publicPage: IRouter[] = [
   routerPageError,
   routerProduct,
   routerForgotPassword,
-  routerResetPassword
+  routerResetPassword,
+  routerListProduct,
 ]
 
 const middlepage = [routerHome]
