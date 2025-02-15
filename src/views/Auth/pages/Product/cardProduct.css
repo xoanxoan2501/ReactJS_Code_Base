@@ -1,0 +1,71 @@
+.card {
+  width: 200px;
+  height: 300px;
+  border-radius: 15px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background-color: rgba(242, 194, 207, 0.25);
+}
+
+.card:hover .zoom-content {
+  transform: scale(1.05);
+  background-color: rgba(242, 194, 207, 0.5);
+}
+
+.zoom-content {
+  height: 100%;
+  width: 100%;
+  transition: transform 0.3s ease;
+  transform: scale(1);
+}
+
+.card-media {
+  height: 200px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.card-content {
+  text-align: center;
+  padding-top: 5px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80px;
+  flex: 1;
+}
+
+.price-box {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 177px;
+  height: 50px;
+  border-radius: 15px 15px 0px 15px;
+  background-color: rgba(242, 194, 207, 1);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px;
+}
+
+.price-tag {
+  background-color: #bbedf2;
+  width: 119px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.cart-icon {
+  right: 9px;
+}
