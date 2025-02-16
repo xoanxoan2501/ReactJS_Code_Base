@@ -13,6 +13,7 @@ interface Product {
   description: string
   price: number
   thumbnail: string
+  code: string
 }
 
 // Nhận dữ liệu sản phẩm từ props
@@ -30,7 +31,7 @@ export default function CardProduct({ product }: { product: Product }) {
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
               {product.title} {/* ✅ Tên sản phẩm từ API */}
             </Typography>
-            <Typography>{product.description}</Typography> {/* ✅ Mô tả */}
+            <Typography>{product.code}</Typography> {/* ✅ Mô tả */}
           </Box>
         </CardContent>
 
