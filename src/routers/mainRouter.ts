@@ -10,8 +10,15 @@ import { routerResetPassword } from '@/views/Auth/pages/ResetPassword/router'
 import { routerCart } from '@/views/cart/router'
 import { routerListProduct } from '@/views/ListProduct/router'
 import { routerAccountInfo } from '@/views/Profile/router'
+import { routerChangePhoneNumber } from '@/views/Profile/pages/ChangePhoneNumber/router'
+import { routerChangePassword } from '@/views/Profile/pages/ChangePassword/router'
 
-const privatePage: IRouter[] = [routerCart, routerAccountInfo]
+const privatePage: IRouter[] = [
+  routerCart,
+  routerAccountInfo,
+  routerChangePhoneNumber,
+  routerChangePassword
+]
 
 const publicPage: IRouter[] = [
   routerLogin,

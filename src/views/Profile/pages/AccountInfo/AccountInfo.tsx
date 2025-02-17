@@ -14,10 +14,15 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import iconFB from '@/assets/icons/iconFB.png'
 import iconGoogle from '@/assets/icons/iconGoogle.png'
+import { useNavigate } from 'react-router-dom'
+import { routerChangePhoneNumber } from '@/views/Profile/pages/ChangePhoneNumber/router'
+import { routerChangePassword } from '@/views/Profile/pages/ChangePassword/router'
 
 const AccountInfo = () => {
   const userLogin = useAppSelector((state) => state.profile.user)
   const [selectedDate, setSelectedDate] = useState(dayjs('2003-01-25'))
+
+  const navigate = useNavigate()
 
   const handleDateChange = (newValue: dayjs.Dayjs | null) => {
     if (newValue) {
@@ -42,6 +47,7 @@ const AccountInfo = () => {
               sx={{
                 width: '70%',
                 marginLeft: '1rem !important',
+                borderRadius: '5px',
                 backgroundColor: 'white',
                 '& .MuiInputBase-input': {
                   color: 'black'
@@ -75,6 +81,7 @@ const AccountInfo = () => {
                   sx={{
                     width: '70%',
                     marginLeft: '1rem !important',
+                    borderRadius: '5px',
                     backgroundColor: 'white',
                     '& .MuiInputBase-input': {
                       color: 'black'
@@ -160,7 +167,10 @@ const AccountInfo = () => {
               sx={{
                 backgroundColor: '#DC567A',
                 position: 'absolute',
-                transform: 'translate(-50%, 50%)'
+                transform: 'translate(-50%, 50%)',
+                '&:hover': {
+                  color: 'black'
+                }
               }}
               variant="contained"
               type="button"
@@ -177,6 +187,7 @@ const AccountInfo = () => {
                 sx={{
                   width: '70%',
                   marginLeft: '1rem !important',
+                  borderRadius: '5px',
                   backgroundColor: 'white',
                   '& .MuiInputBase-input': {
                     color: 'black'
@@ -212,6 +223,7 @@ const AccountInfo = () => {
                     cursor: 'pointer'
                   }
                 }}
+                onClick={() => navigate(routerChangePhoneNumber.path)}
               >
                 Cập nhật
               </Typography>
@@ -224,6 +236,7 @@ const AccountInfo = () => {
                 sx={{
                   width: '70%',
                   marginLeft: '1rem !important',
+                  borderRadius: '5px',
                   backgroundColor: 'white',
                   '& .MuiInputBase-input': {
                     color: 'black'
@@ -272,6 +285,7 @@ const AccountInfo = () => {
                   width: '70%',
                   marginLeft: '1rem !important',
                   backgroundColor: 'white',
+                  borderRadius: '5px',
                   '& .MuiInputBase-input': {
                     color: 'black'
                   },
@@ -306,6 +320,7 @@ const AccountInfo = () => {
                     cursor: 'pointer'
                   }
                 }}
+                onClick={() => navigate(routerChangePassword.path)}
               >
                 Cập nhật
               </Typography>
