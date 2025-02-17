@@ -1,7 +1,7 @@
 import './Homepage.scss'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
 import MySlider from '../Auth/component/slider/slider'
-import { Container } from '@mui/material'
+import { Box } from '@mui/material'
 import BestSeller from '../Auth/component/bestSeller/bestSeller'
 import ContractHome from '../Auth/component/ContractHome/ContractHome'
 
@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <div className="home__container">
-      <Container sx={{ marginTop: '2rem' }}>
+      <Box sx={{ marginTop: '2rem' }}>
         <MySlider />
         <div className="line_home"> </div>
         <BestSeller />
@@ -21,7 +21,7 @@ function Home() {
         <ProductHome />
         <div className="line_home"> </div>
         <ContractHome />
-      </Container>
+      </Box>
     </div>
   )
 }

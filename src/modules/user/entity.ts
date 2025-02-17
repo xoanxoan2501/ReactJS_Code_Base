@@ -3,6 +3,10 @@ import dayjs from 'dayjs'
 class UserEntity {
   _id?: string
 
+  fullname?: string
+
+  gender?: string
+
   email?: string
 
   displayName?: string

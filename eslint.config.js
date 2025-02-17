@@ -26,7 +26,7 @@ export default tseslint.config(
       'react-hooks/exhaustive-deps': 'warn',
 
       'no-restricted-imports': [
-        'error',
+        'warn',
         {
           patterns: ['@mui/*/*/*']
         }

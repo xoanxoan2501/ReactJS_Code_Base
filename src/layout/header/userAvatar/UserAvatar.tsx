@@ -15,6 +15,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import { USER_ROLES } from '@/utils/constants'
 import { logoutAPI } from '@/apis/auth'
 import { routerHome } from '@/views/home/router'
+import { routerAccountInfo } from '@/views/Profile/router'
 
 export default function UserAvatar() {
   const currentUser = useAppSelector((state) => state.profile.user)
@@ -92,7 +93,7 @@ export default function UserAvatar() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Link to={'/settings/account'} style={{ color: 'inherit' }}>
+        <Link to={routerAccountInfo.path} style={{ color: 'inherit' }}>
           <MenuItem onClick={handleClose}>
             <Avatar src={currentUser?.avatar || ''} /> Profile
           </MenuItem>

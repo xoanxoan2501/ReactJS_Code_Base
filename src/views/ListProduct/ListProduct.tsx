@@ -2,7 +2,7 @@ import { Card, Typography, List, ListItem } from '@mui/material'
 import './ListProduct.css'
 import SortIcon from '@mui/icons-material/Sort'
 import { useProducts } from '@/shared/hook/useProducts'
-import CardProduct from '../Product/cardProduct'
+import CardProduct from '../Auth/pages/Product/cardProduct'
 
 const categories = ['Bánh sinh nhật', 'Bánh mặn', 'Bánh ngọt', 'Mini cakes']
 

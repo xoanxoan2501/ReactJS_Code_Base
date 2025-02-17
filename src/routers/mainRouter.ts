@@ -8,9 +8,10 @@ import { routerProduct } from '@/views/Auth/pages/Product/router'
 import { routerForgotPassword } from '@/views/Auth/pages/ForgotPassword/router'
 import { routerResetPassword } from '@/views/Auth/pages/ResetPassword/router'
 import { routerCart } from '@/views/cart/router'
-import { routerListProduct } from '@/views/Auth/pages/ListProduct/router'
+import { routerListProduct } from '@/views/ListProduct/router'
+import { routerAccountInfo } from '@/views/Profile/router'
 
-const privatePage: IRouter[] = [routerCart]
+const privatePage: IRouter[] = [routerCart, routerAccountInfo]
 
 const publicPage: IRouter[] = [
   routerLogin,
@@ -18,11 +19,10 @@ const publicPage: IRouter[] = [
   routerPageError,
   routerProduct,
   routerForgotPassword,
-  routerResetPassword,
-  routerListProduct,
+  routerResetPassword
 ]
 
-const middlepage = [routerMainPublicPage, routerHome]
+const middlepage = [routerListProduct, routerMainPublicPage, routerHome]
 
 privatePage.push(...middlepage, routerPageError)
 publicPage.push(...middlepage, routerPageError)

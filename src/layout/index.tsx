@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react'
 import Header from '@/layout/header'
 import Footer from '@/layout/footer'
 import SideBar from '@/layout/sideBar'
+import { Stack } from '@mui/material'
 
 interface IDefaultLayoutProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,15 +18,22 @@ const DefaultLayout: React.FC<PropsWithChildren<IDefaultLayoutProps>> = (
   return (
     <div className="app__container">
       {props.showHeader && <Header />}
-      <div className="app__content">
-        {props.showSideBar && <SideBar />}
-        <div className="app__main">
-          {props.loading ? (
-            <div className="app__loading">Loading...</div>
-          ) : (
-            props.children
-          )}
-        </div>
+      <div className="app__content container">
+        <Stack direction={'row'} spacing={2}>
+          {props.showSideBar && <SideBar />}
+          <div
+            style={{
+              width: props.showSideBar ? '80%' : '100%'
+            }}
+            className="app__main"
+          >
+            {props.loading ? (
+              <div className="app__loading">Loading...</div>
+            ) : (
+              props.children
+            )}
+          </div>
+        </Stack>
       </div>
       <Footer />
     </div>
