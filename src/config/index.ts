@@ -10,6 +10,4 @@ const CONFIG = {
   MEASUREMENT_ID: import.meta.env.VITE_MEASUREMENT_ID
 }
 
-console.log(CONFIG)
-
 export default CONFIG
