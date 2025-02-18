@@ -17,6 +17,7 @@ import { GlobalStyles } from '@mui/material'
 import { injectStore } from '@/core/http/http.ts'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient()
 
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')!).render(
           <CssVarsProvider theme={theme}>
             <GlobalStyles styles={{ a: { textDecoration: 'none' } }} />
             <App />
+            <ReactQueryDevtools initialIsOpen={false} />
             <CssBaseline />
           </CssVarsProvider>
         </PersistGate>

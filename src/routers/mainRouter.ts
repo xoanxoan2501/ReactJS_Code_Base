@@ -12,12 +12,24 @@ import { routerListProduct } from '@/views/ListProduct/router'
 import { routerAccountInfo } from '@/views/Profile/router'
 import { routerChangePhoneNumber } from '@/views/Profile/pages/ChangePhoneNumber/router'
 import { routerChangePassword } from '@/views/Profile/pages/ChangePassword/router'
+import { routerProductManagement } from '@/admin/views/ProductManagement.tsx/router'
+import { routerAdminDashboard } from '@/admin/views/Dashboard.tsx/router'
+import { routerCategoryManagement } from '@/admin/views/CategoryManagement/router'
+import { routerOrderManagement } from '@/admin/views/OrderManagement/router'
+import { routerVoucherManagement } from '@/admin/views/VoucherManagement/router'
+import { routerCustomerManagement } from '@/admin/views/CustomerManagement/router'
 
 const privatePage: IRouter[] = [
   routerCart,
   routerAccountInfo,
   routerChangePhoneNumber,
-  routerChangePassword
+  routerChangePassword,
+  routerProductManagement,
+  routerAdminDashboard,
+  routerCategoryManagement,
+  routerOrderManagement,
+  routerVoucherManagement,
+  routerCustomerManagement
 ]
 
 const publicPage: IRouter[] = [

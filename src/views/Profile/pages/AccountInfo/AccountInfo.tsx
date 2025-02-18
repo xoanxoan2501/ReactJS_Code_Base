@@ -262,7 +262,7 @@ const AccountInfo = () => {
                 value={userLogin?.email}
                 disabled={true}
               />
-              <Typography
+              {/* <Typography
                 variant="h6"
                 sx={{
                   display: 'flex',
@@ -274,7 +274,7 @@ const AccountInfo = () => {
                 }}
               >
                 Cập nhật
-              </Typography>
+              </Typography> */}
             </Stack>
           </Stack>
           <Stack direction={'column'} spacing={1}>

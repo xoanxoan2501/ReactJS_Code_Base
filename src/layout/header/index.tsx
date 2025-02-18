@@ -12,12 +12,22 @@ import { routerLogin } from '@/views/Auth/pages/Login/router'
 import { routerHome } from '@/views/home/router'
 import { routerCart } from '@/views/cart/router'
 import { toast } from 'react-toastify'
+import { routerListProduct } from '@/views/ListProduct/router'
 
-const cakeCategories = [
+const cakeCategories: Array<{
+  title: string
+  isMenu: boolean
+  route?: string
+}> = [
   { title: 'Trang chủ', isMenu: false, route: routerHome.path },
   { title: 'Bánh sinh nhật', isMenu: true },
   { title: 'Bánh mì & Bánh mặn', isMenu: true },
   { title: 'Cookies & minicake', isMenu: true },
+  {
+    title: 'Danh mục sản phẩm',
+    isMenu: false,
+    route: routerListProduct.path
+  },
   { title: 'Giới thiệu', isMenu: false },
   { title: 'Liên hệ', isMenu: false }
 ]

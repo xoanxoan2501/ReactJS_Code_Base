@@ -6,7 +6,7 @@ import { privatePage } from '@/routers/mainRouter'
 
 import useRouter from './useRouter'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
-import AdminLayout from '@/layout/AdminLayout'
+import AdminLayout from '@/admin/layout/AdminLayout'
 import { routerLogin } from '@/views/Auth/pages/Login/router'
 
 const PrivatePage: React.FC = () => {

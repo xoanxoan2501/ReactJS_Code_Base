@@ -11,8 +11,8 @@ export type IRouter = {
   path: any | number
   permissionCode?: string | 'ALLOW' | string[]
   component?: React.FC<any>
-  isPrivate?: boolean
   exact?: boolean
+  isAdminRouter?: boolean
   name?: string
   masterLayout?: boolean
   adminLayout?: boolean

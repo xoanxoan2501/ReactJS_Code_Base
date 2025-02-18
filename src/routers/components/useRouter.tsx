@@ -1,10 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Route } from 'react-router-dom'
-
-import { RootState } from '@/modules'
 import { IRouter } from '@/routers/interface'
 import Loading from '@/shared/components/Loading'
+import { useAppSelector } from '@/shared/hook/reduxHooks'
+import { USER_ROLES } from '@/utils/constants'
 
 interface IShowRouter {
   routers: IRouter[]
@@ -28,28 +27,25 @@ const renderRoute = (router: IRouter) => {
 }
 
 const useRouter = ({ routers, privateRoute }: IShowRouter) => {
-  const listPermissionCode = useSelector(
-    (state: RootState) => state.profile.listPermissionCode
-  )
+  const userLogin = useAppSelector((state) => state.profile.user)
+
   return React.useMemo(() => {
-    if (privateRoute && listPermissionCode === null) {
-      const pages = routers.filter(
-        (it: IRouter) =>
+    if (privateRoute) {
+      const pages = routers.filter((it: IRouter) => {
+        if (it.isAdminRouter) {
+          return userLogin?.role === USER_ROLES.ADMIN
+        }
+        return (
           it.permissionCode === 'ALLOW' ||
           it.permissionCode == null ||
           it.path !== '*'
-      )
+        )
+      })
       return { views: pages.map((it) => renderRoute(it)), routes: pages }
     }
-    // const pages = routers.filter(
-    //   (it: IRouter) =>
-    //     it.permissionCode === 'ALLOW' ||
-    //     it.permissionCode === null ||
-    //     it.permissionCode === undefined
-    //   // || CheckPermissionFunc(it.permissionCode, listPermissionCode),
-    // )
+
     return { views: routers.map((it) => renderRoute(it)), routes: routers }
-  }, [routers, privateRoute, listPermissionCode])
+  }, [privateRoute, routers, userLogin?.role])
 }
 
 export default useRouter
