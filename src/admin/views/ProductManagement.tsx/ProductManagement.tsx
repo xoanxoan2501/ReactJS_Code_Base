@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useState } from 'react'
+import { useProducts } from '@/shared/hook/useProducts'
 
 const ProductManagement = () => {
   const [selection, setSelection] = useState('all')
@@ -16,6 +17,10 @@ const ProductManagement = () => {
   const handleChange = (event: SelectChangeEvent) => {
     setSelection(event.target.value)
   }
+
+  const { data } = useProducts({})
+
+  console.log(data)
 
   return (
     <ProductManagementLayout>

@@ -7,21 +7,7 @@ export const productKeys = {
     q: string | undefined | null,
     categoryId: string | undefined | null
   ) => {
-    const key: Array<unknown> = productKeys.all
-
-    if (page) {
-      key.push(page)
-    }
-
-    if (q) {
-      key.push(q)
-    }
-
-    if (categoryId) {
-      key.push(categoryId)
-    }
-
-    return key
+    return [...productKeys.all, page, q ?? '', categoryId ?? 'all']
   },
   fetchProduct: (id: string) => ['fetchProduct', id]
 }

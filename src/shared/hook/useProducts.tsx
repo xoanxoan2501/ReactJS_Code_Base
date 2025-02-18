@@ -5,7 +5,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 export interface useProductsProps {
   isKeepPreviousData?: boolean
-  page: number
+  page?: number
   limit?: number
   q?: string
   categoryId?: string
@@ -26,9 +26,17 @@ export const useProducts = ({
       data: Array<IProduct>
       total: number
     }> => {
-      return await getProductsAPI(
-        `?page=${page}&limit=${limit}&q=${q}&categoryId=${categoryId}`
-      )
+      let querypath = `?page=${page}&limit=${limit}`
+
+      if (q) {
+        querypath += `&q=${q}`
+      }
+
+      if (categoryId) {
+        querypath += `&categoryId=${categoryId}`
+      }
+
+      return await getProductsAPI(querypath)
     },
     placeholderData: isKeepPreviousData ? keepPreviousData : undefined,
     staleTime: 1000 * 60 * staleTime
