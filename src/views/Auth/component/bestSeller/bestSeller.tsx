@@ -2,9 +2,12 @@ import { useProducts } from '@/shared/hook/useProducts'
 import CardProduct from '../../pages/Product/cardProduct'
 import './bestSeller.css'
 function BestSeller() {
-  const { data: products, isLoading, isError } = useProducts()
-  if (isLoading) return <p>Loading ... </p>
-  if (isError) return <p>Error ... </p>
+  const { data, isLoading, isError } = useProducts({ limit: 4 })
+
+  if (isLoading) return <p>Loading ...</p>
+  if (isError) return <p>Error ...</p>
+
+  const products = data?.data || []
   return (
     <div>
       <h1> Sản phẩm nổi bật</h1>

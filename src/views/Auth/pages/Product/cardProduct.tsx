@@ -5,18 +5,10 @@ import Typography from '@mui/material/Typography'
 import { Box, IconButton } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import './CardProduct.css'
-
-// Định nghĩa kiểu dữ liệu cho sản phẩm
-interface Product {
-  _id: string
-  title: string
-  description: string
-  price: number
-  thumbnail: string
-}
+import { IProduct } from '@/apis/product'
 
 // Nhận dữ liệu sản phẩm từ props
-export default function CardProduct({ product }: { product: Product }) {
+export default function CardProduct({ product }: { product: IProduct }) {
   return (
     <Card className="card">
       <Box className="zoom-content">
@@ -30,7 +22,7 @@ export default function CardProduct({ product }: { product: Product }) {
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
               {product.title} {/* ✅ Tên sản phẩm từ API */}
             </Typography>
-            <Typography>{product.description}</Typography> {/* ✅ Mô tả */}
+            <Typography>{product.code}</Typography> {/* ✅ Mô tả */}
           </Box>
         </CardContent>
 

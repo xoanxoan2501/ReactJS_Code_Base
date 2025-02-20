@@ -5,10 +5,11 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardActionArea from '@mui/material/CardActionArea'
 import './RandomProduct.css'
+import { IProduct } from '@/apis/product'
 import { useProducts } from '@/shared/hook/useProducts'
 function RandomProduct() {
-  const { data: products, isLoading, isError } = useProducts()
-
+  const { data, isLoading, isError } = useProducts({ limit: 6 })
+  const products: IProduct[] = (data?.data || []).slice(0, 6)
   if (isLoading) return <p>Loading ...</p>
   if (isError) return <p>Error ... </p>
 
@@ -16,11 +17,9 @@ function RandomProduct() {
     <div>
       <div className="product_random">
         <div className="Random_1">
-          {products
-            ?.slice(0, 6)
-            .map((product: any) => (
-              <CardProduct key={product._id} product={product} />
-            ))}
+          {products.map((product) => (
+            <CardProduct key={product._id} product={product} />
+          ))}
         </div>
         <div className="banner">
           <Card className="banner_customer">
