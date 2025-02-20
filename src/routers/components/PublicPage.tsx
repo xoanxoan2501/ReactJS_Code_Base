@@ -34,7 +34,11 @@ const PublicPage: React.FC = () => {
   }, [location.pathname, routes])
 
   return (
-    <DefaultLayout showHeader={showDefaultLayout} showSideBar={showSideBar}>
+    <DefaultLayout
+      showHeader={showDefaultLayout}
+      showSideBar={showSideBar}
+      showFooter={showDefaultLayout}
+    >
       <Routes>{views}</Routes>
     </DefaultLayout>
   )

@@ -69,31 +69,31 @@ export const headerConfigs: GridColDef[] = [
     flex: 2,
     sortable: false,
     renderCell: renderProductImage,
-    align: 'left', // Align content to the left
-    headerAlign: 'left' // Align header to the left,
+    align: 'left',
+    headerAlign: 'left'
   },
   {
     field: 'size',
     headerName: 'Kích cỡ',
     flex: 1,
-    align: 'left', // Align content to the left
-    headerAlign: 'left' // Align header to the left
+    align: 'center',
+    headerAlign: 'center'
   },
   {
     field: 'price',
     headerName: 'Giá (VNĐ)',
     type: 'number',
     flex: 1,
-    align: 'left', // Align content to the left
-    headerAlign: 'left' // Align header to the left
+    align: 'center',
+    headerAlign: 'center'
   },
   {
     field: 'quantity',
     headerName: 'Số lượng',
     type: 'number',
     flex: 1,
-    align: 'left', // Align content to the left
-    headerAlign: 'left' // Align header to the left
+    align: 'center',
+    headerAlign: 'center'
   },
   {
     field: 'total',
@@ -101,16 +101,16 @@ export const headerConfigs: GridColDef[] = [
     type: 'number',
     flex: 1,
     valueGetter: (_value, row) => row.price * row.quantity,
-    align: 'left', // Align content to the left
-    headerAlign: 'left' // Align header to the left
+    align: 'center',
+    headerAlign: 'center'
   },
   {
     field: 'action',
     headerName: 'Hành động',
     sortable: false,
     flex: 1,
-    align: 'left', // Align content to the left
-    headerAlign: 'left',
+    align: 'center',
+    headerAlign: 'center',
     renderCell: renderAction
   }
 ]

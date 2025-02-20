@@ -1,6 +1,19 @@
+import { routerAdminLogin } from '@/admin/views/login/router'
+import { logoutAPI } from '@/apis/auth'
 import iconAdminLogout from '@/assets/icons/iconAdminLogout.png'
+import { useAppDispatch } from '@/shared/hook/reduxHooks'
+import { useNavigate } from 'react-router-dom'
 
 const AdminHeader = () => {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    dispatch(logoutAPI())
+      .unwrap()
+      .then(() => navigate(routerAdminLogin.path))
+  }
+
   return (
     <header
       className="admin-header"
@@ -22,6 +35,7 @@ const AdminHeader = () => {
           height: '40px',
           borderRadius: '50%'
         }}
+        onClick={handleLogout}
       />
     </header>
   )

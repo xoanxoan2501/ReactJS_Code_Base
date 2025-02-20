@@ -38,9 +38,9 @@ const theme = createTheme({
           color: 'black',
           boxShadow: 'none',
           '&:hover': {
-            boxShadow: 'none',
-            borderColor: '#dc567a',
-            color: '#dc567a'
+            boxShadow: 'none'
+            // borderColor: '#dc567a',
+            // color: '#dc567a'
           }
         }
       }

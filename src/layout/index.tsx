@@ -9,6 +9,7 @@ interface IDefaultLayoutProps {
   history?: any
   showSideBar?: boolean
   showHeader?: boolean
+  showFooter?: boolean
   loading?: boolean
 }
 
@@ -35,7 +36,7 @@ const DefaultLayout: React.FC<PropsWithChildren<IDefaultLayoutProps>> = (
           </div>
         </Stack>
       </div>
-      <Footer />
+      {props.showFooter && <Footer />}
     </div>
   )
 }

@@ -7,13 +7,14 @@ import imageOrder from '@/assets/images/SideBarAdmin/imageOrder.png'
 import imageProduct from '@/assets/images/SideBarAdmin/imageProduct.png'
 import imageThongKe from '@/assets/images/SideBarAdmin/imageThongKe.png'
 import imageVoucher from '@/assets/images/SideBarAdmin/imageVoucher.png'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { matchPath, useLocation, useNavigate } from 'react-router-dom'
 import { routerAdminDashboard } from '@/admin/views/Dashboard.tsx/router'
 import { routerCustomerManagement } from '@/admin/views/CustomerManagement/router'
 import { routerOrderManagement } from '@/admin/views/OrderManagement/router'
 import { routerProductManagement } from '@/admin/views/ProductManagement.tsx/router'
 import { routerCategoryManagement } from '@/admin/views/CategoryManagement/router'
 import { routerVoucherManagement } from '@/admin/views/VoucherManagement/router'
+import { routerHome } from '@/views/home/router'
 
 const navTabs: Array<{
   title: string
@@ -70,7 +71,9 @@ const AdminSideBar = () => {
               cursor: 'pointer'
             },
             padding: '10px',
-            backgroundColor: tab.path === pathname ? '#7CCCF8' : 'transparent'
+            backgroundColor: matchPath(tab.path || '', pathname)
+              ? '#7CCCF8'
+              : 'transparent'
           }}
           direction={'row'}
           spacing={2}
@@ -128,6 +131,7 @@ const AdminSideBar = () => {
             height: '50px',
             borderRadius: '50%'
           }}
+          onClick={() => navigate(routerHome.path)}
         />
         <Typography sx={{ color: 'white' }} variant="h5">
           Napun Bakary
