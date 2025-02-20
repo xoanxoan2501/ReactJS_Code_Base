@@ -55,7 +55,11 @@ const PrivatePage: React.FC = () => {
           <Routes>{views}</Routes>
         </AdminLayout>
       ) : (
-        <DefaultLayout showHeader={showDefaultLayout} showSideBar={showSideBar}>
+        <DefaultLayout
+          showHeader={showDefaultLayout}
+          showSideBar={showSideBar}
+          showFooter={showDefaultLayout}
+        >
           <Routes>{views}</Routes>
         </DefaultLayout>
       )}
