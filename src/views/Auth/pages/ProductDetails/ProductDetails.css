@@ -1,0 +1,63 @@
+/* Tabs Container */
+.tabs-container {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid #dc567a;
+  border: rgba(220, 86, 122, 0.5);
+  padding: 0;
+  background-color: #fff;
+  border-radius: 10px 10px 0 0;
+  margin-top: 30px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #e91e63;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab.active {
+  background-color: #e91e63;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Nội dung của tab */
+.tab-content {
+  padding: 20px;
+  background-color: #fff5f7;
+  border-radius: 0 10px 10px 10px;
+  border: 1px solid rgba(220, 86, 122, 0.5);
+  margin-top: -1px;
+  height: 400px;
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  font-size: 20px;
+  line-height: 1.5;
+}

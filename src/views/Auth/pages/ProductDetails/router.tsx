@@ -5,5 +5,5 @@ export const routerProductDetail: IRouter = {
   path: '/detail',
   loader: React.lazy(() => import('./ProductDetails')),
   exact: true,
-  masterLayout: false,
+  masterLayout: true,
 }
