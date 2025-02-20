@@ -1,9 +1,9 @@
 import { IRouter } from '@/routers/interface'
 import React from 'react'
 
-export const routerProductDetails: IRouter = {
-  path: '/ProductDetail',
+export const routerProductDetail: IRouter = {
+  path: '/detail',
   loader: React.lazy(() => import('./ProductDetails')),
   exact: true,
-  masterLayout: true,
+  masterLayout: false,
 }

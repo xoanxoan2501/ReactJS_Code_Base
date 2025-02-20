@@ -18,7 +18,7 @@ import { routerCategoryManagement } from '@/admin/views/CategoryManagement/route
 import { routerOrderManagement } from '@/admin/views/OrderManagement/router'
 import { routerVoucherManagement } from '@/admin/views/VoucherManagement/router'
 import { routerCustomerManagement } from '@/admin/views/CustomerManagement/router'
-import { routerProductDetails } from '@/views/Auth/pages/ProductDetails/router'
+import { routerProductDetail } from '@/views/Auth/pages/ProductDetails/router'
 
 const privatePage: IRouter[] = [
   routerCart,
@@ -40,7 +40,7 @@ const publicPage: IRouter[] = [
   routerProduct,
   routerForgotPassword,
   routerResetPassword,
-  routerProductDetails,
+  routerProductDetail,
 ]
 
 const middlepage = [routerListProduct, routerMainPublicPage, routerHome]
