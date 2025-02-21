@@ -2,9 +2,17 @@ import { useState } from 'react'
 import { Button, Container } from '@mui/material'
 import CartProductDetail from '../../component/CartProductDetail/CartProductDetail'
 import './ProductDetails.css'
+import CardProduct from '../Product/cardProduct'
+import { useProducts } from '@/shared/hook/useProducts'
 
 function ProductDetails() {
   const [activeTab, setActiveTab] = useState('description')
+  const { data, isLoading, isError } = useProducts({ limit: 4 })
+
+  if (isLoading) return <p>Loading ...</p>
+  if (isError) return <p>Error ...</p>
+
+  const products = data?.data || []
 
   return (
     <Container maxWidth="lg" disableGutters>
@@ -49,6 +57,18 @@ function ProductDetails() {
             <p>Hiện chưa có bình luận nào.</p>
           </div>
         )}
+      </div>
+      <div className="line_home"> </div>
+      <h1 style={{ textAlign: 'center' }}>Các sản phẩm bạn có thể thích</h1>
+      <div>
+        <h3 style={{ textAlign: 'center' }}> Sản phẩm cùng loại</h3>
+        <div className="product-grid">
+          {products
+            ?.slice(0, 4)
+            .map((product: any) => (
+              <CardProduct key={product._id} product={product} />
+            ))}
+        </div>
       </div>
     </Container>
   )
