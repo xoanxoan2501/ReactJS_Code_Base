@@ -1,4 +1,4 @@
-import ProductManagementLayout from '@/admin/views/ProductManagement.tsx/layout'
+import ProductManagementLayout from '@/admin/views/ProductManagement/layout'
 import { Button, Stack, TextField, Typography } from '@mui/material'
 import iconImport from '@/assets/icons/ProductManagement/iconImport.png'
 import iconPrint from '@/assets/icons/ProductManagement/iconPrint.png'
@@ -9,18 +9,17 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useState } from 'react'
-import { useProducts } from '@/shared/hook/useProducts'
+import ProductTable from './ProductTable'
+import { useNavigate } from 'react-router-dom'
+import { routerAddProduct } from './router'
 
 const ProductManagement = () => {
   const [selection, setSelection] = useState('all')
+  const navigate = useNavigate()
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelection(event.target.value)
   }
-
-  const { data } = useProducts({})
-
-  console.log(data)
 
   return (
     <ProductManagementLayout>
@@ -41,8 +40,9 @@ const ProductManagement = () => {
                 color: 'inherit'
               }
             }}
-            variant="contained"
-            type="button"
+            variant='contained'
+            type='button'
+            onClick={() => navigate(routerAddProduct.path)}
           >
             + Tạo mới sản phẩm
           </Button>
@@ -54,15 +54,10 @@ const ProductManagement = () => {
                 color: 'inherit'
               }
             }}
-            variant="contained"
-            type="button"
+            variant='contained'
+            type='button'
           >
-            <img
-              style={{ marginRight: '8px' }}
-              src={iconImport}
-              alt="logo"
-              className="icon_hover"
-            />
+            <img style={{ marginRight: '8px' }} src={iconImport} alt='logo' className='icon_hover' />
             Tải từ file
           </Button>
           <Button
@@ -73,15 +68,10 @@ const ProductManagement = () => {
                 color: 'inherit'
               }
             }}
-            variant="contained"
-            type="button"
+            variant='contained'
+            type='button'
           >
-            <img
-              style={{ marginRight: '8px' }}
-              src={iconPrint}
-              alt="logo"
-              className="icon_hover"
-            />
+            <img style={{ marginRight: '8px' }} src={iconPrint} alt='logo' className='icon_hover' />
             In dữ liệu
           </Button>
           <Button
@@ -92,15 +82,10 @@ const ProductManagement = () => {
                 color: 'inherit'
               }
             }}
-            variant="contained"
-            type="button"
+            variant='contained'
+            type='button'
           >
-            <img
-              style={{ marginRight: '8px' }}
-              src={iconPDF}
-              alt="logo"
-              className="icon_hover"
-            />
+            <img style={{ marginRight: '8px' }} src={iconPDF} alt='logo' className='icon_hover' />
             Xuất file PDF
           </Button>
           <Button
@@ -111,15 +96,10 @@ const ProductManagement = () => {
                 color: 'inherit'
               }
             }}
-            variant="contained"
-            type="button"
+            variant='contained'
+            type='button'
           >
-            <img
-              style={{ marginRight: '8px' }}
-              src={iconExcel}
-              alt="logo"
-              className="icon_hover"
-            />
+            <img style={{ marginRight: '8px' }} src={iconExcel} alt='logo' className='icon_hover' />
             Xuất file Excel
           </Button>
           <Button
@@ -130,15 +110,10 @@ const ProductManagement = () => {
                 color: 'inherit'
               }
             }}
-            variant="contained"
-            type="button"
+            variant='contained'
+            type='button'
           >
-            <img
-              style={{ marginRight: '8px' }}
-              src={iconDelete}
-              alt="logo"
-              className="icon_hover"
-            />
+            <img style={{ marginRight: '8px' }} src={iconDelete} alt='logo' className='icon_hover' />
             Xóa
           </Button>
         </Stack>
@@ -151,11 +126,11 @@ const ProductManagement = () => {
           }}
         >
           <Stack direction={'row'} spacing={1.5} alignItems={'center'}>
-            <Typography variant="subtitle1">Danh mục</Typography>
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <Typography variant='subtitle1'>Danh mục</Typography>
+            <FormControl sx={{ m: 1, minWidth: 120 }} size='small'>
               <Select
-                labelId="demo-select-small-label"
-                id="demo-select-small"
+                labelId='demo-select-small-label'
+                id='demo-select-small'
                 value={selection}
                 sx={{
                   backgroundColor: 'white'
@@ -167,7 +142,7 @@ const ProductManagement = () => {
             </FormControl>
           </Stack>
           <TextField
-            placeholder="Tìm kiếm sản phẩm"
+            placeholder='Tìm kiếm sản phẩm'
             sx={{
               width: '20%',
               borderRadius: '5px',
@@ -191,11 +166,11 @@ const ProductManagement = () => {
               },
               borderColor: 'black'
             }}
-            id="full-name"
-            type="search"
+            id='full-name'
+            type='search'
           />
         </Stack>
-        <Stack></Stack>
+        <ProductTable />
       </Stack>
     </ProductManagementLayout>
   )
