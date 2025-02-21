@@ -12,7 +12,7 @@ import { routerListProduct } from '@/views/ListProduct/router'
 import { routerAccountInfo } from '@/views/Profile/router'
 import { routerChangePhoneNumber } from '@/views/Profile/pages/ChangePhoneNumber/router'
 import { routerChangePassword } from '@/views/Profile/pages/ChangePassword/router'
-import { routerProductManagement } from '@/admin/views/ProductManagement.tsx/router'
+import { routerAddProduct, routerProductManagement, routerEditProduct } from '@/admin/views/ProductManagement/router'
 import { routerAdminDashboard } from '@/admin/views/Dashboard.tsx/router'
 import { routerCategoryManagement } from '@/admin/views/CategoryManagement/router'
 import { routerOrderManagement } from '@/admin/views/OrderManagement/router'
@@ -28,6 +28,8 @@ const privatePage: IRouter[] = [
   routerChangePhoneNumber,
   routerChangePassword,
   routerProductManagement,
+  routerAddProduct,
+  routerEditProduct,
   routerAdminDashboard,
   routerCategoryManagement,
   routerOrderManagement,

@@ -11,7 +11,7 @@ import { matchPath, useLocation, useNavigate } from 'react-router-dom'
 import { routerAdminDashboard } from '@/admin/views/Dashboard.tsx/router'
 import { routerCustomerManagement } from '@/admin/views/CustomerManagement/router'
 import { routerOrderManagement } from '@/admin/views/OrderManagement/router'
-import { routerProductManagement } from '@/admin/views/ProductManagement.tsx/router'
+import { routerProductManagement } from '@/admin/views/ProductManagement/router'
 import { routerCategoryManagement } from '@/admin/views/CategoryManagement/router'
 import { routerVoucherManagement } from '@/admin/views/VoucherManagement/router'
 import { routerHome } from '@/views/home/router'
@@ -87,14 +87,14 @@ const AdminSideBar = () => {
         >
           <img
             src={tab.icon}
-            alt="logo"
-            className="icon_hover"
+            alt='logo'
+            className='icon_hover'
             style={{
               width: '50px',
               height: '50px'
             }}
           />
-          <Typography sx={{ color: 'white' }} variant="h6">
+          <Typography sx={{ color: 'white' }} variant='h6'>
             {tab.title}
           </Typography>
         </Stack>
@@ -124,8 +124,8 @@ const AdminSideBar = () => {
       >
         <img
           src={imageLogo}
-          alt="logo"
-          className="icon_hover"
+          alt='logo'
+          className='icon_hover'
           style={{
             width: '50px',
             height: '50px',
@@ -133,7 +133,7 @@ const AdminSideBar = () => {
           }}
           onClick={() => navigate(routerHome.path)}
         />
-        <Typography sx={{ color: 'white' }} variant="h5">
+        <Typography sx={{ color: 'white' }} variant='h5'>
           Napun Bakary
         </Typography>
       </Stack>
