@@ -4,10 +4,17 @@ import CartProductDetail from '../../component/CartProductDetail/CartProductDeta
 import './ProductDetails.css'
 import CardProduct from '../Product/cardProduct'
 import { useProducts } from '@/shared/hook/useProducts'
+import { IProduct } from '@/apis/product'
+import { useLocation } from 'react-router-dom'
 
 function ProductDetails() {
   const [activeTab, setActiveTab] = useState('description')
   const { data, isLoading, isError } = useProducts({ limit: 4 })
+  const location = useLocation()
+
+  const product = location.state?.product || {}
+
+  console.log('product', product)
 
   if (isLoading) return <p>Loading ...</p>
   if (isError) return <p>Error ...</p>
@@ -65,7 +72,7 @@ function ProductDetails() {
         <div className="product-grid">
           {products
             ?.slice(0, 4)
-            .map((product: any) => (
+            .map((product: IProduct) => (
               <CardProduct key={product._id} product={product} />
             ))}
         </div>

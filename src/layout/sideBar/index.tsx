@@ -21,7 +21,7 @@ const SideBar = () => {
           sx={{
             paddingTop: '1rem',
             paddingBottom: '1rem',
-            border: '1px solid #DC567A',
+            border: '0.5px solid #DC567A',
             width: '100%',
             textAlign: 'center',
             '&:hover': {
@@ -47,7 +47,7 @@ const SideBar = () => {
         marginTop: '2rem !important',
         borderTopLeftRadius: '1rem',
         borderBottomLeftRadius: '1rem',
-        border: '1px solid #DC567A'
+        border: '0.5px solid #DC567A'
       }}
       direction={'column'}
       justifyContent={'center'}
@@ -58,7 +58,7 @@ const SideBar = () => {
         sx={{
           paddingTop: '1rem',
           paddingBottom: '1rem',
-          border: '1px solid #DC567A',
+          border: '0.5px solid #DC567A',
           width: '100%',
           borderTopLeftRadius: '1rem',
           textAlign: 'center'
@@ -78,7 +78,7 @@ const SideBar = () => {
         sx={{
           paddingTop: '2rem',
           paddingBottom: '2rem',
-          border: '1px solid #DC567A',
+          border: '0.5px solid #DC567A',
           width: '100%',
           textAlign: 'center',
           borderBottomLeftRadius: '1rem',

@@ -1,5 +1,6 @@
 import PrivatePage from '@/routers/components/PrivatePage'
 import PublicPage from '@/routers/components/PublicPage'
+import ScrollMemory from '@/ScrollMemory'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
 import { memo } from 'react'
 
@@ -12,6 +13,7 @@ function App() {
 
   return (
     <>
+      <ScrollMemory />
       <MainView statusLogin={!!token && token !== ''} />
     </>
   )
