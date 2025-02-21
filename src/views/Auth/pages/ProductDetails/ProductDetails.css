@@ -14,6 +14,14 @@
 .tabs {
   display: flex;
 }
+.line_home {
+  height: 3px;
+  width: 70%;
+  margin: 30px auto;
+  background: linear-gradient(90deg, #762e41 0%, #dc567a 100%);
+  display: block;
+  border: none;
+}
 
 .tab {
   background: none;
@@ -60,4 +68,11 @@ ul {
 ul li {
   font-size: 20px;
   line-height: 1.5;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-between;
+  margin-top: 20px;
+  justify-items: center;
 }
