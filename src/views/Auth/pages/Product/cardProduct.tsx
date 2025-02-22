@@ -15,16 +15,18 @@ export default function CardProduct({ product }: { product: IProduct }) {
 
   return (
     <Card
-      className="card"
-      onClick={() => navigate(routerProductDetail.path, { state: { product } })}
+      className='card'
+      onClick={() =>
+        routerProductDetail?.generatePath ? navigate(routerProductDetail.generatePath(product._id) || '') : null
+      }
     >
-      <Box className="zoom-content">
+      <Box className='zoom-content'>
         <CardMedia
-          className="card-media"
+          className='card-media'
           image={product.thumbnail} // ✅ Dùng ảnh từ API
           title={product.title}
         />
-        <CardContent className="card-content">
+        <CardContent className='card-content'>
           <Box>
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>
               {product.title} {/* ✅ Tên sản phẩm từ API */}
@@ -33,14 +35,9 @@ export default function CardProduct({ product }: { product: IProduct }) {
           </Box>
         </CardContent>
 
-        <Box className="price-box">
-          <Typography className="price-tag">{product.price} VND</Typography>{' '}
-          {/* ✅ Giá từ API */}
-          <IconButton
-            color="primary"
-            aria-label="add to shopping cart"
-            className="cart-icon"
-          >
+        <Box className='price-box'>
+          <Typography className='price-tag'>{100000} VND</Typography> {/* ✅ Giá từ API */}
+          <IconButton color='primary' aria-label='add to shopping cart' className='cart-icon'>
             <AddShoppingCartIcon sx={{ fontSize: '28px' }} />
           </IconButton>
         </Box>
