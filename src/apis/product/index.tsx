@@ -2,12 +2,12 @@ export interface IProduct {
   _id?: string
   title?: string
   description?: string
-  price?: number
   categoryId?: string
   category?: Category[]
   sizes?: Array<{
     size: string
     stock: number
+    price: number
   }>
   status?: string
   thumbnail?: string

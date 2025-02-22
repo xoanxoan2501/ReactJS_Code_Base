@@ -47,12 +47,7 @@ const publicPage: IRouter[] = [
   routerAdminLogin
 ]
 
-const middlePage = [
-  routerListProduct,
-  routerMainPublicPage,
-  routerHome,
-  routerProductDetail
-]
+const middlePage: IRouter[] = [routerListProduct, routerMainPublicPage, routerHome, routerProductDetail]
 
 privatePage.push(...middlePage, routerPageError)
 publicPage.push(...middlePage, routerPageError)

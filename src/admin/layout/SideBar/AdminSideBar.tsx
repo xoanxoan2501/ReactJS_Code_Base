@@ -7,62 +7,73 @@ import imageOrder from '@/assets/images/SideBarAdmin/imageOrder.png'
 import imageProduct from '@/assets/images/SideBarAdmin/imageProduct.png'
 import imageThongKe from '@/assets/images/SideBarAdmin/imageThongKe.png'
 import imageVoucher from '@/assets/images/SideBarAdmin/imageVoucher.png'
-import { matchPath, useLocation, useNavigate } from 'react-router-dom'
+import { matchPath, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { routerAdminDashboard } from '@/admin/views/Dashboard.tsx/router'
 import { routerCustomerManagement } from '@/admin/views/CustomerManagement/router'
 import { routerOrderManagement } from '@/admin/views/OrderManagement/router'
-import { routerProductManagement } from '@/admin/views/ProductManagement/router'
+import { routerAddProduct, routerEditProduct, routerProductManagement } from '@/admin/views/ProductManagement/router'
 import { routerCategoryManagement } from '@/admin/views/CategoryManagement/router'
 import { routerVoucherManagement } from '@/admin/views/VoucherManagement/router'
 import { routerHome } from '@/views/home/router'
-
-const navTabs: Array<{
-  title: string
-  icon: string
-  path?: string
-}> = [
-  {
-    title: 'Dashboard',
-    icon: imageDashboard,
-    path: routerAdminDashboard.path
-  },
-  {
-    title: 'Khách hàng',
-    icon: imageCustomer,
-    path: routerCustomerManagement.path
-  },
-  {
-    title: 'Đơn hàng',
-    icon: imageOrder,
-    path: routerOrderManagement.path
-  },
-  {
-    title: 'Sản phẩm',
-    icon: imageProduct,
-    path: routerProductManagement.path
-  },
-  {
-    title: 'Danh mục',
-    icon: imageCategory,
-    path: routerCategoryManagement.path
-  },
-  {
-    title: 'Voucher',
-    icon: imageVoucher,
-    path: routerVoucherManagement.path
-  },
-  {
-    title: 'Thống kê',
-    icon: imageThongKe
-  }
-]
+import { useRef } from 'react'
 
 const AdminSideBar = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
+  const { productId } = useParams()
+
+  console.log('id', productId)
+
+  const navTabs = useRef<
+    Array<{
+      title: string
+      icon: string
+      path?: Array<string>
+    }>
+  >([
+    {
+      title: 'Dashboard',
+      icon: imageDashboard,
+      path: [routerAdminDashboard.path]
+    },
+    {
+      title: 'Khách hàng',
+      icon: imageCustomer,
+      path: [routerCustomerManagement.path]
+    },
+    {
+      title: 'Đơn hàng',
+      icon: imageOrder,
+      path: [routerOrderManagement.path]
+    },
+    {
+      title: 'Sản phẩm',
+      icon: imageProduct,
+      path: [
+        routerProductManagement.path,
+        routerAddProduct.path,
+        routerEditProduct.generatePath ? routerEditProduct.generatePath(productId) : ''
+      ]
+    },
+    {
+      title: 'Danh mục',
+      icon: imageCategory,
+      path: [routerCategoryManagement.path]
+    },
+    {
+      title: 'Voucher',
+      icon: imageVoucher,
+      path: [routerVoucherManagement.path]
+    },
+    {
+      title: 'Thống kê',
+      icon: imageThongKe
+    }
+  ])
+
   const renderNavTabs = () => {
-    return navTabs.map((tab, index) => {
+    return navTabs.current?.map((tab, index) => {
       return (
         <Stack
           sx={{
@@ -71,9 +82,7 @@ const AdminSideBar = () => {
               cursor: 'pointer'
             },
             padding: '10px',
-            backgroundColor: matchPath(tab.path || '', pathname)
-              ? '#7CCCF8'
-              : 'transparent'
+            backgroundColor: tab.path?.some((path) => matchPath(pathname, path)) ? '#7CCCF8' : 'transparent'
           }}
           direction={'row'}
           spacing={2}
@@ -81,7 +90,7 @@ const AdminSideBar = () => {
           key={index}
           onClick={() => {
             if (tab.path) {
-              navigate(tab.path)
+              navigate(tab.path[0])
             }
           }}
         >

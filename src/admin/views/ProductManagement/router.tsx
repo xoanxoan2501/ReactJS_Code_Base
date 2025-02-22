@@ -19,9 +19,10 @@ export const routerAddProduct: IRouter = {
 }
 
 export const routerEditProduct: IRouter = {
-  path: '/admin/product-management/edit/:id',
+  path: '/admin/product-management/edit/:productId',
   loader: React.lazy(() => import('./FormProduct')),
   exact: true,
   adminLayout: true,
-  isAdminRouter: true
+  isAdminRouter: true,
+  generatePath: (id: string) => `/admin/product-management/edit/${id}`
 }
