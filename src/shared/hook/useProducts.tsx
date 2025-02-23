@@ -21,7 +21,7 @@ export const useProducts = ({
   staleTime = 30
 }: useProductsProps) => {
   const queryInfo = useQuery({
-    queryKey: productKeys.fetchProductsPagination(page, q, categoryId),
+    queryKey: productKeys.fetchProductsPagination(page, limit, q, categoryId),
     queryFn: async (): Promise<{
       data: Array<IProduct>
       total: number

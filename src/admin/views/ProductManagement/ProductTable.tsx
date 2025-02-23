@@ -2,9 +2,10 @@ import { IProduct } from '@/apis/product'
 import { useProducts } from '@/shared/hook/useProducts'
 import { DataGrid, GridRowSelectionModel } from '@mui/x-data-grid'
 import { headerConfigs } from './headerConfigs'
-import { DEFAULT_LIMIT_PER_PAGE } from '@/utils/constants'
+import { DEFAULT_LIMIT_PER_PAGE, ORDER_SIZES } from '@/utils/constants'
 import { useCallback, useMemo, useState } from 'react'
 import ModalCustom from './ModalCustom'
+import { formatNumber } from '@/utils/formatter'
 
 const ProductTable = () => {
   const { data, isLoading } = useProducts({})
@@ -13,13 +14,11 @@ const ProductTable = () => {
     page: 1
   })
 
-  const handleOnRowSelectionModelChange = useCallback((selectedIds: GridRowSelectionModel) => {
-    if (selectedIds.length === rows.length) {
-      console.log('Tất cả hàng đã được chọn:', selectedIds)
-    } else {
-      console.log('Các hàng được chọn:', selectedIds)
-    }
-  }, [])
+  const choosePriceProduct = (product: IProduct) => {
+    product?.sizes?.sort((a, b) => ORDER_SIZES.indexOf(a.size) - ORDER_SIZES.indexOf(b.size))
+
+    return product?.sizes?.[0]?.price
+  }
 
   const rows = useMemo(
     () =>
@@ -28,11 +27,22 @@ const ProductTable = () => {
         productName: item.title,
         quantity: item?.sizes?.reduce((total, size) => total + size.stock, 0),
         image: item.thumbnail,
-        price: `${item?.price?.toLocaleString('vi-VN')}₫`,
+        price: `${formatNumber(choosePriceProduct(item) || 0)}₫`,
         category: item?.category?.[0]?.name || 'Unknown',
         status: item.status
       })) || [],
     [data]
+  )
+
+  const handleOnRowSelectionModelChange = useCallback(
+    (selectedIds: GridRowSelectionModel) => {
+      if (selectedIds.length === rows.length) {
+        console.log('Tất cả hàng đã được chọn:', selectedIds)
+      } else {
+        console.log('Các hàng được chọn:', selectedIds)
+      }
+    },
+    [rows.length]
   )
 
   if (isLoading) return <div></div>
