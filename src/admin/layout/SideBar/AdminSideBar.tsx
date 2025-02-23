@@ -72,6 +72,9 @@ const AdminSideBar = () => {
     }
   ])
 
+  console.log('pathname', pathname)
+  console.log('test path', routerEditProduct.generatePath ? routerEditProduct.generatePath(productId) : '')
+
   const renderNavTabs = () => {
     return navTabs.current?.map((tab, index) => {
       return (

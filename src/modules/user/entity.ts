@@ -7,6 +7,8 @@ class UserEntity {
 
   gender?: string
 
+  customerId?: string
+
   email?: string
 
   displayName?: string
@@ -40,9 +42,7 @@ class UserEntity {
     this.createdAt = dayjs(user.createdAt)
   }
 
-  static createArrayUser(
-    arrUser: Array<Partial<UserEntity>>
-  ): Array<UserEntity> {
+  static createArrayUser(arrUser: Array<Partial<UserEntity>>): Array<UserEntity> {
     if (!arrUser) {
       return []
     }

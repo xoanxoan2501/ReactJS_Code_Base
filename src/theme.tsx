@@ -121,6 +121,11 @@ const theme = createTheme({
           }
         }
       }
+    },
+    MuiDialog: {
+      defaultProps: {
+        disableScrollLock: true
+      }
     }
   },
   typography: {

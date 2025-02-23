@@ -120,7 +120,7 @@ export const headerConfigs: GridColDef[] = [
   {
     field: 'image',
     headerName: 'Hình ảnh',
-    flex: 1.5,
+    flex: 1,
     align: 'center',
     headerAlign: 'center',
     renderCell: renderImage
