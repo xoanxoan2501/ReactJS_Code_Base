@@ -3,9 +3,11 @@ import { Navigation, Thumbs } from 'swiper/modules'
 import { useState, useEffect } from 'react'
 import 'swiper/swiper-bundle.css'
 import './CartProductDetail.css'
-import { Button } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 
 import { IProduct } from '@/apis/product'
+import { addCartApi } from '@/apis/cart/api'
+import { toast } from 'react-toastify'
 
 function CartProductDetail({
   product,
@@ -15,12 +17,32 @@ function CartProductDetail({
   style?: React.CSSProperties | undefined
 }) {
   console.log('Product data:', product)
-
+  const [quantity, setQuantity] = useState<number>(1)
+  useEffect(() => {
+    console.log('Số lượng đã thay đổi: ', quantity)
+  }, [quantity])
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null)
   const [selectedSize, setSelectedSize] = useState<{
     size: string
     price: number
+    stock: number
   } | null>(null)
+  const hanlderAddCart = () => {
+    addCartApi({
+      productId: product?._id || '',
+      quantity: quantity,
+      size: selectedSize?.size || '',
+      title: product?.title || '',
+      thumbnail: product?.thumbnail || '',
+      price: selectedSize?.price || 0,
+    })
+      .then(() => {
+        toast.success('Thêm vào giỏ hàng thành công')
+      })
+      .catch(() => {
+        toast.error('Đã có lỗi xảy ra, vui lòng thử lại!')
+      })
+  }
 
   // Chọn size đầu tiên nếu có dữ liệu
   useEffect(() => {
@@ -28,6 +50,7 @@ function CartProductDetail({
       setSelectedSize({
         size: product.sizes[0].size,
         price: product.sizes[0].price,
+        stock: product.sizes[0].stock,
       })
     }
   }, [product])
@@ -103,18 +126,35 @@ function CartProductDetail({
                       : 'size-btn'
                   }
                   onClick={() =>
-                    setSelectedSize({ size: item.size, price: item.price })
+                    setSelectedSize({
+                      size: item.size,
+                      price: item.price,
+                      stock: item.stock,
+                    })
                   }
                 >
                   {item.size}
                 </button>
               ))}
             </div>
+            <div className="number_customer">
+              <h5> Số lượng : </h5>
+              <TextField
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+              ></TextField>
+            </div>
+            <div>
+              <h5> Số lượng tồn kho : {selectedSize?.stock}</h5>
+            </div>
           </div>
         )}
 
         <div className="buttons">
-          <Button className="add-to-cart">Thêm vào giỏ hàng</Button>
+          <Button className="add-to-cart" onClick={hanlderAddCart}>
+            Thêm vào giỏ hàng
+          </Button>
           <Button className="buy-now">Mua ngay</Button>
         </div>
       </div>

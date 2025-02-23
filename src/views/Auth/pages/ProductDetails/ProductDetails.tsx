@@ -39,22 +39,7 @@ function ProductDetails() {
       </div>
 
       <div className="tab-content">
-        {activeTab === 'description' && (
-          <div>
-            <h3>Thành phần chính:</h3>
-            <ul>
-              <li>Gato</li>
-              <li>Kem tươi vị rượu rum</li>
-              <li>Hoa quả</li>
-              <li>Dừa khô</li>
-            </ul>
-            <p>
-              Bánh làm từ 3 lớp gato trắng xen giữa 3 lớp kem tươi vị rượu rum
-              (nho). Trên mặt bánh được trang trí bằng hoa quả với dừa khô kết
-              xung quanh.
-            </p>
-          </div>
-        )}
+        {activeTab === 'description' && <div>{product?.description}</div>}
         {activeTab === 'comments' && (
           <div>
             <h3>Bình luận</h3>
