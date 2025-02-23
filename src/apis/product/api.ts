@@ -9,11 +9,17 @@ export const productKeys = {
   ) => {
     return [...productKeys.all, page, q ?? '', categoryId ?? 'all']
   },
-  fetchProduct: (id: string) => ['fetchProduct', id]
+  fetchProduct: (id: string) => ['fetchProduct', id],
 }
 
 export const getProductsAPI = async (searchPath: string) => {
   const response = await httpRepoInstance.get(`/products${searchPath}`)
+
+  return response.data
+}
+
+export const fetchProductByIdAPI = async (id: string) => {
+  const response = await httpRepoInstance.get(`/products/${id}`)
 
   return response.data
 }

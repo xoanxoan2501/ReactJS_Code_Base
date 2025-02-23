@@ -3,20 +3,24 @@ import { Button, Container } from '@mui/material'
 import CartProductDetail from '../../component/CartProductDetail/CartProductDetail'
 import './ProductDetails.css'
 import CardProduct from '../Product/cardProduct'
-import { useProducts } from '@/shared/hook/useProducts'
+import { useProduct, useProducts } from '@/shared/hook/useProducts'
+import { useParams } from 'react-router-dom'
 
 function ProductDetails() {
   const [activeTab, setActiveTab] = useState('description')
   const { data, isLoading, isError } = useProducts({ limit: 4 })
 
-  if (isLoading) return <p>Loading ...</p>
-  if (isError) return <p>Error ...</p>
+  const { id } = useParams()
+  const { data: product, isLoading: isLoadingProduct, error } = useProduct(id!)
 
   const products = data?.data || []
 
+  if (isLoading || isLoadingProduct) return <p>Loading ...</p>
+  if (isError || error) return <p>Error ...</p>
+
   return (
-    <Container maxWidth="lg" disableGutters>
-      <CartProductDetail />
+    <Container maxWidth="lg" disableGutters key={id}>
+      <CartProductDetail product={product} style={{ height: '500px' }} />
       <div className="tabs-container">
         <div className="tabs">
           <Button

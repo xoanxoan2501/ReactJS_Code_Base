@@ -7,6 +7,7 @@ export interface IProduct {
   sizes?: Array<{
     size: string
     stock: number
+    price: number
   }>
   status?: string
   thumbnail?: string

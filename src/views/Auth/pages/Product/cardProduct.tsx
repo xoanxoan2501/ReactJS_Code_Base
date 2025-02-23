@@ -6,11 +6,16 @@ import { Box, IconButton } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import './CardProduct.css'
 import { IProduct } from '@/apis/product'
+import { useNavigate } from 'react-router-dom'
 
-// Nhận dữ liệu sản phẩm từ props
 export default function CardProduct({ product }: { product: IProduct }) {
+  const navigate = useNavigate()
   return (
-    <Card className="card">
+    <Card
+      className="card"
+      onClick={() => navigate(`/product/${product._id}`)}
+      style={{ cursor: 'pointer' }}
+    >
       <Box className="zoom-content">
         <CardMedia
           className="card-media"
