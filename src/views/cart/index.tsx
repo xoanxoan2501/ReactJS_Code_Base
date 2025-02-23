@@ -4,7 +4,7 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import iconDelete from '@/assets/icons/iconDelete.png'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
-import { handleRowSelectionChange, setCart } from '@/apis/cart'
+import { getCartAPI, handleRowSelectionChange, setCart } from '@/apis/cart'
 import { GridRowSelectionModel } from '@mui/x-data-grid'
 import { formatNumber } from '@/utils/formatter'
 import { toast } from 'react-toastify'
@@ -18,7 +18,7 @@ const mockData = {
       size: 'M',
       quantity: 2,
       price: 100000,
-      thumbnail: '/img/banh_mau_hong.jpg'
+      thumbnail: '/img/banh_mau_hong.jpg',
     },
     {
       productId: 'product02',
@@ -26,7 +26,7 @@ const mockData = {
       title: 'Bánh sinh nhật rose gold',
       quantity: 1,
       price: 200000,
-      thumbnail: '/img/banh_mau_hong.jpg'
+      thumbnail: '/img/banh_mau_hong.jpg',
     },
     {
       productId: 'product03',
@@ -34,9 +34,9 @@ const mockData = {
       size: 'M',
       quantity: 3,
       price: 300000,
-      thumbnail: '/img/banh_mau_hong.jpg'
-    }
-  ]
+      thumbnail: '/img/banh_mau_hong.jpg',
+    },
+  ],
 }
 
 interface ICartItemDisplay {
@@ -57,18 +57,22 @@ const CartPage = () => {
     (state) => state.cart
   )
 
+  useEffect(() => {
+    dispatch(getCartAPI())
+  }, [])
+
   const convertData = (): ICartItemDisplay[] => {
     return cart.map((item) => {
       return {
         _id: item.productId,
         product: {
           title: item.title,
-          thumbnail: item.thumbnail
+          thumbnail: item.thumbnail,
         },
         size: item.size,
         price: item.price,
         quantity: item.quantity,
-        action: [{ title: 'Xóa', icon: iconDelete, key: 'delete' }]
+        action: [{ title: 'Xóa', icon: iconDelete, key: 'delete' }],
       }
     })
   }
@@ -95,7 +99,7 @@ const CartPage = () => {
           fontSize: '2rem',
           fontWeight: 'bold',
           textAlign: 'center',
-          marginTop: '2rem'
+          marginTop: '2rem',
         }}
         variant="h5"
       >
@@ -119,14 +123,14 @@ const CartPage = () => {
               display: 'flex',
               justifyContent: 'flex-end',
               marginTop: '3rem',
-              marginRight: '2rem'
+              marginRight: '2rem',
             }}
           >
             Tổng:{' '}
             <Typography
               sx={{
                 marginLeft: '0.875rem',
-                color: 'red'
+                color: 'red',
               }}
               variant="h5"
             >
@@ -142,7 +146,7 @@ const CartPage = () => {
           >
             <Button
               sx={{
-                backgroundColor: '#F2C2CF80'
+                backgroundColor: '#F2C2CF80',
               }}
               variant="contained"
               type="button"
@@ -151,7 +155,7 @@ const CartPage = () => {
             </Button>
             <Button
               sx={{
-                backgroundColor: '#F2C2CF80'
+                backgroundColor: '#F2C2CF80',
               }}
               variant="contained"
               type="button"
@@ -177,7 +181,7 @@ const CartPage = () => {
           </Typography>
           <Button
             sx={{
-              backgroundColor: '#F2C2CF80'
+              backgroundColor: '#F2C2CF80',
             }}
             variant="contained"
             type="button"
