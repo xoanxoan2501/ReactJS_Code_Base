@@ -18,8 +18,8 @@ interface ICartStore {
   totalPayment: number
 }
 
-const getCartAPI = createAsyncThunk('cart/getCart', async () => {
-  const response = await httpRepoInstance.get('/cart')
+export const getCartAPI = createAsyncThunk('cart/getCart', async () => {
+  const response = await httpRepoInstance.get('/cart/get-cart')
   return response.data
 })
 
@@ -27,7 +27,7 @@ const initialState: ICartStore = {
   cartId: null,
   cart: [],
   selectedCartItems: [],
-  totalPayment: 0
+  totalPayment: 0,
 }
 
 const cartStore = createSlice({
@@ -57,13 +57,13 @@ const cartStore = createSlice({
         (total, item) => total + item.price * item.quantity,
         0
       )
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCartAPI.fulfilled, (state, action) => {
       state.cart = action.payload.products
     })
-  }
+  },
 })
 
 export const { addCart, removeCart, setCart, handleRowSelectionChange } =
