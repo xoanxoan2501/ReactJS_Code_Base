@@ -8,12 +8,16 @@ import ModalCustom from './ModalCustom'
 import { formatNumber } from '@/utils/formatter'
 
 const ProductTable = () => {
-  const { data, isLoading } = useProducts({})
   const [paginationModel, setPaginationModel] = useState({
     pageSize: DEFAULT_LIMIT_PER_PAGE,
-    page: 1
+    page: 0
   })
 
+  const { data, isLoading } = useProducts({
+    page: paginationModel.page + 1, // Chuyển thành one-based index
+    limit: paginationModel.pageSize,
+    isKeepPreviousData: true
+  })
   const choosePriceProduct = (product: IProduct) => {
     product?.sizes?.sort((a, b) => ORDER_SIZES.indexOf(a.size) - ORDER_SIZES.indexOf(b.size))
 
@@ -22,8 +26,8 @@ const ProductTable = () => {
 
   const rows = useMemo(
     () =>
-      data?.data?.map((item: IProduct, index: number) => ({
-        id: index + 1,
+      data?.data?.map((item: IProduct) => ({
+        id: item._id,
         productName: item.title,
         quantity: item?.sizes?.reduce((total, size) => total + size.stock, 0),
         image: item.thumbnail,
@@ -37,9 +41,9 @@ const ProductTable = () => {
   const handleOnRowSelectionModelChange = useCallback(
     (selectedIds: GridRowSelectionModel) => {
       if (selectedIds.length === rows.length) {
-        console.log('Tất cả hàng đã được chọn:', selectedIds)
+        // console.log('Tất cả hàng đã được chọn:', selectedIds)
       } else {
-        console.log('Các hàng được chọn:', selectedIds)
+        // console.log('Các hàng được chọn:', selectedIds)
       }
     },
     [rows.length]
@@ -52,11 +56,13 @@ const ProductTable = () => {
       <DataGrid
         rows={rows}
         columns={headerConfigs}
+        rowCount={data?.total || rows.length} // Tổng số hàng thực tế
         paginationModel={paginationModel}
         pageSizeOptions={[5, 10, 20]}
         onPaginationModelChange={(newModel) => setPaginationModel(newModel)}
         onRowSelectionModelChange={(selectedIds) => handleOnRowSelectionModelChange(selectedIds)}
         checkboxSelection
+        paginationMode='server'
         localeText={vietnameseLocaleText}
         getRowHeight={(params) => {
           if (params.model.image) {

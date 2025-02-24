@@ -1,9 +1,12 @@
-import { Grid, MenuItem, Select } from '@mui/material'
+import { Grid, MenuItem, Select, FormHelperText, FormControl } from '@mui/material'
+import { Control, Controller } from 'react-hook-form'
+import { Product } from './FormZod'
 
 interface SelectCustomProps {
-  value?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  name: `sizes.${number}.price` | `sizes.${number}.size` | keyof Product // ✅ Hỗ trợ cho mảng
+  control: Control<Product>
   size?: Size
+  options: Array<{ value: string; label: string }>
 }
 
 interface Size {
@@ -11,56 +14,60 @@ interface Size {
   sm: number
 }
 
-const SelectCustom = ({ value, onChange, size = { xs: 6, sm: 3 } }: SelectCustomProps) => {
-  console.log(value)
+const SelectCustom = ({ name, control, options, size = { xs: 6, sm: 3 } }: SelectCustomProps) => {
   return (
     <Grid item xs={size.xs} sm={size.sm}>
-      <Select
-        fullWidth
-        sx={{
-          backgroundColor: 'white',
-          borderRadius: '20px',
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              border: 'none' // Loại bỏ viền mặc định
-            },
-            '&:hover fieldset': {
-              border: 'none' // Loại bỏ viền khi hover
-            },
-            '&.Mui-focused fieldset': {
-              border: 'none' // Loại bỏ viền khi focus
-            }
-          },
-          '& .MuiSelect-select': {
-            outline: 'none' // Loại bỏ outline của select
-          },
-          '& .MuiOutlinedInput-notchedOutline': {
-            display: 'none' // Ẩn hoàn toàn phần tử fieldset
-          }
-        }}
-        MenuProps={{
-          PaperProps: {
-            sx: {
-              marginTop: '4px', // Khoảng cách giữa `Select` và `Menu`
-              borderRadius: '15px', // Bo góc cho popup khi xổ xuống
-              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)', // Thêm shadow nếu muốn
-              '& .MuiMenuItem-root': {
-                borderRadius: '10px', // Bo góc cho từng `MenuItem`
-                transition: 'all 0.2s ease-in-out',
-                '&:hover': {
-                  backgroundColor: '#f5f5f5', // Thay đổi màu nền khi hover
-                  borderRadius: '10px' // Bo góc khi hover
+      <Controller
+        name={name}
+        control={control}
+        render={({ field, fieldState }) => (
+          <FormControl fullWidth error={!!fieldState.error}>
+            <Select
+              {...field}
+              fullWidth
+              value={field.value || ''}
+              displayEmpty
+              sx={{
+                backgroundColor: 'white',
+                borderRadius: '20px',
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': { border: 'none' },
+                  '&:hover fieldset': { border: 'none' },
+                  '&.Mui-focused fieldset': { border: 'none' }
+                },
+                '& .MuiSelect-select': { outline: 'none' },
+                '& .MuiOutlinedInput-notchedOutline': { display: 'none' }
+              }}
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    marginTop: '4px',
+                    borderRadius: '15px',
+                    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+                    '& .MuiMenuItem-root': {
+                      borderRadius: '10px',
+                      transition: 'all 0.2s ease-in-out',
+                      '&:hover': { backgroundColor: '#f5f5f5', borderRadius: '10px' }
+                    }
+                  }
                 }
-              }
-            }
-          }
-        }}
-      >
-        <MenuItem value=''>Chọn danh mục</MenuItem>
-        <MenuItem value='1'>Danh mục 1</MenuItem>
-        <MenuItem value='2'>Danh mục 2</MenuItem>
-      </Select>
+              }}
+            >
+              <MenuItem value='' disabled>
+                Danh mục sản phẩm
+              </MenuItem>
+              {options.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+            {fieldState.error && <FormHelperText>{fieldState.error.message}</FormHelperText>}
+          </FormControl>
+        )}
+      />
     </Grid>
   )
 }
+
 export default SelectCustom

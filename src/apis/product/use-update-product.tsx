@@ -1,0 +1,42 @@
+import httpRepoInstance from '@/core/http/http'
+import { useMutation } from '@tanstack/react-query'
+import { IProduct } from '.'
+
+// const productKeys = {
+//   product: ['product']
+// }
+
+// interface ProductResponse {
+//   title: string
+//   code: string
+//   categoryId: string
+//   description?: string
+//   price: number
+//   sizes: {
+//     size: string
+//     stock: number
+//   }[]
+//   thumbnail?: string
+//   images: string[]
+//   status: 'available' | 'unavailable'
+//   slug?: string
+//   createdAt: number // timestamp
+//   updateAt: number | null
+//   _destroy: boolean
+// }
+
+interface UpdateProductProps {
+  body: FormData
+  id: string
+}
+
+export const useUpdateProduct = () => {
+  return useMutation({
+    mutationFn: ({ body, id }: UpdateProductProps) => updateProductAPI(body, id)
+  })
+}
+
+export const updateProductAPI = async (body: FormData, id: string): Promise<IProduct> => {
+  const response = await httpRepoInstance.put(`/products/edit/${id}`, body)
+  return response.data
+}
