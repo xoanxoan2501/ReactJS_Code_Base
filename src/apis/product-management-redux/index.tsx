@@ -1,13 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface InitialStateProps {
+export interface InitialStateProps {
   isModalOpening: boolean
-  content: string
+  content: Content
+}
+
+interface Content {
+  id: string
+  name: string
 }
 
 const initialState: InitialStateProps = {
   isModalOpening: false,
-  content: ''
+  content: {
+    id: '',
+    name: ''
+  }
 }
 
 const productManagementStore = createSlice({

@@ -6,6 +6,7 @@ export interface IProduct {
   category?: Category[]
   sizes?: Array<{
     size: string
+    price?: number
     stock: number
     price: number
   }>

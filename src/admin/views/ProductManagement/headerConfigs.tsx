@@ -3,22 +3,17 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import iconDelete from '@/assets/icons/ProductManagement/iconDelete.png'
 import iconEdit from '@/assets/icons/ProductManagement/iconEdit.png'
 import { useDispatch } from 'react-redux'
-import { openModal } from '@/apis/productManagement'
+import { openModal } from '@/apis/product-management-redux'
 import { useNavigate } from 'react-router-dom'
 
-const ActionIcon = ({
-  icon,
-  title,
-  actionKey,
-  backgroundColor,
-  handle
-}: {
+interface ActionIcon {
   icon: string
   title: string
-  actionKey: string
   backgroundColor: string
   handle?: () => void
-}) => {
+}
+
+const ActionIcon = ({ icon, title, backgroundColor, handle }: ActionIcon) => {
   return (
     <img
       src={icon}
@@ -47,22 +42,20 @@ export const RenderAction = (params: GridRenderCellParams) => {
   return (
     <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
       <ActionIcon
-        key={1}
+        key={params.row._id}
         icon={iconDelete}
         title={'Xoá sản phẩm'}
-        actionKey={'Xoá sản phẩm'}
         backgroundColor={'#FF070780'}
         handle={() => {
-          dispatch(openModal(params.row.productName))
+          dispatch(openModal({ id: params.row.id, name: params.row.productName }))
         }}
       />
       <ActionIcon
-        key={2}
+        key={params.row._id}
         icon={iconEdit}
         title={'Chỉnh sửa sản phẩm'}
-        actionKey={'Chỉnh sửa sản phẩm'}
         backgroundColor={'#F9ED6980'}
-        handle={() => navigate(`/admin/product-management/edit/${params.row.id}`)}
+        handle={() => navigate(`/admin/product-management/edit?id=${params.row.id}`)}
       />
     </Stack>
   )

@@ -1,16 +1,37 @@
 import { Box, Button, Modal, Stack, Typography } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { closeModal } from '@/apis/productManagement'
+import { closeModal, InitialStateProps } from '@/apis/product-management-redux'
+import { memo, useCallback } from 'react'
+import { useDeleteProduct } from '@/apis/product/use-delete-product'
+import { toast } from 'react-toastify'
+import { useQueryClient } from '@tanstack/react-query'
+import { productKeys } from '@/apis/product/api'
 
 interface ProductManagementState {
-  productManagement: { isModalOpening: boolean; content: string }
+  productManagement: InitialStateProps
 }
 
 const ModalCustom = () => {
   const dispatch = useDispatch()
   const isModalOpening = useSelector((state: ProductManagementState) => state.productManagement.isModalOpening)
   const content = useSelector((state: ProductManagementState) => state.productManagement.content)
+  const { mutateAsync: deleteProduct } = useDeleteProduct()
+  const queryClient = useQueryClient()
+
+  const handleDeleteProduct = useCallback(() => {
+    deleteProduct(content.id)
+      .then(() => {
+        toast.success('Xoá sản phẩm thành công')
+        queryClient.invalidateQueries({ queryKey: productKeys.all })
+
+        dispatch(closeModal())
+      })
+      .catch((error) => {
+        toast.error('Xoá sản phẩm thất bại' + error.message)
+      })
+  }, [content.id, deleteProduct, dispatch, queryClient])
+
   return (
     <Modal
       open={isModalOpening}
@@ -36,14 +57,14 @@ const ModalCustom = () => {
           Bạn có muốn chắc chắn xoá sản phẩm
           <br></br>
           <Typography variant='h6' component='span' color='error'>
-            {content}
+            {content.name}
           </Typography>
         </Typography>
         <Stack direction='row' justifyContent='center' spacing={2} mt={4}>
           <Button variant='contained' onClick={() => dispatch(closeModal())} sx={{ backgroundColor: '#1AFB9A' }}>
             Hủy
           </Button>
-          <Button variant='contained' sx={{ backgroundColor: '#FF0707' }}>
+          <Button variant='contained' sx={{ backgroundColor: '#FF0707' }} onClick={() => handleDeleteProduct()}>
             Xoá
           </Button>
         </Stack>
@@ -52,4 +73,4 @@ const ModalCustom = () => {
   )
 }
 
-export default ModalCustom
+export default memo(ModalCustom)

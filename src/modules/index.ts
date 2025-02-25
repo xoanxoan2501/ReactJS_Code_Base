@@ -2,11 +2,13 @@ import { combineReducers } from '@reduxjs/toolkit'
 
 import profileStore from '@/apis/auth'
 import { cartReducer } from '@/apis/cart'
-import { productManagementReducer } from '@/apis/productManagement'
+import { productManagementReducer } from '@/apis/product-management-redux'
+import { categoryReducer } from '@/apis/category'
 
 const appReducer = combineReducers({
   profile: profileStore.reducer,
   cart: cartReducer,
+  category: categoryReducer,
   productManagement: productManagementReducer
 })
 
