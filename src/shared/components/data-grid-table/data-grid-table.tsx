@@ -69,7 +69,6 @@ const DataGridTable = ({
   slotProps,
   sx
 }: DataGridTableProps) => {
-  console.log('row data from grid table', rows)
   return (
     <DataGrid
       rows={rows}

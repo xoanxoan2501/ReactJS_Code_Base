@@ -3,31 +3,18 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 export const renderProductImage = (params: GridRenderCellParams) => {
   return (
-    <Stack
-      sx={{ height: '100%' }}
-      direction="row"
-      spacing={2}
-      alignItems="center"
-    >
+    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
       <img
         src={params.value?.thumbnail as string}
-        alt="product"
+        alt='product'
         style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 5 }}
       />
-      <Typography variant="subtitle1">{params.value?.title}</Typography>
+      <Typography variant='subtitle1'>{params.value?.title}</Typography>
     </Stack>
   )
 }
 
-const ActionIcon = ({
-  icon,
-  title,
-  actionKey
-}: {
-  icon: string
-  title: string
-  actionKey: string
-}) => {
+const ActionIcon = ({ icon, title, actionKey }: { icon: string; title: string; actionKey: string }) => {
   return (
     <img
       src={icon}
@@ -42,22 +29,10 @@ const ActionIcon = ({
 
 export const renderAction = (params: GridRenderCellParams) => {
   return (
-    <Stack
-      sx={{ height: '100%' }}
-      direction="row"
-      spacing={2}
-      alignItems="center"
-    >
-      {params.value?.map(
-        (action: { title: string; icon: string; key: string }) => (
-          <ActionIcon
-            key={action.key}
-            icon={action.icon}
-            title={action.title}
-            actionKey={action.title}
-          />
-        )
-      )}
+    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
+      {params.value?.map((action: { title: string; icon: string; key: string }) => (
+        <ActionIcon key={action.key} icon={action.icon} title={action.title} actionKey={action.title} />
+      ))}
     </Stack>
   )
 }
@@ -120,5 +95,6 @@ export const sxConfig = {
     backgroundColor: '#F2C2CF80',
     color: 'black',
     fontWeight: 'bold'
-  }
+  },
+  '.MuiDataGrid-footerContainer': { display: 'none' }
 }

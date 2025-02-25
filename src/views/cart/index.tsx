@@ -4,41 +4,10 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import iconDelete from '@/assets/icons/iconDelete.png'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
-import { getCartAPI, handleRowSelectionChange, setCart } from '@/apis/cart'
+import { getCartAPI, handleRowSelectionChange } from '@/apis/cart'
 import { GridRowSelectionModel } from '@mui/x-data-grid'
 import { formatNumber } from '@/utils/formatter'
 import { toast } from 'react-toastify'
-
-const mockData = {
-  _id: 'cart01',
-  products: [
-    {
-      productId: 'product01',
-      title: 'Bánh sinh nhật kem sữa',
-      size: 'M',
-      quantity: 2,
-      price: 100000,
-      thumbnail: '/img/banh_mau_hong.jpg',
-    },
-    {
-      productId: 'product02',
-      size: 'L',
-      title: 'Bánh sinh nhật rose gold',
-      quantity: 1,
-      price: 200000,
-      thumbnail: '/img/banh_mau_hong.jpg',
-    },
-    {
-      productId: 'product03',
-      title: 'Bánh kem rose mouse',
-      size: 'M',
-      quantity: 3,
-      price: 300000,
-      thumbnail: '/img/banh_mau_hong.jpg',
-    },
-  ],
-}
-
 interface ICartItemDisplay {
   _id: string
   product: {
@@ -53,13 +22,11 @@ interface ICartItemDisplay {
 
 const CartPage = () => {
   const dispatch = useAppDispatch()
-  const { cart, cartId, totalPayment, selectedCartItems } = useAppSelector(
-    (state) => state.cart
-  )
+  const { cart, cartId, totalPayment, selectedCartItems } = useAppSelector((state) => state.cart)
 
   useEffect(() => {
     dispatch(getCartAPI())
-  }, [])
+  }, [dispatch])
 
   const convertData = (): ICartItemDisplay[] => {
     return cart.map((item) => {
@@ -67,12 +34,12 @@ const CartPage = () => {
         _id: item.productId,
         product: {
           title: item.title,
-          thumbnail: item.thumbnail,
+          thumbnail: item.thumbnail
         },
         size: item.size,
         price: item.price,
         quantity: item.quantity,
-        action: [{ title: 'Xóa', icon: iconDelete, key: 'delete' }],
+        action: [{ title: 'Xóa', icon: iconDelete, key: 'delete' }]
       }
     })
   }
@@ -88,10 +55,6 @@ const CartPage = () => {
     }
   }
 
-  useEffect(() => {
-    dispatch(setCart(mockData))
-  }, [dispatch])
-
   return (
     <Box>
       <Typography
@@ -99,18 +62,14 @@ const CartPage = () => {
           fontSize: '2rem',
           fontWeight: 'bold',
           textAlign: 'center',
-          marginTop: '2rem',
+          marginTop: '2rem'
         }}
-        variant="h5"
+        variant='h5'
       >
         Giỏ hàng
       </Typography>
       {cartId && cartId !== '' && cart.length > 0 ? (
-        <Stack
-          className="container"
-          sx={{ marginTop: '2rem', padding: '0 3rem' }}
-          direction={'column'}
-        >
+        <Stack className='container' sx={{ marginTop: '2rem', padding: '0 3rem' }} direction={'column'}>
           <DataTable
             headerConfigs={headerConfigs}
             data={convertData()}
@@ -118,47 +77,42 @@ const CartPage = () => {
             handleRowSelectionModelChange={handleRowSelectionModelChange}
           />
           <Typography
-            variant="h5"
+            variant='h5'
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
               marginTop: '3rem',
-              marginRight: '2rem',
+              marginRight: '2rem'
             }}
           >
             Tổng:{' '}
             <Typography
               sx={{
                 marginLeft: '0.875rem',
-                color: 'red',
+                color: 'red'
               }}
-              variant="h5"
+              variant='h5'
             >
               {formatNumber(totalPayment)}
             </Typography>
             <Typography sx={{ color: 'red' }}>đ</Typography>
           </Typography>
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ marginTop: '1rem' }}
-            justifyContent={'flex-end'}
-          >
+          <Stack direction='row' spacing={2} sx={{ marginTop: '1rem' }} justifyContent={'flex-end'}>
             <Button
               sx={{
-                backgroundColor: '#F2C2CF80',
+                backgroundColor: '#F2C2CF80'
               }}
-              variant="contained"
-              type="button"
+              variant='contained'
+              type='button'
             >
               Tiếp tục mua sắm
             </Button>
             <Button
               sx={{
-                backgroundColor: '#F2C2CF80',
+                backgroundColor: '#F2C2CF80'
               }}
-              variant="contained"
-              type="button"
+              variant='contained'
+              type='button'
               onClick={handleCheckout}
             >
               Thanh toán
@@ -166,25 +120,16 @@ const CartPage = () => {
           </Stack>
         </Stack>
       ) : (
-        <Stack
-          direction={'column'}
-          sx={{ height: '200px' }}
-          justifyContent={'center'}
-          alignItems={'center'}
-          gap={2}
-        >
-          <Typography
-            sx={{ textAlign: 'center', marginTop: '2rem' }}
-            variant="h5"
-          >
+        <Stack direction={'column'} sx={{ height: '200px' }} justifyContent={'center'} alignItems={'center'} gap={2}>
+          <Typography sx={{ textAlign: 'center', marginTop: '2rem' }} variant='h5'>
             Không có sản phẩm nào trong giỏ hàng!
           </Typography>
           <Button
             sx={{
-              backgroundColor: '#F2C2CF80',
+              backgroundColor: '#F2C2CF80'
             }}
-            variant="contained"
-            type="button"
+            variant='contained'
+            type='button'
           >
             Tiếp tục mua sắm
           </Button>

@@ -1,8 +1,6 @@
 import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid'
 import Paper from '@mui/material/Paper'
 
-const paginationModelDefault = { page: 0, pageSize: 5 }
-
 export default function DataTable({
   headerConfigs,
   data,
@@ -25,13 +23,12 @@ export default function DataTable({
         columns={headerConfigs}
         initialState={{
           pagination: {
-            paginationModel: paginationModel || paginationModelDefault
+            paginationModel: paginationModel
           }
         }}
         getRowId={(row) => row._id}
-        pageSizeOptions={[5, 10]}
         checkboxSelection
-        rowHeight={64}
+        rowHeight={70}
         sx={{ border: 0, ...sx }}
         onRowSelectionModelChange={(selection) => {
           if (handleRowSelectionModelChange) {

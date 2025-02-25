@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useMemo, useState } from 'react'
-import DataGridTable from '@/admin/components/data-grid-table'
+import DataGridTable from '@/shared/components/data-grid-table/data-grid-table'
 import { headerConfigs } from '@/admin/views/CustomerManagement/headerConfigs'
 import { useFetchUsers } from '@/shared/hook/useFetchUsers'
 import { GridPaginationModel } from '@mui/x-data-grid'
@@ -28,13 +28,25 @@ const CustomerManagement = () => {
   }
 
   const rows = useMemo(() => {
-    return data?.users?.map((item, index) => ({
+    return data?.users?.map((item) => ({
       ...item,
-      id: index + 1
+      id: item._id
     }))
   }, [data?.users])
 
-  if (isLoading) return <div>Loading...</div>
+  if (isLoading)
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh'
+        }}
+      >
+        Loading...
+      </div>
+    )
 
   if (isError) return <div>Error...</div>
 
