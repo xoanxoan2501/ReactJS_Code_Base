@@ -21,6 +21,7 @@ import { routerCustomerManagement } from '@/admin/views/CustomerManagement/route
 import { routerProductDetail } from '@/views/Auth/pages/ProductDetails/router'
 import { routerAdminLogin } from '@/admin/views/login/router'
 import { routerAdmin } from '@/admin/views/router'
+import { routerOrderPage } from '@/views/orderPage/router'
 
 const privatePage: IRouter[] = [
   routerCart,
@@ -35,7 +36,8 @@ const privatePage: IRouter[] = [
   routerOrderManagement,
   routerVoucherManagement,
   routerCustomerManagement,
-  routerAdmin
+  routerAdmin,
+  routerOrderPage
 ]
 
 const publicPage: IRouter[] = [
