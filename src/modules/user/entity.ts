@@ -19,6 +19,12 @@ class UserEntity {
 
   address?: string
 
+  addresses?: Array<{
+    address: string
+    province: string
+    district: string
+  }>
+
   phoneNumber?: string
 
   avatar?: string
