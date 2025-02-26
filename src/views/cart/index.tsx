@@ -3,11 +3,12 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import iconDelete from '@/assets/icons/iconDelete.png'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
-import { getCartAPI, handleRowSelectionChange } from '@/apis/cart'
+import { getCartAPI, handleRowSelectionChange, resetSelecdCartItem } from '@/apis/cart'
 import { GridRowSelectionModel } from '@mui/x-data-grid'
 import { formatNumber } from '@/utils/formatter'
 import { toast } from 'react-toastify'
 import DataGridTable from '@/shared/components/data-grid-table/data-grid-table'
+import { useNavigate } from 'react-router-dom'
 interface ICartItemDisplay {
   _id: string
   product: {
@@ -24,6 +25,7 @@ const CartPage = () => {
   const dispatch = useAppDispatch()
   const { cart, cartId, totalPayment, selectedCartItems } = useAppSelector((state) => state.cart)
 
+  const navigate = useNavigate()
   useEffect(() => {
     dispatch(getCartAPI())
   }, [dispatch])
@@ -43,16 +45,21 @@ const CartPage = () => {
       }
     })
   }
+  useEffect(() => {
+    dispatch(resetSelecdCartItem())
+  }, [])
 
   const handleRowSelectionModelChange = (selection: GridRowSelectionModel) => {
     dispatch(handleRowSelectionChange(selection))
   }
 
   const handleCheckout = () => {
-    if (!cartId || Boolean(cartId) || selectedCartItems.length === 0) {
-      toast.error('Vui lòng chọn sản phẩm để thanh toán')
+    if (selectedCartItems.length === 0) {
+      toast('Vui lòng chọn ít nhất một sản phẩm!')
       return
     }
+
+    navigate('/order-page', { state: { selectedCartItems } })
   }
 
   return (
@@ -98,7 +105,6 @@ const CartPage = () => {
               marginRight: '2rem'
             }}
           >
-            Tổng:{' '}
             <Typography
               sx={{
                 marginLeft: '0.875rem',

@@ -3,13 +3,7 @@ import lodash from 'lodash'
 
 import { RootState } from '@/modules'
 import UserEntity from '@/modules/user/entity'
-import {
-  createAction,
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-  Selector
-} from '@reduxjs/toolkit'
+import { createAction, createAsyncThunk, createSlice, PayloadAction, Selector } from '@reduxjs/toolkit'
 import httpRepoInstance from '@/core/http/http'
 import { ILogin } from '@/modules/authentication/interface'
 
@@ -35,14 +29,11 @@ interface IStore {
   remember: boolean
 }
 
-export const loginAPI = createAsyncThunk(
-  'profile/login',
-  async (data: ILogin) => {
-    const response = await httpRepoInstance.post('/users/login', data)
+export const loginAPI = createAsyncThunk('profile/login', async (data: ILogin) => {
+  const response = await httpRepoInstance.post('/users/login', data)
 
-    return response.data
-  }
-)
+  return response.data
+})
 
 const profileStore = createSlice({
   name: 'profileStore',
@@ -70,10 +61,7 @@ const profileStore = createSlice({
           listPermissionCode: action.payload.listPermissionCode || []
         })
     },
-    resetToken: (
-      state,
-      action: PayloadAction<{ accessToken: string; refreshToken: string }>
-    ) =>
+    resetToken: (state, action: PayloadAction<{ accessToken: string; refreshToken: string }>) =>
       Object.assign(state, {
         token: action.payload.accessToken,
         refreshToken: action.payload.refreshToken
@@ -150,21 +138,13 @@ interface IPermissions {
   listPermissionCode: string[]
   status: boolean
 }
-export const PermissionsSelector: Selector<RootState, IPermissions> = (
-  state
-) => {
+export const PermissionsSelector: Selector<RootState, IPermissions> = (state) => {
   return {
     listPermissionCode: state.profile.listPermissionCode || [],
     status: state.profile.statusLogin || false
   }
 }
 
-export const {
-  fetchProfile,
-  resetToken,
-  updateProfile,
-  saveImageGroup,
-  logOut
-} = profileStore.actions
+export const { fetchProfile, resetToken, updateProfile, saveImageGroup, logOut } = profileStore.actions
 
 export default profileStore

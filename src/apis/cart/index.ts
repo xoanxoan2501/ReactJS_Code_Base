@@ -49,6 +49,10 @@ const cartStore = createSlice({
         return action.payload.includes(item.productId as GridRowId)
       })
       state.totalPayment = state.selectedCartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+    },
+    resetSelecdCartItem: (state) => {
+      state.selectedCartItems = []
+      state.totalPayment = 0
     }
   },
   extraReducers: (builder) => {
@@ -59,6 +63,6 @@ const cartStore = createSlice({
   }
 })
 
-export const { addCart, removeCart, setCart, handleRowSelectionChange } = cartStore.actions
+export const { addCart, removeCart, setCart, handleRowSelectionChange, resetSelecdCartItem } = cartStore.actions
 
 export const cartReducer = cartStore.reducer
