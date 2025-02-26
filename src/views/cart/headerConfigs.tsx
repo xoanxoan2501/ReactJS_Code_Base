@@ -1,9 +1,26 @@
 import { Stack, Typography } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { useNavigate } from 'react-router-dom'
 
-export const renderProductImage = (params: GridRenderCellParams) => {
+export const RenderProductImage = (params: GridRenderCellParams) => {
+  const navigate = useNavigate()
+
   return (
-    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
+    <Stack
+      onClick={(event) => {
+        event.stopPropagation()
+        navigate(`/product/${params?.row?._id}`)
+      }}
+      sx={{
+        height: '100%',
+        '&:hover': {
+          cursor: 'pointer'
+        }
+      }}
+      direction='row'
+      spacing={2}
+      alignItems='center'
+    >
       <img
         src={params.value?.thumbnail as string}
         alt='product'
@@ -29,7 +46,7 @@ const ActionIcon = ({ icon, title, actionKey }: { icon: string; title: string; a
 
 export const renderAction = (params: GridRenderCellParams) => {
   return (
-    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
+    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center' justifyContent={'center'}>
       {params.value?.map((action: { title: string; icon: string; key: string }) => (
         <ActionIcon key={action.key} icon={action.icon} title={action.title} actionKey={action.title} />
       ))}
@@ -43,7 +60,7 @@ export const headerConfigs: GridColDef[] = [
     headerName: 'Sản phẩm',
     flex: 2,
     sortable: false,
-    renderCell: renderProductImage,
+    renderCell: RenderProductImage,
     align: 'left',
     headerAlign: 'left'
   },
@@ -95,6 +112,5 @@ export const sxConfig = {
     backgroundColor: '#F2C2CF80',
     color: 'black',
     fontWeight: 'bold'
-  },
-  '.MuiDataGrid-footerContainer': { display: 'none' }
+  }
 }

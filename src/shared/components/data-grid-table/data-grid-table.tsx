@@ -6,6 +6,7 @@ import {
   GridPaginationModel,
   GridRowHeightParams,
   GridRowHeightReturnValue,
+  GridRowIdGetter,
   GridRowSelectionModel
 } from '@mui/x-data-grid'
 import { vietnameseLocaleText } from '@/utils/constants'
@@ -24,6 +25,7 @@ interface DataGridTableProps {
   localeText?: any
   getRowHeight?: ((params: GridRowHeightParams) => GridRowHeightReturnValue) | undefined
   sx?: any
+  getRowId?: GridRowIdGetter<any> | undefined
 }
 
 const BoxIcon = () => (
@@ -67,6 +69,7 @@ const DataGridTable = ({
   localeText,
   getRowHeight,
   slotProps,
+  getRowId,
   sx
 }: DataGridTableProps) => {
   return (
@@ -74,12 +77,13 @@ const DataGridTable = ({
       rows={rows}
       columns={headerConfigs}
       paginationModel={paginationModel}
-      pageSizeOptions={pageSizeOptions || [5, 10, 20]}
+      pageSizeOptions={pageSizeOptions}
       onPaginationModelChange={onPaginationModelChange}
       onRowSelectionModelChange={onRowSelectionModelChange}
       checkboxSelection={checkboxSelection || true}
       localeText={localeText || vietnameseLocaleText}
       getRowHeight={getRowHeight}
+      getRowId={getRowId}
       slotProps={
         slotProps || {
           baseCheckbox: {
@@ -91,19 +95,6 @@ const DataGridTable = ({
       sx={{
         '& .MuiDataGrid-cell:focus': {
           outline: 'none'
-        },
-        '& .MuiDataGrid-row:hover': {
-          backgroundColor: '#f5f5f5'
-        },
-        '& .MuiDataGrid-columnHeader': {
-          backgroundColor: '#d3d6d8 !important',
-          borderBottom: '1px   solid #ccc'
-        },
-        '& .MuiDataGrid-columnHeaderTitle': {
-          fontWeight: 'bold'
-        },
-        '& .MuiDataGrid-cell': {
-          borderRight: '1px solid #ccc'
         },
         '& .MuiDataGrid-footerContainer': {
           justifyContent: 'space-between',

@@ -13,6 +13,12 @@ class UserEntity {
 
   displayName?: string
 
+  province?: string
+
+  district?: string
+
+  address?: string
+
   phoneNumber?: string
 
   avatar?: string

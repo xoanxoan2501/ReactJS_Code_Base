@@ -177,6 +177,21 @@ const CustomerManagement = () => {
           onPaginationModelChange={(newModel) => setPaginationModel(newModel)}
           rows={rows || []}
           onRowSelectionModelChange={(selectedIds) => console.log(selectedIds)}
+          sx={{
+            '& .MuiDataGrid-row:hover': {
+              backgroundColor: '#f5f5f5'
+            },
+            '& .MuiDataGrid-columnHeader': {
+              backgroundColor: '#d3d6d8 !important',
+              borderBottom: '1px   solid #ccc'
+            },
+            '& .MuiDataGrid-columnHeaderTitle': {
+              fontWeight: 'bold'
+            },
+            '& .MuiDataGrid-cell': {
+              borderRight: '1px solid #ccc'
+            }
+          }}
         />
       </Stack>
     </CustomerManagementLayout>

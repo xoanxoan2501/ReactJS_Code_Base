@@ -27,7 +27,7 @@ const initialState: ICartStore = {
   cartId: null,
   cart: [],
   selectedCartItems: [],
-  totalPayment: 0,
+  totalPayment: 0
 }
 
 const cartStore = createSlice({
@@ -38,35 +38,27 @@ const cartStore = createSlice({
       state.cart.push(action.payload)
     },
     removeCart: (state, action) => {
-      state.cart = state.cart.filter(
-        (item) => item.productId !== action.payload
-      )
+      state.cart = state.cart.filter((item) => item.productId !== action.payload)
     },
     setCart: (state, action) => {
       state.cartId = action.payload._id
       state.cart = action.payload.products
     },
-    handleRowSelectionChange: (
-      state,
-      action: PayloadAction<GridRowSelectionModel>
-    ) => {
+    handleRowSelectionChange: (state, action: PayloadAction<GridRowSelectionModel>) => {
       state.selectedCartItems = state.cart.filter((item) => {
         return action.payload.includes(item.productId as GridRowId)
       })
-      state.totalPayment = state.selectedCartItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0
-      )
-    },
+      state.totalPayment = state.selectedCartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getCartAPI.fulfilled, (state, action) => {
       state.cart = action.payload.products
+      state.cartId = action.payload._id
     })
-  },
+  }
 })
 
-export const { addCart, removeCart, setCart, handleRowSelectionChange } =
-  cartStore.actions
+export const { addCart, removeCart, setCart, handleRowSelectionChange } = cartStore.actions
 
 export const cartReducer = cartStore.reducer

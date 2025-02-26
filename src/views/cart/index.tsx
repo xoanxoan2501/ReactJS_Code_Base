@@ -1,5 +1,4 @@
-import DataTable from '@/shared/components/data-table'
-import { headerConfigs, sxConfig } from '@/views/cart/headerConfigs'
+import { headerConfigs } from '@/views/cart/headerConfigs'
 import { Box, Button, Stack, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import iconDelete from '@/assets/icons/iconDelete.png'
@@ -8,6 +7,7 @@ import { getCartAPI, handleRowSelectionChange } from '@/apis/cart'
 import { GridRowSelectionModel } from '@mui/x-data-grid'
 import { formatNumber } from '@/utils/formatter'
 import { toast } from 'react-toastify'
+import DataGridTable from '@/shared/components/data-grid-table/data-grid-table'
 interface ICartItemDisplay {
   _id: string
   product: {
@@ -70,11 +70,24 @@ const CartPage = () => {
       </Typography>
       {cartId && cartId !== '' && cart.length > 0 ? (
         <Stack className='container' sx={{ marginTop: '2rem', padding: '0 3rem' }} direction={'column'}>
-          <DataTable
-            headerConfigs={headerConfigs}
-            data={convertData()}
-            sx={sxConfig}
-            handleRowSelectionModelChange={handleRowSelectionModelChange}
+          <DataGridTable
+            columns={headerConfigs}
+            rows={convertData()}
+            sx={{
+              '& .MuiDataGrid-row:hover': {
+                backgroundColor: '#f5f5f5'
+              },
+              '& .MuiDataGrid-columnHeader': {
+                backgroundColor: '#F2C2CF80 !important',
+                borderBottom: '1px   solid #ccc'
+              },
+              '& .MuiDataGrid-columnHeaderTitle': {
+                fontWeight: 'bold'
+              }
+            }}
+            onRowSelectionModelChange={handleRowSelectionModelChange}
+            getRowId={(row) => row._id}
+            getRowHeight={() => 70}
           />
           <Typography
             variant='h5'
