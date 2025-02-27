@@ -26,34 +26,42 @@ interface DataGridTableProps {
   getRowHeight?: ((params: GridRowHeightParams) => GridRowHeightReturnValue) | undefined
   sx?: any
   getRowId?: GridRowIdGetter<any> | undefined
+  checkBoxColor?: string
+  checkBoxBorderWidth?: string
 }
 
-const BoxIcon = () => (
+const BoxIcon = ({ color, borderWidth }: { color?: string; borderWidth?: string }) => (
   <span
     style={{
       width: 24,
       height: 24,
-      border: '1px solid #0d47a1',
+      border: `1px solid ${color || '#0d47a1'}`,
+      borderWidth: borderWidth || '1',
       borderRadius: 4,
       display: 'flex'
     }}
   />
 )
 
-const CheckBoxIcon = () => (
+const CheckBoxIcon = ({ color, borderWidth }: { color?: string; borderWidth?: string }) => (
   <span
     style={{
       width: 24,
       height: 24,
-      border: '1px solid #0d47a1',
+      border: `2px solid ${color || '#0d47a1'}`,
+      borderWidth: borderWidth || '1',
       borderRadius: 4,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'
     }}
   >
-    <svg style={{ width: 16, height: 16, fill: '#0d47a1' }} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
-      <path d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z' />
+    <svg
+      style={{ width: 16, height: 16, fill: color || '#0d47a1' }}
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 24 24'
+    >
+      <path d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z' stroke={color} strokeWidth={borderWidth} />
     </svg>
   </span>
 )
@@ -70,6 +78,8 @@ const DataGridTable = ({
   getRowHeight,
   slotProps,
   getRowId,
+  checkBoxColor,
+  checkBoxBorderWidth,
   sx
 }: DataGridTableProps) => {
   return (
@@ -87,8 +97,8 @@ const DataGridTable = ({
       slotProps={
         slotProps || {
           baseCheckbox: {
-            icon: <BoxIcon />,
-            checkedIcon: <CheckBoxIcon />
+            icon: <BoxIcon color={checkBoxColor} borderWidth={checkBoxBorderWidth} />,
+            checkedIcon: <CheckBoxIcon color={checkBoxColor} borderWidth={checkBoxBorderWidth} />
           }
         }
       }

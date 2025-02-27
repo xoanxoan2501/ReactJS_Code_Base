@@ -80,6 +80,8 @@ const CartPage = () => {
           <DataGridTable
             columns={headerConfigs}
             rows={convertData()}
+            checkBoxColor='#F2C2CF'
+            checkBoxBorderWidth='2px'
             sx={{
               '& .MuiDataGrid-row:hover': {
                 backgroundColor: '#f5f5f5'
