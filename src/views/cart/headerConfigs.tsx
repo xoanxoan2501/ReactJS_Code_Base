@@ -1,6 +1,10 @@
 import { Stack, Typography } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useNavigate } from 'react-router-dom'
+import iconDecreaseCart from '@/assets/icons/iconDecreaseCart.png'
+import iconIncreaseCart from '@/assets/icons/iconIncreaseCart.png'
+import { useAppDispatch } from '@/shared/hook/reduxHooks'
+import { updateProductQuantity } from '@/apis/cart'
 
 export const RenderProductImage = (params: GridRenderCellParams) => {
   const navigate = useNavigate()
@@ -54,6 +58,34 @@ export const renderAction = (params: GridRenderCellParams) => {
   )
 }
 
+export const RenderQuantity = (params: GridRenderCellParams) => {
+  console.log('🚀 ~ RenderQuantity ~ params:', params)
+  const dispatch = useAppDispatch()
+
+  return (
+    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center' justifyContent={'center'}>
+      <img
+        src={iconDecreaseCart}
+        alt={'decrease'}
+        style={{ width: 16, height: 16, cursor: 'pointer' }}
+        onClick={(event) => {
+          event.stopPropagation()
+          // dispatch(updateProductQuantity({}))
+        }}
+      />
+      <Typography variant='subtitle1'>{params.value}</Typography>
+      <img
+        src={iconIncreaseCart}
+        alt={'increase'}
+        style={{ width: 16, height: 16, cursor: 'pointer' }}
+        onClick={(event) => {
+          event.stopPropagation()
+        }}
+      />
+    </Stack>
+  )
+}
+
 export const headerConfigs: GridColDef[] = [
   {
     field: 'product',
@@ -85,7 +117,8 @@ export const headerConfigs: GridColDef[] = [
     type: 'number',
     flex: 1,
     align: 'center',
-    headerAlign: 'center'
+    headerAlign: 'center',
+    renderCell: RenderQuantity
   },
   {
     field: 'total',

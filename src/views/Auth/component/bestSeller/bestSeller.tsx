@@ -1,6 +1,7 @@
 import { useProducts } from '@/shared/hook/useProducts'
 import CardProduct from '../../pages/Product/cardProduct'
 import './bestSeller.css'
+import { IProduct } from '@/apis/product'
 function BestSeller() {
   const { data, isLoading, isError } = useProducts({ limit: 4 })
 
@@ -11,12 +12,8 @@ function BestSeller() {
   return (
     <div>
       <h1> Sản phẩm nổi bật</h1>
-      <div className="product-grid">
-        {products
-          ?.slice(0, 4)
-          .map((product: any) => (
-            <CardProduct key={product._id} product={product} />
-          ))}
+      <div className='product-grid'>
+        {products?.slice(0, 4).map((product: IProduct) => <CardProduct key={product._id} product={product} />)}
       </div>
     </div>
   )

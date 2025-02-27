@@ -5,18 +5,26 @@ import Typography from '@mui/material/Typography'
 import { Box, IconButton } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import './CardProduct.css'
-import { IProduct } from '@/apis/product'
+import { IProduct, setProductDetail, setShowProductDetail } from '@/apis/product'
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '@/shared/hook/reduxHooks'
 
-export default function CardProduct({ product }: { product: IProduct }) {
+interface ICardProduct {
+  product: IProduct
+}
+
+export default function CardProduct({ product }: ICardProduct) {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
   return (
-    <Card className='card' onClick={() => navigate(`/product/${product._id}`)} style={{ cursor: 'pointer' }}>
+    <Card className='card' style={{ cursor: 'pointer' }}>
       <Box className='zoom-content'>
         <CardMedia
           className='card-media'
           image={product.thumbnail} // ✅ Dùng ảnh từ API
           title={product.title}
+          onClick={() => navigate(`/product/${product._id}`)}
         />
         <CardContent className='card-content'>
           <Box>
@@ -29,7 +37,15 @@ export default function CardProduct({ product }: { product: IProduct }) {
 
         <Box className='price-box'>
           <Typography className='price-tag'>{100000} VND</Typography> {/* ✅ Giá từ API */}
-          <IconButton color='primary' aria-label='add to shopping cart' className='cart-icon'>
+          <IconButton
+            color='primary'
+            aria-label='add to shopping cart'
+            className='cart-icon'
+            onClick={() => {
+              dispatch(setProductDetail(product))
+              dispatch(setShowProductDetail(true))
+            }}
+          >
             <AddShoppingCartIcon sx={{ fontSize: '28px' }} />
           </IconButton>
         </Box>

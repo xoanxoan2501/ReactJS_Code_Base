@@ -11,7 +11,7 @@ export const productKeys = {
   ) => {
     return [...productKeys.all, page || DEFAULT_PAGE, limit || DEFAULT_LIMIT_PER_PAGE, q ?? '', categoryId ?? 'all']
   },
-  fetchProduct: (id: string) => ['fetchProduct', id],
+  fetchProduct: (id: string) => ['fetchProduct', id]
 }
 
 export const getProductsAPI = async (searchPath: string) => {

@@ -30,6 +30,14 @@ const initialState: ICartStore = {
   totalPayment: 0
 }
 
+export const updateProductQuantity = createAsyncThunk(
+  'cart/updateProductQuantity',
+  async (data: { productId: string; quantity: number; size: string }) => {
+    const response = await httpRepoInstance.post('/cart/edit-cart', data)
+    return response.data
+  }
+)
+
 const cartStore = createSlice({
   name: 'cart',
   initialState: initialState,
@@ -56,10 +64,14 @@ const cartStore = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getCartAPI.fulfilled, (state, action) => {
-      state.cart = action.payload.products
-      state.cartId = action.payload._id
-    })
+    builder
+      .addCase(getCartAPI.fulfilled, (state, action) => {
+        state.cart = action.payload.products
+        state.cartId = action.payload._id
+      })
+      .addCase(updateProductQuantity.fulfilled, (state, action) => {
+        state.cart = action.payload.products
+      })
   }
 })
 

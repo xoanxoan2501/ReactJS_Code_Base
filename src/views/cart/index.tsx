@@ -47,7 +47,7 @@ const CartPage = () => {
   }
   useEffect(() => {
     dispatch(resetSelecdCartItem())
-  }, [])
+  }, [dispatch])
 
   const handleRowSelectionModelChange = (selection: GridRowSelectionModel) => {
     dispatch(handleRowSelectionChange(selection))
