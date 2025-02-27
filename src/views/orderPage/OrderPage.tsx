@@ -1,68 +1,25 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import './orderPage.css'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
-import { Link } from 'react-router-dom'
+import InfoCustomer from './component/InfoCustomer'
+import PaymentInfo from './component/PaymentInfo'
+import { useState } from 'react'
 
 function OrderPage() {
-  const user = useAppSelector((state) => state.profile.user)
   const selectProducts = useAppSelector((state) => state.cart.selectedCartItems)
   const totalPayment = useAppSelector((state) => state.cart.totalPayment)
+  const [showPayment, setShowPayment] = useState(false)
+
   return (
     <div className='order-page'>
       <div className='info-order'>
-        <TextField
-          label='Họ và tên'
-          name='fullname'
-          variant='outlined'
-          className='textField'
-          sx={{ width: '100%' }}
-          value={user?.fullname}
-        />
-        <Box className='registerRow'>
-          <TextField
-            label='Email'
-            name='email'
-            variant='outlined'
-            className='textField'
-            sx={{ width: '70%' }}
-            value={user?.email}
-          />
-          <TextField
-            label='Số điện thoại '
-            variant='outlined'
-            className='textField'
-            sx={{ width: '30%' }}
-            value={user?.phoneNumber}
-          />
-        </Box>
-        <Box>
-          <TextField label='Địa chỉ' variant='outlined' className='textField' sx={{ width: '100%' }} />
-        </Box>
-        <Box className='registerRow'>
-          <TextField
-            sx={{ width: '40%' }}
-            className='textField'
-            label='Tỉnh/Thành phố'
-            InputProps={{ readOnly: true }}
-            variant='outlined'
-            value='Thành phố Hồ Chí Minh'
-          />
-          <TextField
-            sx={{ width: '60%' }}
-            className='textField'
-            label='Quận/Huyện'
-            InputProps={{ readOnly: true }}
-            variant='outlined'
-            value='Thu Duc'
-          />
-        </Box>
-        <Box className='delivery-time'>
-          <Link to='/cart'>
-            <Typography> Quay lại giỏ hàng</Typography>
-          </Link>
-          <Button className='customer-button'>Phương thức thanh toán</Button>
-        </Box>
+        {!showPayment ? (
+          <InfoCustomer onShowPayment={() => setShowPayment(true)} />
+        ) : (
+          <PaymentInfo onBack={() => setShowPayment(false)} /> // Truyền hàm onBack vào PaymentInfo
+        )}
       </div>
+
       <div className='info-order-product'>
         {selectProducts.length > 0 ? (
           selectProducts.map((item) => (
@@ -92,12 +49,11 @@ function OrderPage() {
         ) : (
           <Typography>Không có sản phẩm nào được chọn.</Typography>
         )}
-        <div className='line-order'> </div>
 
         <div className='line-order'> </div>
         <div className='voucher-container'>
           <TextField label='Voucher' name='fullname' className='textField' variant='outlined' sx={{ width: '70%' }} />
-          <Button className='customer-button'>Áp dụng</Button>
+          <Button className='customer-buttonn'>Áp dụng</Button>
         </div>
         <div className='line-order'> </div>
         <div className='price-order-container'>

@@ -17,7 +17,7 @@ const persistConfig: PersistConfig<RootState> = {
   key: CONFIG.APP_NAME,
   storage,
   blacklist: [],
-  whitelist: ['profile']
+  whitelist: ['profile', 'payment']
 }
 
 const persistedReducer = persistReducer(persistConfig, appReducer)
@@ -28,8 +28,7 @@ if (import.meta.env.DEV) {
 }
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false })
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
 })
 export const persistor = persistStore(store)
 
