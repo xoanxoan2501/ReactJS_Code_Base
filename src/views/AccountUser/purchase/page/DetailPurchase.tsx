@@ -2,7 +2,7 @@ import { LayoutBox } from '@/views/Profile/components/LayoutBox'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import './DetailPurchase.css'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
-import { Box, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import TableProductOrder from '../component/tableProductOrder'
 function DetailPurchase() {
   return (
