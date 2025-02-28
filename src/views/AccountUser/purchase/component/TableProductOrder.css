@@ -1,0 +1,25 @@
+.order-table {
+  border: 2px solid #f8cdd6;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.order-table th,
+.order-table td {
+  border-bottom: 1px solid #f8cdd6;
+  text-align: center;
+}
+
+.order-table tr:last-child td {
+  border-bottom: none;
+}
+
+.order-table td img {
+  border: 1px solid #ddd;
+  padding: 5px;
+  background: #fff;
+}
+.total-details {
+  display: flex;
+  flex-direction: row;
+}

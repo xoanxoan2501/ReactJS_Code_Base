@@ -1,0 +1,84 @@
+.container-order {
+  display: flex;
+  background-color: white;
+  height: 120px;
+  align-items: center;
+  margin-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: space-between;
+  gap: 10px;
+}
+.img-container {
+  position: relative;
+  display: inline-block;
+}
+.img-details {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+}
+.number-order {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #f2c2cf;
+  color: black;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.MuiBox-root .css-19kzrtu {
+  padding: 0px;
+}
+.details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100px;
+  width: 60%;
+}
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  height: 100px;
+  width: 20%;
+}
+.buttonn {
+  height: 50px;
+  background-color: #f2c2cf;
+  color: black;
+  font-weight: bold;
+}
+.buttonn:hover {
+  background-color: #ffff;
+  border: 1px solid #f2c2cf !important;
+  color: black !important;
+}
+
+.MuiTab-root {
+  color: #000000 !important;
+}
+
+/* Khi tab được chọn, đổi màu chữ và màu viền */
+.MuiTabs-indicator {
+  background-color: #dc567a !important;
+}
+
+.Mui-selected {
+  color: #dc567a !important;
+  font-weight: bold;
+}
+.MuiTabs-flexContainer .css-1wxkzlj-MuiTabs-flexContainer {
+  justify-content: center;
+  display: flex;
+}
