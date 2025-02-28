@@ -1,19 +1,31 @@
+import { routerAddress } from '@/views/AccountUser/Address/router'
+import { routerNotifications } from '@/views/AccountUser/Notifications/router'
+import { routerPurchase } from '@/views/AccountUser/purchase/router'
+import { routerPaymentUser } from '@/views/AccountUser/PaymentUser/router'
+import { routerAccountInfo } from '@/views/Profile/router'
+import { routerVoucherWallet } from '@/views/AccountUser/VoucherWallet/router'
 import { Box, Stack, Typography } from '@mui/material'
+
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const tabs = [
-  'Thông tin tài khoản',
-  'Địa chỉ',
-  'Thông tin thanh toán',
-  'Quản lý đơn hàng',
-  'Tài khoản',
-  'Thông báo',
-  'Ví voucher'
+  { label: 'Thông tin tài khoản', path: routerAccountInfo.path },
+  { label: 'Địa chỉ', path: routerAddress.path },
+  { label: 'Thông tin thanh toán', path: routerPaymentUser.path },
+  { label: 'Quản lý đơn hàng', path: routerPurchase.path },
+  { label: 'Thông báo', path: routerNotifications.path },
+  { label: 'Ví voucher', path: routerVoucherWallet.path }
 ]
 
 const SideBar = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
+  const navigate = useNavigate()
 
+  const handleNavigation = (index: number, path: string) => {
+    setSelectedIndex(index)
+    navigate(path) // Chuyển hướng trang
+  }
   const renderSideBarItems = () => {
     return tabs.map((tab, index) => {
       return (
@@ -21,7 +33,8 @@ const SideBar = () => {
           sx={{
             paddingTop: '1rem',
             paddingBottom: '1rem',
-            border: '0.5px solid #DC567A',
+
+            borderBottom: '0.5px solid #DC567A',
             width: '100%',
             textAlign: 'center',
             '&:hover': {
@@ -30,10 +43,10 @@ const SideBar = () => {
             cursor: 'pointer',
             color: selectedIndex === index ? '#DC567A' : 'inherit'
           }}
-          onClick={() => setSelectedIndex(index)}
+          onClick={() => handleNavigation(index, tab.path)}
           key={index}
         >
-          <Typography variant="h6">{tab}</Typography>
+          <Typography variant='h6'>{tab.label}</Typography>
         </Box>
       )
     })
@@ -45,12 +58,12 @@ const SideBar = () => {
         width: '18%',
         backgroundColor: '#F2C2CF',
         marginTop: '2rem !important',
-        borderTopLeftRadius: '1rem',
-        borderBottomLeftRadius: '1rem',
-        border: '0.5px solid #DC567A'
+        borderRadius: '1rem 0 0 1rem',
+        height: '592px',
+        alignItems: 'flex-start'
       }}
       direction={'column'}
-      justifyContent={'center'}
+      justifyContent={'flex-start'}
       alignItems={'center'}
       overflow={'hidden'}
     >
@@ -58,38 +71,24 @@ const SideBar = () => {
         sx={{
           paddingTop: '1rem',
           paddingBottom: '1rem',
-          border: '0.5px solid #DC567A',
+          borderTop: '0.5px solid #DC567A',
+          borderBottom: '0.5px solid #DC567A',
           width: '100%',
           borderTopLeftRadius: '1rem',
-          textAlign: 'center'
+          textAlign: 'center',
+          marginTop: '0rem !important'
         }}
       >
         <Typography
           sx={{
             fontWeight: 'bold'
           }}
-          variant="h5"
+          variant='h5'
         >
           Tài khoản
         </Typography>
       </Box>
       {renderSideBarItems()}
-      <Box
-        sx={{
-          paddingTop: '2rem',
-          paddingBottom: '2rem',
-          border: '0.5px solid #DC567A',
-          width: '100%',
-          textAlign: 'center',
-          borderBottomLeftRadius: '1rem',
-          '&:hover': {
-            color: '#DC567A'
-          },
-          cursor: 'pointer'
-        }}
-      >
-        <Typography variant="h6"></Typography>
-      </Box>
     </Stack>
   )
 }

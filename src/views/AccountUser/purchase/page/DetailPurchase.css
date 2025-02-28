@@ -1,0 +1,39 @@
+.back-icons {
+  display: flex;
+  justify-content: flex-end;
+  height: 30px;
+  width: 30px;
+  background-color: #ffff;
+  border-radius: 50%;
+}
+.typograpy-detals {
+  font-size: 30px !important;
+  font-weight: bold;
+}
+.container-order {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  gap: 10px;
+  align-items: center;
+}
+.span-details {
+  font-size: 20px;
+}
+.info-purcharse {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.info-info {
+  display: flex;
+  align-items: flex-start;
+  background-color: #ffff;
+  flex-direction: column;
+  border-radius: 15px;
+  flex: 1;
+  justify-content: center;
+  padding: 10px;
+  margin: 10px;
+  left: auto;
+}

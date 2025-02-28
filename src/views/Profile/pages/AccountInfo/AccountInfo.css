@@ -1,0 +1,79 @@
+.input_textField {
+  width: 70%;
+  margin-left: 1rem !important;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.input_textField input {
+  color: black;
+}
+
+.input_textField label {
+  color: black;
+}
+
+.input_textField fieldset {
+  border-color: black !important;
+}
+
+.input_textField:hover fieldset {
+  border-color: black !important;
+}
+
+.input_textField.Mui-focused fieldset {
+  border-color: black !important;
+}
+.radio {
+  color: black;
+}
+
+.radio.Mui-checked {
+  color: black !important;
+}
+
+.radio .MuiSvgIcon-root {
+  font-size: 30px !important;
+}
+.input_disable {
+  width: 75%;
+  margin-left: 1rem !important;
+  border-radius: 5px !important;
+  background-color: white !important;
+  border: 1px solid black;
+}
+
+.input_disable .MuiInputBase-input {
+  color: black;
+}
+.input_disabled .MuiOutlinedInput-root {
+  border-radius: 5px !important;
+}
+
+.input_disabled .MuiOutlinedInput-notchedOutline {
+  border-radius: 5px !important;
+}
+.input_disable .MuiInputLabel-root {
+  color: black;
+}
+
+.input_disable .MuiOutlinedInput-root fieldset {
+  border-color: black !important;
+}
+
+.input_disable .MuiOutlinedInput-root:hover fieldset {
+  border-color: black !important;
+}
+
+.input_disable .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: black !important;
+}
+.typography_hover {
+  display: flex;
+  align-items: center;
+}
+.typography_hover:hover {
+  color: #dc567a;
+  cursor: pointer;
+}

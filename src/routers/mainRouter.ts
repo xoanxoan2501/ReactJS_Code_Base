@@ -22,6 +22,12 @@ import { routerProductDetail } from '@/views/Auth/pages/ProductDetails/router'
 import { routerAdminLogin } from '@/admin/views/login/router'
 import { routerAdmin } from '@/admin/views/router'
 import { routerOrderPage } from '@/views/orderPage/router'
+import { routerAddress } from '@/views/AccountUser/Address/router'
+import { routerPurchase } from '@/views/AccountUser/purchase/router'
+import { routerVoucherWallet } from '@/views/AccountUser/VoucherWallet/router'
+import { routerNotifications } from '@/views/AccountUser/Notifications/router'
+import { routerPaymentUser } from '@/views/AccountUser/PaymentUser/router'
+import { routerDetailPurchase } from '@/views/AccountUser/purchase/page/router'
 
 const privatePage: IRouter[] = [
   routerCart,
@@ -37,7 +43,13 @@ const privatePage: IRouter[] = [
   routerVoucherManagement,
   routerCustomerManagement,
   routerAdmin,
-  routerOrderPage
+  routerOrderPage,
+  routerAddress,
+  routerPurchase,
+  routerVoucherWallet,
+  routerNotifications,
+  routerPaymentUser,
+  routerDetailPurchase
 ]
 
 const publicPage: IRouter[] = [

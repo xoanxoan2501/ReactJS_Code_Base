@@ -20,6 +20,8 @@ class UserEntity {
   address?: string
 
   addresses?: Array<{
+    fullname: string
+    phoneNumber: string
     address: string
     province: string
     district: string
