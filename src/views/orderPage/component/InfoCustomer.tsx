@@ -5,7 +5,14 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import { routerCart } from '@/views/cart/router'
 import { Link } from 'react-router-dom'
 import '../orderPage.css'
-const infoCustomer = [
+
+interface InfoCustomer {
+  name: string
+  phone: string
+  address: string
+}
+
+export const infoCustomer: InfoCustomer[] = [
   {
     name: 'Trần Thi Mỹ Xoan',
     phone: '0815142648',
@@ -30,7 +37,6 @@ const infoCustomer = [
 
 function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
   const user = useAppSelector((state) => state.profile.user)
-  console.log(user)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
