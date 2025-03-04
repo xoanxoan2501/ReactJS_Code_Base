@@ -16,6 +16,7 @@ interface ICartStore {
   cart: ICartItem[]
   selectedCartItems: ICartItem[]
   totalPayment: number
+  isLoading: boolean
 }
 
 export const getCartAPI = createAsyncThunk('cart/getCart', async () => {
@@ -27,7 +28,8 @@ const initialState: ICartStore = {
   cartId: null,
   cart: [],
   selectedCartItems: [],
-  totalPayment: 0
+  totalPayment: 0,
+  isLoading: false
 }
 
 export const updateProductQuantity = createAsyncThunk(
@@ -65,9 +67,16 @@ const cartStore = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getCartAPI.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getCartAPI.rejected, (state) => {
+        state.isLoading = false
+      })
       .addCase(getCartAPI.fulfilled, (state, action) => {
         state.cart = action.payload.products
         state.cartId = action.payload._id
+        state.isLoading = false
       })
       .addCase(updateProductQuantity.fulfilled, (state, action) => {
         state.cart = action.payload.products

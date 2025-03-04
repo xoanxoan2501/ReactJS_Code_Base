@@ -26,9 +26,6 @@ const CartPage = () => {
   const { cart, cartId, totalPayment, selectedCartItems } = useAppSelector((state) => state.cart)
 
   const navigate = useNavigate()
-  useEffect(() => {
-    dispatch(getCartAPI())
-  }, [dispatch])
 
   const convertData = (): ICartItemDisplay[] => {
     return cart.map((item) => {
@@ -47,6 +44,10 @@ const CartPage = () => {
   }
   useEffect(() => {
     dispatch(resetSelecdCartItem())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getCartAPI())
   }, [dispatch])
 
   const handleRowSelectionModelChange = (selection: GridRowSelectionModel) => {

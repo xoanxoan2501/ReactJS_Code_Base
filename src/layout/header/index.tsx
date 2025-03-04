@@ -20,9 +20,7 @@ const cakeCategories: Array<{
   route?: string
 }> = [
   { title: 'Trang chủ', isMenu: false, route: routerHome.path },
-  { title: 'Bánh sinh nhật', isMenu: true },
-  { title: 'Bánh mì & Bánh mặn', isMenu: true },
-  { title: 'Cookies & minicake', isMenu: true },
+  { title: 'Menu bánh', isMenu: true },
   {
     title: 'Danh mục sản phẩm',
     isMenu: false,
@@ -43,36 +41,25 @@ const Header = () => {
 
   const renderMenu = () => {
     return cakeCategories.map((category, index) => {
-      return (
-        <CakeMenu
-          route={category?.route}
-          isMenu={category.isMenu}
-          key={index}
-          title={category.title}
-        />
-      )
+      return <CakeMenu route={category?.route} isMenu={category.isMenu} key={index} title={category.title} />
     })
   }
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header_top_box">
-          <div className="header_top container">
-            <div className="header_top_right">
+    <header className='header'>
+      <div className='container'>
+        <div className='header_top_box'>
+          <div className='header_top container'>
+            <div className='header_top_right'>
               <img
                 src={imageLogo}
-                alt="logo"
-                className="header_logo icon_hover"
+                alt='logo'
+                className='header_logo icon_hover'
                 onClick={() => navigate(routerHome.path)}
               />
-              <img
-                src={searchIcon}
-                alt="search"
-                className="header_search_icon icon_hover"
-              />
+              <img src={searchIcon} alt='search' className='header_search_icon icon_hover' />
             </div>
-            <div className="header_top_left">
+            <div className='header_top_left'>
               <div
                 onClick={() => {
                   if (accessToken && user) {
@@ -81,29 +68,26 @@ const Header = () => {
                     toast.error('Vui lòng đăng nhập để xem giỏ hàng')
                   }
                 }}
-                className="header_top_left_first"
+                className='header_top_left_first'
               >
-                <img src={cartIcon} alt="cart" className="icon_hover" />
+                <img src={cartIcon} alt='cart' className='icon_hover' />
               </div>
-              <div className="header_top_left_second">
-                <img src={phoneIcon} alt="phone" className="icon_hover" />
-                <div className="header_top_left_second_content">
+              <div className='header_top_left_second'>
+                <img src={phoneIcon} alt='phone' className='icon_hover' />
+                <div className='header_top_left_second_content'>
                   <span>0949825991</span>
                 </div>
               </div>
-              <div className="header_top_left_third">
+              <div className='header_top_left_third'>
                 {accessToken && user ? (
                   <>
                     <UserAvatar />
-                    <div className="header_top_left_third_content">
+                    <div className='header_top_left_third_content'>
                       <span>Tài khoản</span>
                     </div>
                   </>
                 ) : (
-                  <CustomButton
-                    variant="outlined"
-                    onClick={() => navigate(routerLogin.path)}
-                  >
+                  <CustomButton variant='outlined' onClick={() => navigate(routerLogin.path)}>
                     Login
                   </CustomButton>
                 )}
@@ -111,7 +95,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-        <div className="header_bottom">{renderMenu()}</div>
+        <div className='header_bottom'>{renderMenu()}</div>
       </div>
     </header>
   )

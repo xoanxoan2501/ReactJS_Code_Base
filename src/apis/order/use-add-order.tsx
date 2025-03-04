@@ -1,6 +1,6 @@
 import httpRepoInstance from '@/core/http/http'
 import { useMutation } from '@tanstack/react-query'
-import { Order } from '.'
+import { Order } from './index'
 
 export const useAddOrder = () => {
   return useMutation({

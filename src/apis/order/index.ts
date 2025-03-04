@@ -12,7 +12,7 @@ export interface Order {
   trackingNumber: string
   paymentMethod: string
   paymentDate?: string
-  userId: string
+  userId?: string
   orderDetails: OrderDetail[]
 }
 
