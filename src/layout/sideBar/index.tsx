@@ -5,9 +5,7 @@ import { routerPaymentUser } from '@/views/AccountUser/PaymentUser/router'
 import { routerAccountInfo } from '@/views/Profile/router'
 import { routerVoucherWallet } from '@/views/AccountUser/VoucherWallet/router'
 import { Box, Stack, Typography } from '@mui/material'
-
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const tabs = [
   { label: 'Thông tin tài khoản', path: routerAccountInfo.path },
@@ -19,32 +17,29 @@ const tabs = [
 ]
 
 const SideBar = () => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const navigate = useNavigate()
+  const location = useLocation()
 
-  const handleNavigation = (index: number, path: string) => {
-    setSelectedIndex(index)
-    navigate(path) // Chuyển hướng trang
-  }
+  const isPurchaseActive = location.pathname.startsWith('/purchase')
+
   const renderSideBarItems = () => {
     return tabs.map((tab, index) => {
+      const isActive = tab.path === location.pathname || (tab.path === routerPurchase.path && isPurchaseActive)
+
       return (
         <Box
+          key={index}
           sx={{
             paddingTop: '1rem',
             paddingBottom: '1rem',
-
             borderBottom: '0.5px solid #DC567A',
             width: '100%',
             textAlign: 'center',
-            '&:hover': {
-              color: '#DC567A'
-            },
+            '&:hover': { color: '#DC567A' },
             cursor: 'pointer',
-            color: selectedIndex === index ? '#DC567A' : 'inherit'
+            color: isActive ? '#DC567A' : 'inherit'
           }}
-          onClick={() => handleNavigation(index, tab.path)}
-          key={index}
+          onClick={() => navigate(tab.path)}
         >
           <Typography variant='h6'>{tab.label}</Typography>
         </Box>
@@ -79,12 +74,7 @@ const SideBar = () => {
           marginTop: '0rem !important'
         }}
       >
-        <Typography
-          sx={{
-            fontWeight: 'bold'
-          }}
-          variant='h5'
-        >
+        <Typography sx={{ fontWeight: 'bold' }} variant='h5'>
           Tài khoản
         </Typography>
       </Box>

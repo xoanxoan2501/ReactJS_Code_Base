@@ -33,11 +33,19 @@ const initialState: ICartStore = {
 export const updateProductQuantity = createAsyncThunk(
   'cart/updateProductQuantity',
   async (data: { productId: string; quantity: number; size: string }) => {
-    const response = await httpRepoInstance.post('/cart/edit-cart', data)
+    const response = await httpRepoInstance.put('/cart/edit-cart', data)
     return response.data
   }
 )
-
+export const deleteCartItem = createAsyncThunk(
+  'cart/deleteCartItem',
+  async ({ productId, size }: { productId: string; size: string }) => {
+    await httpRepoInstance.delete(`/cart/delete-cart`, {
+      data: { productId, size }
+    })
+    return productId
+  }
+)
 const cartStore = createSlice({
   name: 'cart',
   initialState: initialState,
@@ -52,6 +60,7 @@ const cartStore = createSlice({
       state.cartId = action.payload._id
       state.cart = action.payload.products
     },
+
     handleRowSelectionChange: (state, action: PayloadAction<GridRowSelectionModel>) => {
       state.selectedCartItems = state.cart.filter((item) => {
         return action.payload.includes(item.productId as GridRowId)
@@ -71,6 +80,9 @@ const cartStore = createSlice({
       })
       .addCase(updateProductQuantity.fulfilled, (state, action) => {
         state.cart = action.payload.products
+      })
+      .addCase(deleteCartItem.fulfilled, (state, action) => {
+        state.cart = state.cart.filter((item) => item.productId !== action.payload)
       })
   }
 })

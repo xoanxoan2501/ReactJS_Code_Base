@@ -4,13 +4,17 @@ import './DetailPurchase.css'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import { Typography } from '@mui/material'
 import TableProductOrder from '../component/tableProductOrder'
+import { Link } from 'react-router-dom'
+import { routerPurchase } from '../router'
 function DetailPurchase() {
   return (
     <LayoutBox>
-      <div className='container-order'>
-        <div className='back-icons'>
-          <KeyboardBackspaceIcon sx={{ fontSize: '30px', color: '#DC567A' }} />
-        </div>
+      <div className='container-order11'>
+        <Link to={routerPurchase.path}>
+          <div className='back-icons'>
+            <KeyboardBackspaceIcon sx={{ fontSize: '30px', color: '#DC567A' }} />
+          </div>
+        </Link>
         <Typography className='typograpy-detals'>Chi tiết đơn hàng : #DD1111222</Typography>
         <LocalShippingIcon sx={{ color: '#DC567A', fontSize: '50px' }} />
       </div>

@@ -3,9 +3,11 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useNavigate } from 'react-router-dom'
 import iconDecreaseCart from '@/assets/icons/iconDecreaseCart.png'
 import iconIncreaseCart from '@/assets/icons/iconIncreaseCart.png'
-import { useAppDispatch } from '@/shared/hook/reduxHooks'
-import { updateProductQuantity } from '@/apis/cart'
-
+import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
+import { getCartAPI, updateProductQuantity } from '@/apis/cart'
+import { deleteCartItemApi } from '@/apis/cart/api'
+import { toast } from 'react-toastify'
+import Swal from 'sweetalert2'
 export const RenderProductImage = (params: GridRenderCellParams) => {
   const navigate = useNavigate()
 
@@ -35,7 +37,17 @@ export const RenderProductImage = (params: GridRenderCellParams) => {
   )
 }
 
-const ActionIcon = ({ icon, title, actionKey }: { icon: string; title: string; actionKey: string }) => {
+const ActionIcon = ({
+  icon,
+  title,
+  actionKey,
+  onClick
+}: {
+  icon: string
+  title: string
+  actionKey: string
+  onClick: () => void
+}) => {
   return (
     <img
       src={icon}
@@ -43,24 +55,70 @@ const ActionIcon = ({ icon, title, actionKey }: { icon: string; title: string; a
       style={{ width: 24, height: 24, cursor: 'pointer' }}
       onClick={(event) => {
         event.stopPropagation()
+        onClick()
       }}
     />
   )
 }
 
 export const renderAction = (params: GridRenderCellParams) => {
+  const dispatch = useAppDispatch()
+
+  const handleDelete = async () => {
+    const result = await Swal.fire({
+      title: 'Bạn có chắc muốn xóa sản phẩm này ra khỏi giỏ hàng',
+      text: 'Hành động này không thể hoàn tác!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Xóa',
+      cancelButtonText: 'Hủy',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6'
+    })
+
+    if (result.isConfirmed) {
+      try {
+        await deleteCartItemApi(params.row._id, params.row.size) // Gọi API xóa
+        dispatch(getCartAPI()) // Cập nhật lại giỏ hàng
+        Swal.fire('Đã xóa!', 'Sản phẩm đã được xóa khỏi giỏ hàng.', 'success')
+      } catch (error) {
+        Swal.fire('Lỗi!', 'Xóa sản phẩm thất bại. Vui lòng thử lại!', 'error')
+        console.error('Failed to delete cart item:', error)
+      }
+    }
+  }
+
   return (
-    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center' justifyContent={'center'}>
+    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center' justifyContent='center'>
       {params.value?.map((action: { title: string; icon: string; key: string }) => (
-        <ActionIcon key={action.key} icon={action.icon} title={action.title} actionKey={action.title} />
+        <ActionIcon
+          key={action.key}
+          icon={action.icon}
+          title={action.title}
+          actionKey={action.title}
+          onClick={handleDelete}
+        />
       ))}
     </Stack>
   )
 }
 
 export const RenderQuantity = (params: GridRenderCellParams) => {
-  console.log('🚀 ~ RenderQuantity ~ params:', params)
   const dispatch = useAppDispatch()
+
+  const handleUpdateQuantity = (newQuantity: number) => {
+    if (newQuantity < 1) return
+
+    console.log('🚀 ~ RenderQuantity ~ params:', params)
+
+    const data = {
+      productId: params.row._id,
+      quantity: newQuantity,
+      size: params.row.size
+    }
+
+    dispatch(updateProductQuantity(data))
+  }
 
   return (
     <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center' justifyContent={'center'}>
@@ -70,7 +128,7 @@ export const RenderQuantity = (params: GridRenderCellParams) => {
         style={{ width: 16, height: 16, cursor: 'pointer' }}
         onClick={(event) => {
           event.stopPropagation()
-          // dispatch(updateProductQuantity({}))
+          handleUpdateQuantity(params.value - 1)
         }}
       />
       <Typography variant='subtitle1'>{params.value}</Typography>
@@ -80,6 +138,7 @@ export const RenderQuantity = (params: GridRenderCellParams) => {
         style={{ width: 16, height: 16, cursor: 'pointer' }}
         onClick={(event) => {
           event.stopPropagation()
+          handleUpdateQuantity(params.value + 1)
         }}
       />
     </Stack>
