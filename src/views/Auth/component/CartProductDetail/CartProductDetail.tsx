@@ -137,6 +137,7 @@ function CartProductDetail({
                 type='number'
                 value={quantity}
                 onChange={(e) => setQuantity(Number(e.target.value))}
+                inputProps={{ min: '1' }}
               ></TextField>
             </div>
             <div>
