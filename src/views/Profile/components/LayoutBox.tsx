@@ -5,5 +5,5 @@ export const LayoutBox = styled(Box)({
   backgroundColor: '#F2C2CF',
   borderTopRightRadius: '1rem',
   borderBottomRightRadius: '1rem',
-  minHeight: '592px'
+  minHeight: '700px'
 })

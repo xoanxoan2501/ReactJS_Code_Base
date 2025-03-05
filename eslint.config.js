@@ -20,6 +20,7 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
       'react/prop-types': 0,
       'react/display-name': 0,
       'react-hooks/rules-of-hooks': 'error',
@@ -33,7 +34,6 @@ export default tseslint.config(
       ],
       'no-console': 1,
       'no-lonely-if': 1,
-      'no-unused-vars': 1,
       'no-trailing-spaces': 1,
       'no-multi-spaces': 1,
       'no-multiple-empty-lines': 1,

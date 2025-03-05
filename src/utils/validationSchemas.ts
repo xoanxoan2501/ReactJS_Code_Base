@@ -29,10 +29,7 @@ export type ResetPasswordSchemaType = z.infer<typeof resetPasswordSchema>
 export const registerSchema = z
   .object({
     fullname: z.string().nonempty('Vui lòng nhập họ tên'),
-    email: z
-      .string()
-      .email('Email không hợp lệ')
-      .nonempty('Vui lòng nhập email'),
+    email: z.string().email('Email không hợp lệ').nonempty('Vui lòng nhập email'),
     phoneNumber: z.string().nonempty('Vui lòng nhập số điện thoại'),
     address: z.string().nonempty('Vui lòng nhập địa chỉ'),
     district: z.string().nonempty('Vui lòng chọn quận/huyện'),
@@ -45,3 +42,12 @@ export const registerSchema = z
   })
 
 export type RegisterSchemaType = z.infer<typeof registerSchema>
+
+export const editAddressSchema = z.object({
+  fullname: z.string().nonempty('Vui lòng nhập họ tên'),
+  phoneNumber: z.string().nonempty('Vui lòng nhập số điện thoại'),
+  address: z.string().nonempty('Vui lòng nhập địa chỉ'),
+  district: z.string().nonempty('Vui lòng chọn quận/huyện')
+})
+
+export type EditAddressSchemaType = z.infer<typeof editAddressSchema>

@@ -6,5 +6,6 @@ export const routerAddress: IRouter = {
   loader: React.lazy(() => import('./Address')),
   exact: true,
   masterLayout: true,
-  showSideBar: true
+  showSideBar: true,
+  generatePath: () => '/address'
 }

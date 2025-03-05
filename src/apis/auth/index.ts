@@ -2,13 +2,7 @@ import lodash from 'lodash'
 
 import { RootState } from '@/modules'
 import UserEntity from '@/modules/user/entity'
-import {
-  createAction,
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-  Selector
-} from '@reduxjs/toolkit'
+import { createAction, createAsyncThunk, createSlice, PayloadAction, Selector } from '@reduxjs/toolkit'
 import httpRepoInstance from '@/core/http/http'
 import { ILogin, IRegister } from '@/modules/authentication/interface'
 
@@ -34,14 +28,11 @@ interface IStore {
   remember: boolean
 }
 
-export const loginAPI = createAsyncThunk(
-  'profile/login',
-  async (data: ILogin) => {
-    const response = await httpRepoInstance.post('/users/login', data)
+export const loginAPI = createAsyncThunk('profile/login', async (data: ILogin) => {
+  const response = await httpRepoInstance.post('/users/login', data)
 
-    return response.data
-  }
-)
+  return response.data
+})
 
 export const logoutAPI = createAsyncThunk('profile/logout', async () => {
   const response = await httpRepoInstance.post('/users/logout')
@@ -49,13 +40,15 @@ export const logoutAPI = createAsyncThunk('profile/logout', async () => {
   return response.data
 })
 
-export const registerAPI = createAsyncThunk(
-  'profile/register',
-  async (data: IRegister) => {
-    const response = await httpRepoInstance.post('/users/register', data)
-    return response.data
-  }
-)
+export const updateProfileAPI = createAsyncThunk('profile/updateProfile', async (data: IRegister) => {
+  const response = await httpRepoInstance.put('/users', data)
+  return response.data
+})
+
+export const registerAPI = createAsyncThunk('profile/register', async (data: IRegister) => {
+  const response = await httpRepoInstance.post('/users/register', data)
+  return response.data
+})
 
 const profileStore = createSlice({
   name: 'profile',
@@ -83,10 +76,7 @@ const profileStore = createSlice({
           listPermissionCode: action.payload.listPermissionCode || []
         })
     },
-    resetToken: (
-      state,
-      action: PayloadAction<{ accessToken: string; refreshToken: string }>
-    ) =>
+    resetToken: (state, action: PayloadAction<{ accessToken: string; refreshToken: string }>) =>
       Object.assign(state, {
         token: action.payload.accessToken,
         refreshToken: action.payload.refreshToken
@@ -156,6 +146,12 @@ const profileStore = createSlice({
 
         return state
       })
+      .addCase(updateProfileAPI.fulfilled, (state, action) => {
+        state.user = {
+          ...state.user,
+          ...action.payload
+        }
+      })
   }
 })
 
@@ -178,21 +174,13 @@ interface IPermissions {
   listPermissionCode: string[]
   status: boolean
 }
-export const PermissionsSelector: Selector<RootState, IPermissions> = (
-  state
-) => {
+export const PermissionsSelector: Selector<RootState, IPermissions> = (state) => {
   return {
     listPermissionCode: state.profile.listPermissionCode || [],
     status: state.profile.statusLogin || false
   }
 }
 
-export const {
-  fetchProfile,
-  resetToken,
-  updateProfile,
-  saveImageGroup,
-  logOut
-} = profileStore.actions
+export const { fetchProfile, resetToken, updateProfile, saveImageGroup, logOut } = profileStore.actions
 
 export default profileStore

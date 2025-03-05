@@ -54,7 +54,7 @@ const SideBar = () => {
         backgroundColor: '#F2C2CF',
         marginTop: '2rem !important',
         borderRadius: '1rem 0 0 1rem',
-        height: '592px',
+        height: '700px',
         alignItems: 'flex-start'
       }}
       direction={'column'}

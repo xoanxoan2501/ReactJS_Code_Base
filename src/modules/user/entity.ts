@@ -25,6 +25,7 @@ class UserEntity {
     address: string
     province: string
     district: string
+    isDefault: boolean
   }>
 
   phoneNumber?: string

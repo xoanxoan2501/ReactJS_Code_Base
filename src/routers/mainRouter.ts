@@ -28,6 +28,7 @@ import { routerVoucherWallet } from '@/views/AccountUser/VoucherWallet/router'
 import { routerNotifications } from '@/views/AccountUser/Notifications/router'
 import { routerPaymentUser } from '@/views/AccountUser/PaymentUser/router'
 import { routerDetailPurchase } from '@/views/AccountUser/purchase/page/router'
+import { routerCreateAddress, routerEditAddress } from '@/views/AccountUser/Address/Edit/router'
 
 const privatePage: IRouter[] = [
   routerCart,
@@ -49,7 +50,9 @@ const privatePage: IRouter[] = [
   routerVoucherWallet,
   routerNotifications,
   routerPaymentUser,
-  routerDetailPurchase
+  routerDetailPurchase,
+  routerEditAddress,
+  routerCreateAddress
 ]
 
 const publicPage: IRouter[] = [

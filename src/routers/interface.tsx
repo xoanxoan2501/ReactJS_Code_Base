@@ -26,7 +26,7 @@ export type IRouter = {
     content?: string
     generatePath?: (params: any) => string
   }
-  generatePath?: (params: any) => string
+  generatePath?: (params?: any) => string
   activePath?: string
   routes?: Array<IRouter>
   external?: boolean
