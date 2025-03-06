@@ -61,7 +61,7 @@ const ActionIcon = ({
   )
 }
 
-export const renderAction = (params: GridRenderCellParams) => {
+export const RenderAction = (params: GridRenderCellParams) => {
   const dispatch = useAppDispatch()
 
   const handleDelete = async () => {
@@ -195,7 +195,7 @@ export const headerConfigs: GridColDef[] = [
     flex: 1,
     align: 'center',
     headerAlign: 'center',
-    renderCell: renderAction
+    renderCell: RenderAction
   }
 ]
 

@@ -2,7 +2,8 @@ import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@m
 import './PaymentInfo.css'
 import { Button } from 'antd'
 import { useState } from 'react'
-import { useAppSelector } from '@/shared/hook/reduxHooks'
+import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
+import { updateOrder } from '@/apis/order'
 
 function PaymentInfo({
   onBack,
@@ -15,7 +16,8 @@ function PaymentInfo({
   setShippingMethod: (method: string) => void
   onComplete: () => void
 }) {
-  const [selectPayment, setSelectPayment] = useState('cod')
+  const paymentMethod = useAppSelector((state) => state.order.orderInfo.paymentMethod)
+  const dispatch = useAppDispatch()
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -92,7 +94,16 @@ function PaymentInfo({
       <div>
         <h5>Phương thức thanh toán </h5>
         <FormControl className='payment-method-container'>
-          <RadioGroup value={selectPayment} onChange={(e) => setSelectPayment(e.target.value)}>
+          <RadioGroup
+            value={paymentMethod}
+            onChange={(e) =>
+              dispatch(
+                updateOrder({
+                  paymentMethod: e.target.value
+                })
+              )
+            }
+          >
             <FormControlLabel
               className='payment-method-item'
               value='cod'
@@ -107,7 +118,7 @@ function PaymentInfo({
             />
           </RadioGroup>
 
-          {selectPayment === 'bank' && (
+          {paymentMethod === 'bank' && (
             <div className='bank-info'>
               <div>
                 <div>Ngân hàng: Sacombank</div>

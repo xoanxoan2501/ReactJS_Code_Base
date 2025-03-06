@@ -29,22 +29,36 @@ interface OrderDetail {
 }
 
 interface OrderState {
-  shippingMethod: string
+  orderInfo: Order
 }
 
 const initialState: OrderState = {
-  shippingMethod: 'cod'
+  orderInfo: {
+    fullName: '',
+    address: '',
+    email: '',
+    phoneNumber: '',
+    total: 0,
+    shippingMethod: '',
+    shippingAddress: '',
+    trackingNumber: '',
+    paymentMethod: '',
+    orderDetails: []
+  }
 }
 
 const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    setShippingMethod: (state, action: PayloadAction<string>) => {
-      state.shippingMethod = action.payload
+    updateOrder: (state, action: PayloadAction<Partial<Order>>) => {
+      state.orderInfo = {
+        ...state.orderInfo,
+        ...action.payload
+      }
     }
   }
 })
 
-export const { setShippingMethod } = orderSlice.actions
+export const { updateOrder } = orderSlice.actions
 export default orderSlice.reducer
