@@ -4,19 +4,35 @@ import { useAppSelector } from '@/shared/hook/reduxHooks'
 import InfoCustomer from './component/InfoCustomer'
 import PaymentInfo from './component/PaymentInfo'
 import { useState } from 'react'
+import CompleteTheOrder from './component/CompleteTheOrder'
 
 function OrderPage() {
   const selectProducts = useAppSelector((state) => state.cart.selectedCartItems)
   const totalPayment = useAppSelector((state) => state.cart.totalPayment)
   const [showPayment, setShowPayment] = useState(false)
+  const [showCompleteOrder, setShowCompleteOrder] = useState(false)
+  const [shippingMethod, setShippingMethod] = useState('oder')
+  const productTotal = selectProducts.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
+  const shippingFee = shippingMethod === 'oder' ? 50000 : 0
+
+  const totalPrice = productTotal + shippingFee
   return (
     <div className='order-page'>
       <div className='info-order'>
-        {!showPayment ? (
-          <InfoCustomer onShowPayment={() => setShowPayment(true)} />
+        {!showCompleteOrder ? (
+          !showPayment ? (
+            <InfoCustomer onShowPayment={() => setShowPayment(true)} />
+          ) : (
+            <PaymentInfo
+              onBack={() => setShowPayment(false)}
+              onComplete={() => setShowCompleteOrder(true)}
+              shippingMethod={shippingMethod}
+              setShippingMethod={setShippingMethod}
+            />
+          )
         ) : (
-          <PaymentInfo onBack={() => setShowPayment(false)} /> // Truyền hàm onBack vào PaymentInfo
+          <CompleteTheOrder />
         )}
       </div>
 
@@ -66,7 +82,7 @@ function OrderPage() {
           </div>
           <div className='tam-tinh'>
             <Typography style={{ fontSize: '20px' }}>Phí vận chuyển</Typography>
-            <Typography style={{ fontSize: '20px' }}>---</Typography>
+            <Typography style={{ fontSize: '20px' }}> {shippingFee} </Typography>
           </div>
           <div className='tam-tinh'>
             <Typography style={{ fontSize: '20px' }}>Voucher</Typography>
@@ -77,7 +93,7 @@ function OrderPage() {
         <div className='tam-tinh'>
           <Typography style={{ fontSize: '20px', fontWeight: 'bold' }}>Tổng tiền</Typography>
           <Typography style={{ fontSize: '20px' }}>
-            {new Intl.NumberFormat('vi-VN').format(totalPayment)}
+            {new Intl.NumberFormat('vi-VN').format(totalPrice)}
             <sup>đ</sup>
           </Typography>
         </div>

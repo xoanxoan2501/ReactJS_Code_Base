@@ -3,49 +3,19 @@ import './PaymentInfo.css'
 import { Button } from 'antd'
 import { useState } from 'react'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
-import { useAddOrder } from '@/apis/order/use-add-order'
-import { infoCustomer } from './InfoCustomer'
-import { toast } from 'react-toastify'
 
-function PaymentInfo({ onBack }: { onBack: () => void }) {
-  const [selectPayment, setSelectPayment] = useState('')
-  const selectProducts = useAppSelector((state) => state.cart.selectedCartItems)
-  const totalPayment = useAppSelector((state) => state.cart.totalPayment)
-  const user = useAppSelector((state) => state.profile.user)
-  const { mutateAsync: addOrder } = useAddOrder()
-
-  const handleAddOrder = async () => {
-    const order = {
-      fullName: infoCustomer[0].name,
-      address: infoCustomer[0].address,
-      email: 'dosidat@gmail.com',
-      phoneNumber: infoCustomer[0].phone,
-      total: totalPayment,
-      shippingMethod: 'oder',
-      shippingAddress: 'thuduc d',
-      trackingNumber: 'fffff d',
-      paymentMethod: selectPayment || 'cod',
-      userId: user?._id || '',
-      orderDetails: selectProducts.map((item) => ({
-        productId: item.productId,
-        title: 'khong co tieu de',
-        quantity: item.quantity,
-        price: item.price,
-        total: item.price * item.quantity,
-        size: item.size,
-        note: 'note'
-      }))
-    }
-    console.log(order)
-    await addOrder(order)
-      .then(() => {
-        toast.success('Đặt hàng thành công')
-        console.log(order)
-      })
-      .catch((error) => {
-        toast.error('Đặt hàng thất bại, bị lỗi: ' + error)
-      })
-  }
+function PaymentInfo({
+  onBack,
+  shippingMethod,
+  setShippingMethod,
+  onComplete
+}: {
+  onBack: () => void
+  shippingMethod: string
+  setShippingMethod: (method: string) => void
+  onComplete: () => void
+}) {
+  const [selectPayment, setSelectPayment] = useState('cod')
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -53,7 +23,12 @@ function PaymentInfo({ onBack }: { onBack: () => void }) {
         <h5> Phương thức nhận hàng </h5>
 
         <FormControl className='payment-method-container'>
-          <RadioGroup aria-labelledby='demo-radio-buttons-group-label' name='radio-buttons-group'>
+          <RadioGroup
+            aria-labelledby='demo-radio-buttons-group-label'
+            name='radio-buttons-group'
+            value={shippingMethod}
+            onChange={(e) => setShippingMethod(e.target.value)}
+          >
             <FormControlLabel
               className='payment-method-item'
               value='oder'
@@ -148,8 +123,8 @@ function PaymentInfo({ onBack }: { onBack: () => void }) {
         <Typography onClick={onBack} sx={{ color: '#0d6efd' }}>
           Quay lại
         </Typography>
-        <Button className='customer-button' onClick={() => handleAddOrder()}>
-          Đặt hàng
+        <Button className='customer-button' onClick={onComplete}>
+          Hoàn tất đơn hàng
         </Button>
       </div>
     </div>

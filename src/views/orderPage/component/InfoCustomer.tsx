@@ -6,44 +6,20 @@ import { routerCart } from '@/views/cart/router'
 import { Link } from 'react-router-dom'
 import '../orderPage.css'
 
-interface InfoCustomer {
-  name: string
-  phone: string
-  address: string
-}
-
-export const infoCustomer: InfoCustomer[] = [
-  {
-    name: 'Trần Thi Mỹ Xoan',
-    phone: '0815142648',
-    address: '37 đường số 9, Bình Thọ, Thủ Đức'
-  },
-  {
-    name: 'Nguyễn Văn A',
-    phone: '0905123456',
-    address: '12 Lê Lợi, Quận 1, TP. HCM'
-  },
-  {
-    name: 'Lê Thị B',
-    phone: '0987987654',
-    address: '25 Nguyễn Trãi, Quận 5, TP. HCM'
-  },
-  {
-    name: 'Phạm Văn C',
-    phone: '0977567890',
-    address: '89 Trần Hưng Đạo, Quận 10, TP. HCM'
-  }
-]
-
 function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
   const user = useAppSelector((state) => state.profile.user)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-
+  const [selectedAddress, setSelectedAddress] = useState(user?.addresses?.find((addr) => addr.isDefault) || null)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
   const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleSelectAddress = (address: any) => {
+    setSelectedAddress(address)
     setAnchorEl(null)
   }
 
@@ -59,7 +35,8 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           variant='outlined'
           className='textField'
           sx={{ width: '90%' }}
-          value={user?.fullname}
+          InputProps={{ readOnly: true }}
+          value={selectedAddress?.fullname || user?.fullname}
         />
         <IconButton onClick={handleClick}>
           <AccountBoxIcon className='icon-account' />
@@ -81,11 +58,17 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
         disableScrollLock
       >
         <Box sx={{ padding: 2, minWidth: 300 }}>
-          {infoCustomer.map((customer, index) => (
-            <Box key={index} sx={{ marginTop: 1, padding: 1, borderBottom: '1px solid #ddd' }}>
-              <Typography variant='subtitle1'>{customer.name}</Typography>
-              <Typography variant='body2'>SĐT: {customer.phone}</Typography>
-              <Typography variant='body2'>Địa chỉ: {customer.address}</Typography>
+          {user?.addresses?.map((address: any, index: number) => (
+            <Box
+              key={index}
+              sx={{ marginTop: 1, padding: 1, borderBottom: '1px solid #ddd', cursor: 'pointer' }}
+              onClick={() => handleSelectAddress(address)}
+            >
+              <Typography variant='subtitle1'>{address.fullname}</Typography>
+              <Typography variant='body2'>SĐT: {address.phoneNumber}</Typography>
+              <Typography variant='body2'>Địa chỉ: {address.address}</Typography>
+              <Typography variant='body2'>Quận/Huyện: {address.district}</Typography>
+              <Typography variant='body2'>Tỉnh/Thành phố: {address.province}</Typography>
             </Box>
           ))}
         </Box>
@@ -97,6 +80,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           variant='outlined'
           className='textField'
           sx={{ width: '70%' }}
+          InputProps={{ readOnly: true }}
           value={user?.email}
         />
         <TextField
@@ -104,11 +88,19 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           variant='outlined'
           className='textField'
           sx={{ width: '30%' }}
-          value={user?.phoneNumber}
+          value={selectedAddress?.phoneNumber || user?.phoneNumber}
+          InputProps={{ readOnly: true }}
         />
       </Box>
       <Box>
-        <TextField label='Địa chỉ' variant='outlined' className='textField' sx={{ width: '100%' }} />
+        <TextField
+          label='Địa chỉ'
+          variant='outlined'
+          className='textField'
+          sx={{ width: '100%' }}
+          InputProps={{ readOnly: true }}
+          value={selectedAddress?.address || user?.address}
+        />
       </Box>
       <Box className='registerRow'>
         <TextField
@@ -125,7 +117,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           label='Quận/Huyện'
           InputProps={{ readOnly: true }}
           variant='outlined'
-          value='Thu Duc'
+          value={selectedAddress?.district || user?.district}
         />
       </Box>
       <Box className='delivery-time'>
