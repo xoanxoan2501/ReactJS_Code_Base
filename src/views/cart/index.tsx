@@ -15,6 +15,7 @@ interface ICartItemDisplay {
     title: string
     thumbnail: string
   }
+  productId: string
   size: string
   price: number
   quantity: number
@@ -25,12 +26,15 @@ const CartPage = () => {
   const dispatch = useAppDispatch()
   const { cart, cartId, totalPayment, selectedCartItems } = useAppSelector((state) => state.cart)
 
+  console.log('cart', cart)
+
   const navigate = useNavigate()
 
   const convertData = (): ICartItemDisplay[] => {
     return cart.map((item) => {
       return {
-        _id: item.productId,
+        _id: `${item.productId}-${item.size}`,
+        productId: item.productId,
         product: {
           title: item.title,
           thumbnail: item.thumbnail
@@ -51,7 +55,11 @@ const CartPage = () => {
   }, [dispatch])
 
   const handleRowSelectionModelChange = (selection: GridRowSelectionModel) => {
-    dispatch(handleRowSelectionChange(selection))
+    const selectedItems = selection.map((id) => {
+      const [productId, size] = id.toString().split('-')
+      return { productId, size }
+    })
+    dispatch(handleRowSelectionChange(selectedItems))
   }
 
   const handleCheckout = () => {

@@ -23,12 +23,17 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Checkbox, FormControlLabel } from '@mui/material'
 import { CustomButton } from '@/layout/header'
-import { useAppSelector } from '@/shared/hook/reduxHooks'
-import { useParams } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
+import { useNavigate, useParams } from 'react-router-dom'
+import { cloneDeep } from 'lodash'
+import { updateProfileAPI } from '@/apis/auth'
+import Swal from 'sweetalert2'
 
 const EditAddress: FC = () => {
   const [districts, setDistricts] = useState<string[]>([])
   const addresses = useAppSelector((state) => state.profile.user?.addresses)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const { index: addresIndex } = useParams()
 
@@ -38,7 +43,8 @@ const EditAddress: FC = () => {
       phoneNumber: '',
       district: '',
       address: '',
-      isDefault: false
+      isDefault: false,
+      province: 'Thành phố Hồ Chí Minh'
     },
     validationSchema: Yup.object({
       fullname: Yup.string().required('Vui lòng nhập họ tên'),
@@ -47,7 +53,25 @@ const EditAddress: FC = () => {
       address: Yup.string().required('Vui lòng nhập địa chỉ')
     }),
     onSubmit: (values) => {
-      console.log(values)
+      if (addresIndex) {
+        console.log('Chỉnh sửa địa chỉ:', values)
+      } else {
+        const addressesToUpdate = cloneDeep(addresses)
+        if (values.isDefault) {
+          addressesToUpdate?.forEach((address) => {
+            address.isDefault = false
+          })
+        }
+
+        addressesToUpdate?.push(values)
+
+        dispatch(updateProfileAPI({ addresses: addressesToUpdate }))
+        Swal.fire('Đã thêm!', 'Đãn thêm địa chỉ mới!', 'success')
+        const path = routerAddress.generatePath?.()
+        if (path) {
+          navigate(path)
+        }
+      }
     }
   })
 
@@ -75,7 +99,8 @@ const EditAddress: FC = () => {
         phoneNumber: address.phoneNumber,
         district: address.district,
         address: address.address,
-        isDefault: address.isDefault
+        isDefault: address.isDefault,
+        province: 'Thành phố Hồ Chí Minh'
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

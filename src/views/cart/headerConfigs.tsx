@@ -15,7 +15,7 @@ export const RenderProductImage = (params: GridRenderCellParams) => {
     <Stack
       onClick={(event) => {
         event.stopPropagation()
-        navigate(`/product/${params?.row?._id}`)
+        navigate(`/product/${params?.row?.productId}`)
       }}
       sx={{
         height: '100%',
@@ -78,7 +78,7 @@ export const renderAction = (params: GridRenderCellParams) => {
 
     if (result.isConfirmed) {
       try {
-        await deleteCartItemApi(params.row._id, params.row.size) // Gọi API xóa
+        await deleteCartItemApi(params.row.productId, params.row.size) // Gọi API xóa
         dispatch(getCartAPI()) // Cập nhật lại giỏ hàng
         Swal.fire('Đã xóa!', 'Sản phẩm đã được xóa khỏi giỏ hàng.', 'success')
       } catch (error) {
@@ -112,7 +112,7 @@ export const RenderQuantity = (params: GridRenderCellParams) => {
     console.log('🚀 ~ RenderQuantity ~ params:', params)
 
     const data = {
-      productId: params.row._id,
+      productId: params.row.productId,
       quantity: newQuantity,
       size: params.row.size
     }

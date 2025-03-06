@@ -40,7 +40,7 @@ export const logoutAPI = createAsyncThunk('profile/logout', async () => {
   return response.data
 })
 
-export const updateProfileAPI = createAsyncThunk('profile/updateProfile', async (data: IRegister) => {
+export const updateProfileAPI = createAsyncThunk('profile/updateProfile', async (data: Partial<UserEntity>) => {
   const response = await httpRepoInstance.put('/users', data)
   return response.data
 })

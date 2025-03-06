@@ -63,9 +63,19 @@ const cartStore = createSlice({
       state.cart = action.payload.products
     },
 
-    handleRowSelectionChange: (state, action: PayloadAction<GridRowSelectionModel>) => {
+    handleRowSelectionChange: (
+      state,
+      action: PayloadAction<
+        {
+          productId: string
+          size: string
+        }[]
+      >
+    ) => {
       state.selectedCartItems = state.cart.filter((item) => {
-        return action.payload.includes(item.productId as GridRowId)
+        return action.payload.some((selectedItem) => {
+          return item.productId === selectedItem.productId && item.size === selectedItem.size
+        })
       })
       state.totalPayment = state.selectedCartItems.reduce((total, item) => total + item.price * item.quantity, 0)
     },
