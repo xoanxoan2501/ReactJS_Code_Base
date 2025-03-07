@@ -62,6 +62,12 @@ const cartStore = createSlice({
       state.cartId = action.payload._id
       state.cart = action.payload.products
     },
+    removeMultipleCartItems: (state, action: PayloadAction<{ productId: string; size: string }[]>) => {
+      state.cart = state.cart.filter(
+        (item) =>
+          !action.payload.some((selected) => item.productId === selected.productId && item.size === selected.size)
+      )
+    },
 
     handleRowSelectionChange: (
       state,
@@ -106,6 +112,7 @@ const cartStore = createSlice({
   }
 })
 
-export const { addCart, removeCart, setCart, handleRowSelectionChange, resetSelecdCartItem } = cartStore.actions
+export const { addCart, removeCart, setCart, handleRowSelectionChange, removeMultipleCartItems, resetSelecdCartItem } =
+  cartStore.actions
 
 export const cartReducer = cartStore.reducer

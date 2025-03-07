@@ -16,8 +16,9 @@ function PaymentInfo({
   setShippingMethod: (method: string) => void
   onComplete: () => void
 }) {
-  const paymentMethod = useAppSelector((state) => state.order.orderInfo.paymentMethod)
   const dispatch = useAppDispatch()
+  const paymentMethod = useAppSelector((state) => state.order.orderInfo.paymentMethod)
+  shippingMethod = useAppSelector((state) => state.order.orderInfo.shippingMethod)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -29,11 +30,17 @@ function PaymentInfo({
             aria-labelledby='demo-radio-buttons-group-label'
             name='radio-buttons-group'
             value={shippingMethod}
-            onChange={(e) => setShippingMethod(e.target.value)}
+            onChange={(e) =>
+              dispatch(
+                updateOrder({
+                  shippingMethod: e.target.value
+                })
+              )
+            }
           >
             <FormControlLabel
               className='payment-method-item'
-              value='oder'
+              value='Giao hàng nhanh'
               control={<Radio />}
               label={
                 <div className='payment-method-item-content'>

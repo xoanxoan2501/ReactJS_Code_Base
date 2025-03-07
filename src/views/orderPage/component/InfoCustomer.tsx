@@ -15,26 +15,39 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
     setAnchorEl(event.currentTarget)
   }
 
-  const selectedAddress = useAppSelector((state) => state.order.orderInfo.defaultAddress)
-
+  const selectedAddress = useAppSelector((state) => state.order.orderInfo)
+  console.log(selectedAddress)
   const handleClose = () => {
     setAnchorEl(null)
   }
 
   const handleSelectAddress = (address: any) => {
-    dispatch(updateOrder({ defaultAddress: address }))
-    setAnchorEl(null)
-  }
-
-  const open = Boolean(anchorEl)
-  const id = open ? 'customer-info-popover' : undefined
-
-  useEffect(() => {
     dispatch(
       updateOrder({
-        defaultAddress: user?.addresses?.find((addr) => addr.isDefault)
+        fullName: address.fullname,
+        phoneNumber: address.phoneNumber,
+        address: address.address,
+        shippingAddress: `${address.address}, ${address.district}, ${address.province}`,
+        email: user?.email || ''
       })
     )
+    setAnchorEl(null)
+  }
+  const open = Boolean(anchorEl)
+  const id = open ? 'customer-info-popover' : undefined
+  useEffect(() => {
+    const defaultAddr = user?.addresses?.find((addr) => addr.isDefault)
+    if (defaultAddr) {
+      dispatch(
+        updateOrder({
+          fullName: defaultAddr.fullname,
+          phoneNumber: defaultAddr.phoneNumber,
+          address: defaultAddr.address,
+          shippingAddress: `${defaultAddr.address}, ${defaultAddr.district}, ${defaultAddr.province}`,
+          email: user?.email || ''
+        })
+      )
+    }
   }, [dispatch, user?.addresses])
 
   return (
@@ -47,7 +60,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           className='textField'
           sx={{ width: '90%' }}
           InputProps={{ readOnly: true }}
-          value={selectedAddress?.fullname || user?.fullname}
+          value={selectedAddress?.fullName || user?.fullname}
         />
         <IconButton onClick={handleClick}>
           <AccountBoxIcon className='icon-account' />
@@ -128,7 +141,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           label='Quận/Huyện'
           InputProps={{ readOnly: true }}
           variant='outlined'
-          value={selectedAddress?.district || user?.district}
+          value={user?.district}
         />
       </Box>
       <Box className='delivery-time'>

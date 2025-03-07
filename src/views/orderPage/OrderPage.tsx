@@ -1,10 +1,11 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
 import './orderPage.css'
-import { useAppSelector } from '@/shared/hook/reduxHooks'
+import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
 import InfoCustomer from './component/InfoCustomer'
 import PaymentInfo from './component/PaymentInfo'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CompleteTheOrder from './component/CompleteTheOrder'
+import { updateOrder } from '@/apis/order'
 
 function OrderPage() {
   const selectProducts = useAppSelector((state) => state.cart.selectedCartItems)
@@ -16,7 +17,36 @@ function OrderPage() {
 
   const shippingFee = shippingMethod === 'oder' ? 50000 : 0
 
+  const dispatch = useAppDispatch()
   const totalPrice = productTotal + shippingFee
+  const orderInfo = useAppSelector((state) => state.order.orderInfo)
+  const [orderDetails, setOrderDetails] = useState(
+    selectProducts.map((item) => ({
+      productId: item.productId,
+      quantity: item.quantity,
+      price: item.price,
+      total: item.price * item.quantity,
+      size: item.size || '',
+      note: '',
+      title: item.title
+    }))
+  )
+  useEffect(() => {
+    dispatch(
+      updateOrder({
+        ...orderInfo,
+        orderDetails,
+        total: totalPrice,
+        shippingMethod
+      })
+    )
+  }, [dispatch, orderDetails, shippingMethod, totalPrice])
+  const handleNoteChange = (productId: string, newNote: string) => {
+    setOrderDetails((prevDetails) =>
+      prevDetails.map((product) => (product.productId === productId ? { ...product, note: newNote } : product))
+    )
+  }
+
   return (
     <div className='order-page'>
       <div className='info-order'>
@@ -54,6 +84,8 @@ function OrderPage() {
                   variant='outlined'
                   size='small'
                   sx={{ width: '100%' }}
+                  value={orderDetails.find((product) => product.productId === item.productId)?.note || ''}
+                  onChange={(e) => handleNoteChange(item.productId, e.target.value)}
                 />
               </div>
               <Typography className='price-order' style={{ fontSize: '18px' }}>

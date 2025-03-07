@@ -7,6 +7,7 @@ export interface Order {
   phoneNumber: string
   orderDate?: string
   status?: string
+
   total: number
   shippingMethod: string
   shippingAddress: string
@@ -16,23 +17,15 @@ export interface Order {
   paymentDate?: string
   userId?: string
   orderDetails: OrderDetail[]
-  defaultAddress?: {
-    address: string
-    district: string
-    fullname: string
-    phoneNumber: string
-    province: string
-    isDefault: boolean
-  }
 }
 
 interface OrderDetail {
   productId: string
-  title: string
   quantity: number
   price: number
   total: number
   size: string
+  title: string
   note: string
 }
 
@@ -49,17 +42,9 @@ const initialState: OrderState = {
     total: 0,
     shippingMethod: '',
     shippingAddress: '',
-    trackingNumber: '',
+    trackingNumber: 'TRACK123456',
     paymentMethod: '',
-    orderDetails: [],
-    defaultAddress: {
-      address: '',
-      district: '',
-      fullname: '',
-      phoneNumber: '',
-      province: '',
-      isDefault: false
-    }
+    orderDetails: []
   }
 }
 
