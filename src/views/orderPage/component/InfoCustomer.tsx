@@ -1,30 +1,41 @@
-import { useAppSelector } from '@/shared/hook/reduxHooks'
+import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
 import { Box, Button, IconButton, Popover, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import { routerCart } from '@/views/cart/router'
 import { Link } from 'react-router-dom'
 import '../orderPage.css'
+import { updateOrder } from '@/apis/order'
 
 function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
   const user = useAppSelector((state) => state.profile.user)
+  const dispatch = useAppDispatch()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const [selectedAddress, setSelectedAddress] = useState(user?.addresses?.find((addr) => addr.isDefault) || null)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
+
+  const selectedAddress = useAppSelector((state) => state.order.orderInfo.defaultAddress)
 
   const handleClose = () => {
     setAnchorEl(null)
   }
 
   const handleSelectAddress = (address: any) => {
-    setSelectedAddress(address)
+    dispatch(updateOrder({ defaultAddress: address }))
     setAnchorEl(null)
   }
 
   const open = Boolean(anchorEl)
   const id = open ? 'customer-info-popover' : undefined
+
+  useEffect(() => {
+    dispatch(
+      updateOrder({
+        defaultAddress: user?.addresses?.find((addr) => addr.isDefault)
+      })
+    )
+  }, [dispatch, user?.addresses])
 
   return (
     <div>
