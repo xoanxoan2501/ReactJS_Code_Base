@@ -54,7 +54,23 @@ const EditAddress: FC = () => {
     }),
     onSubmit: (values) => {
       if (addresIndex) {
-        console.log('Chỉnh sửa địa chỉ:', values)
+        if (!addresses) return
+
+        const addressesToUpdate = cloneDeep(addresses)
+
+        if (values.isDefault) {
+          addressesToUpdate.forEach((address) => {
+            address.isDefault = false
+          })
+        }
+
+        addressesToUpdate[parseInt(addresIndex)] = values
+        dispatch(updateProfileAPI({ addresses: addressesToUpdate }))
+        Swal.fire('Đã cập nhật!', 'Đã cập nhật địa chỉ!', 'success')
+        const path = routerAddress.generatePath?.()
+        if (path) {
+          navigate(path)
+        }
       } else {
         const addressesToUpdate = cloneDeep(addresses)
         if (values.isDefault) {
@@ -66,7 +82,7 @@ const EditAddress: FC = () => {
         addressesToUpdate?.push(values)
 
         dispatch(updateProfileAPI({ addresses: addressesToUpdate }))
-        Swal.fire('Đã thêm!', 'Đãn thêm địa chỉ mới!', 'success')
+        Swal.fire('Đã thêm!', 'Đã thêm địa chỉ mới!', 'success')
         const path = routerAddress.generatePath?.()
         if (path) {
           navigate(path)
