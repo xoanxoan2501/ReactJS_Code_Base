@@ -91,6 +91,10 @@ const CartPage = () => {
             rows={convertData()}
             checkBoxColor='#F2C2CF'
             checkBoxBorderWidth='2px'
+            disableColumnMenu
+            disableColumnResize
+            disableColumnSorting
+            hideFooter
             sx={{
               '& .MuiDataGrid-row:hover': {
                 backgroundColor: '#f5f5f5'
@@ -116,6 +120,7 @@ const CartPage = () => {
               marginRight: '2rem'
             }}
           >
+            Tổng tiền:{' '}
             <Typography
               sx={{
                 marginLeft: '0.875rem',

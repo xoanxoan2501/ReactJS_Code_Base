@@ -28,9 +28,10 @@ interface DataGridTableProps {
   getRowId?: GridRowIdGetter<any> | undefined
   checkBoxColor?: string
   checkBoxBorderWidth?: string
-  autoPageSize?: boolean
-  disableColumnMenu?: boolean
   disableColumnFilter?: boolean
+  disableColumnResize?: boolean
+  disableColumnMenu?: boolean
+  disableColumnSorting?: boolean
   hideFooter?: boolean
 }
 
@@ -84,62 +85,47 @@ const DataGridTable = ({
   getRowId,
   checkBoxColor,
   checkBoxBorderWidth,
-  autoPageSize,
-  disableColumnFilter,
-  disableColumnMenu,
-  hideFooter,
   sx
 }: DataGridTableProps) => {
   return (
-    <div style={{ width: '100%', overflowX: 'auto' }}>
-      <DataGrid
-        rows={rows}
-        columns={headerConfigs}
-        paginationModel={paginationModel}
-        pageSizeOptions={pageSizeOptions}
-        onPaginationModelChange={onPaginationModelChange}
-        onRowSelectionModelChange={onRowSelectionModelChange}
-        checkboxSelection={checkboxSelection || true}
-        localeText={localeText || vietnameseLocaleText}
-        getRowHeight={getRowHeight}
-        disableColumnResize={false}
-        disableColumnFilter={disableColumnFilter}
-        disableColumnMenu={disableColumnMenu}
-        hideFooter={hideFooter}
-        autoPageSize={autoPageSize}
-        getRowId={getRowId}
-        slotProps={
-          slotProps || {
-            baseCheckbox: {
-              icon: <BoxIcon color={checkBoxColor} borderWidth={checkBoxBorderWidth} />,
-              checkedIcon: <CheckBoxIcon color={checkBoxColor} borderWidth={checkBoxBorderWidth} />
-            }
+    <DataGrid
+      rows={rows}
+      columns={headerConfigs}
+      paginationModel={paginationModel}
+      pageSizeOptions={pageSizeOptions}
+      onPaginationModelChange={onPaginationModelChange}
+      onRowSelectionModelChange={onRowSelectionModelChange}
+      checkboxSelection={checkboxSelection || true}
+      localeText={localeText || vietnameseLocaleText}
+      getRowHeight={getRowHeight}
+      getRowId={getRowId}
+      slotProps={
+        slotProps || {
+          baseCheckbox: {
+            icon: <BoxIcon color={checkBoxColor} borderWidth={checkBoxBorderWidth} />,
+            checkedIcon: <CheckBoxIcon color={checkBoxColor} borderWidth={checkBoxBorderWidth} />
           }
         }
-        sx={{
-          '& .MuiDataGrid-cell:focus': {
-            outline: 'none'
-          },
-          '& .MuiDataGrid-footerContainer': {
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          },
-          '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
-            margin: 0,
-            alignSelf: 'center'
-          },
-          backgroundColor: 'white',
-          minHeight: 550,
-          maxHeight: 550,
-          overflowY: 'auto',
-          overflowX: 'auto',
-          width: '100%',
-          minWidth: '100%',
-          '& .MuiDataGrid-root': { overflowX: 'auto' },
-          ...sx
-        }}
-      />
-    </div>
+      }
+      sx={{
+        '& .MuiDataGrid-cell:focus': {
+          outline: 'none'
+        },
+        '& .MuiDataGrid-footerContainer': {
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        },
+        '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
+          margin: 0,
+          alignSelf: 'center'
+        },
+        backgroundColor: 'white',
+        minHeight: 550,
+        maxHeight: 550,
+        overflowY: 'auto',
+        ...sx
+      }}
+    />
   )
 }
 
