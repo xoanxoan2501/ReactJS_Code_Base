@@ -22,13 +22,15 @@ function VoucherWallet() {
   if (isLoading) return <Typography>Đang tải...</Typography>
   if (error) return <Typography>Lỗi khi tải dữ liệu</Typography>
 
+  console.log('Vouchers:', vouchers)
+
   return (
     <LayoutBox>
       <h3> Ví voucher </h3>
       <Box>
         {vouchers.map((voucher: any) => (
           <Box
-            key={voucher.id}
+            key={voucher._id}
             sx={{
               p: 2,
               mb: 2,
@@ -39,7 +41,7 @@ function VoucherWallet() {
             }}
           >
             <Box sx={{ flex: 1 }}>
-              {expanded === voucher.id ? (
+              {expanded === voucher._id ? (
                 <div>
                   <Typography sx={{ fontWeight: 'bold', color: '#DC567A', fontSize: '30px !important' }}>
                     Mã voucher: {voucher.code}
@@ -90,9 +92,9 @@ function VoucherWallet() {
                   cursor: 'pointer',
                   '&:hover': { color: '#DC567A' }
                 }}
-                onClick={() => setExpanded(expanded === voucher.id ? null : voucher.id)}
+                onClick={() => setExpanded(expanded === voucher._id ? null : voucher._id)}
               >
-                {expanded === voucher.id ? 'Thu gọn' : 'Chi tiết'}
+                {expanded === voucher._id ? 'Thu gọn' : 'Chi tiết'}
               </Typography>
               <Button
                 sx={{
