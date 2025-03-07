@@ -8,6 +8,8 @@ import { getCartAPI, updateProductQuantity } from '@/apis/cart'
 import { deleteCartItemApi } from '@/apis/cart/api'
 import { toast } from 'react-toastify'
 import Swal from 'sweetalert2'
+import { useEffect, useState } from 'react'
+import { useDebounce } from '@/shared/hook/useDebounce'
 export const RenderProductImage = (params: GridRenderCellParams) => {
   const navigate = useNavigate()
 
@@ -105,40 +107,46 @@ export const RenderAction = (params: GridRenderCellParams) => {
 
 export const RenderQuantity = (params: GridRenderCellParams) => {
   const dispatch = useAppDispatch()
+  const [quantity, setQuantity] = useState(params.value)
+  const debouncedQuantity = useDebounce(quantity, 500)
+
+  useEffect(() => {
+    if (debouncedQuantity === params.value) return
+    if (debouncedQuantity < 1) return
+
+    dispatch(
+      updateProductQuantity({
+        productId: params.row.productId,
+        quantity: debouncedQuantity,
+        size: params.row.size
+      })
+    )
+  }, [debouncedQuantity, dispatch, params.row, params.value])
 
   const handleUpdateQuantity = (newQuantity: number) => {
     if (newQuantity < 1) return
-
-    console.log('🚀 ~ RenderQuantity ~ params:', params)
-
-    const data = {
-      productId: params.row.productId,
-      quantity: newQuantity,
-      size: params.row.size
-    }
-
-    dispatch(updateProductQuantity(data))
+    setQuantity(newQuantity)
   }
 
   return (
-    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center' justifyContent={'center'}>
+    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center' justifyContent='center'>
       <img
         src={iconDecreaseCart}
-        alt={'decrease'}
+        alt='decrease'
         style={{ width: 16, height: 16, cursor: 'pointer' }}
         onClick={(event) => {
           event.stopPropagation()
-          handleUpdateQuantity(params.value - 1)
+          handleUpdateQuantity(quantity - 1)
         }}
       />
-      <Typography variant='subtitle1'>{params.value}</Typography>
+      <Typography variant='subtitle1'>{quantity}</Typography>
       <img
         src={iconIncreaseCart}
-        alt={'increase'}
+        alt='increase'
         style={{ width: 16, height: 16, cursor: 'pointer' }}
         onClick={(event) => {
           event.stopPropagation()
-          handleUpdateQuantity(params.value + 1)
+          handleUpdateQuantity(quantity + 1)
         }}
       />
     </Stack>

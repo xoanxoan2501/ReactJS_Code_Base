@@ -99,6 +99,12 @@ const cartStore = createSlice({
       })
       .addCase(updateProductQuantity.fulfilled, (state, action) => {
         state.cart = action.payload.products
+        state.selectedCartItems = state.cart.filter((item) => {
+          return state.selectedCartItems.some((selectedItem) => {
+            return item.productId === selectedItem.productId && item.size === selectedItem.size
+          })
+        })
+        state.totalPayment = state.selectedCartItems.reduce((total, item) => total + item.price * item.quantity, 0)
       })
       .addCase(deleteCartItem.fulfilled, (state, action) => {
         state.cart = state.cart.filter((item) => item.productId !== action.payload)

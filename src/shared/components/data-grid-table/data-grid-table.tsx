@@ -28,6 +28,11 @@ interface DataGridTableProps {
   getRowId?: GridRowIdGetter<any> | undefined
   checkBoxColor?: string
   checkBoxBorderWidth?: string
+  disableColumnFilter?: boolean
+  disableColumnResize?: boolean
+  disableColumnMenu?: boolean
+  disableColumnSorting?: boolean
+  hideFooter?: boolean
 }
 
 const BoxIcon = ({ color, borderWidth }: { color?: string; borderWidth?: string }) => (
@@ -80,6 +85,11 @@ const DataGridTable = ({
   getRowId,
   checkBoxColor,
   checkBoxBorderWidth,
+  disableColumnFilter,
+  disableColumnResize,
+  disableColumnMenu,
+  disableColumnSorting,
+  hideFooter,
   sx
 }: DataGridTableProps) => {
   return (
@@ -93,6 +103,11 @@ const DataGridTable = ({
       checkboxSelection={checkboxSelection || true}
       localeText={localeText || vietnameseLocaleText}
       getRowHeight={getRowHeight}
+      disableColumnFilter={disableColumnFilter}
+      disableColumnResize={disableColumnResize}
+      disableColumnMenu={disableColumnMenu}
+      disableColumnSorting={disableColumnSorting}
+      hideFooter={hideFooter}
       getRowId={getRowId}
       slotProps={
         slotProps || {
@@ -115,7 +130,6 @@ const DataGridTable = ({
           alignSelf: 'center'
         },
         backgroundColor: 'white',
-        minHeight: 550,
         maxHeight: 550,
         overflowY: 'auto',
         ...sx
