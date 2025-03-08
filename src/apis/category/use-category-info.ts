@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import httpRepoInstance from '@/core/http/http'
 
 const categoryKeys = {
-  category: ['category']
+  categories: ['categories']
 }
 
 interface CategoryResponse {
@@ -16,7 +16,7 @@ interface CategoryResponse {
 
 export const useCategoryInfo = () => {
   const query = useQuery({
-    queryKey: categoryKeys.category,
+    queryKey: categoryKeys.categories,
     queryFn: categoryApi.getCategoryInfo
   })
 
@@ -25,7 +25,7 @@ export const useCategoryInfo = () => {
 
 export const categoryApi = {
   async getCategoryInfo(): Promise<CategoryResponse[]> {
-    const res = await httpRepoInstance.get('/categories').then((res) => res.data)
+    const res = await httpRepoInstance.get('/categories/getAll').then((res) => res.data)
     return res
   }
 }

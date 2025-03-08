@@ -6,7 +6,7 @@ interface TextFieldCustomProps extends Omit<TextFieldProps, 'size'> {
   label?: string
   size?: Size
   control: Control<Product>
-  name: keyof Product | `sizes.${number}.price` | `sizes.${number}.size` | `sizes.${number}.stock` // ✅ Hỗ trợ cho mảng
+  name: keyof Product | `sizes.${number}.price` | `sizes.${number}.size` | `sizes.${number}.stock`
 }
 
 interface Size {
@@ -14,7 +14,14 @@ interface Size {
   sm: number
 }
 
-const TextFieldCustom = ({ label, size = { xs: 6, sm: 3 }, control, name, ...rest }: TextFieldCustomProps) => {
+const TextFieldCustom: React.FC<TextFieldCustomProps> = ({
+  label,
+  size = { xs: 6, sm: 3 },
+  control,
+  name,
+  sx,
+  ...rest
+}) => {
   return (
     <Grid item xs={size.xs} sm={size.sm}>
       <Controller
@@ -26,16 +33,17 @@ const TextFieldCustom = ({ label, size = { xs: 6, sm: 3 }, control, name, ...res
             fullWidth
             label={label}
             error={!!fieldState.error}
+            onChange={(e) => field.onChange(e.target.value)} // Đảm bảo giá trị cập nhật đúng
             onBlur={field.onBlur}
-            helperText={
-              fieldState.error
-                ? fieldState.error.message // ✅ Hiển thị lỗi cụ thể từ React Hook Form
-                : ''
-            }
+            value={field.value || ''} // Tránh undefined gây lỗi label
+            helperText={fieldState.error?.message || ''}
+            InputLabelProps={{ shrink: !!field.value }} // Giữ label khi có giá trị
             sx={{
               backgroundColor: 'white',
               outlineColor: 'gray',
-              '& .MuiTextField-root': { color: 'gray' },
+              '& .MuiInputLabel-root': {
+                color: 'gray'
+              },
               '& .MuiInputLabel-root.Mui-focused': {
                 color: 'gray'
               },
@@ -48,12 +56,14 @@ const TextFieldCustom = ({ label, size = { xs: 6, sm: 3 }, control, name, ...res
                 }
               },
               borderRadius: '20px',
-              ...rest.sx
+              ...sx // Giữ sx tùy chỉnh
             }}
+            {...rest}
           />
         )}
       />
     </Grid>
   )
 }
+
 export default TextFieldCustom

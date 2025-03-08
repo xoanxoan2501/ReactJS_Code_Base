@@ -41,7 +41,7 @@ export const ProductSchema = z.object({
   ),
   description: z.string().min(1, 'Bạn cần nhập mô tả sản phẩm'),
   thumbnail: z.union([z.instanceof(Uint8Array), z.string()]), // Hỗ trợ cả link ảnh
-  images: z.array(z.union([z.instanceof(Uint8Array), z.string()])).min(1, 'Bạn cần chọn ít nhất 1 ảnh chi tiết')
+  images: z.array(z.union([z.instanceof(Uint8Array), z.string()])).min(0, 'Bạn cần chọn ít nhất 1 ảnh chi tiết')
 })
 
 export type Product = z.infer<typeof ProductSchema>

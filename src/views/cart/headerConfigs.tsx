@@ -108,7 +108,7 @@ export const RenderAction = (params: GridRenderCellParams) => {
 export const RenderQuantity = (params: GridRenderCellParams) => {
   const dispatch = useAppDispatch()
   const [quantity, setQuantity] = useState(params.value)
-  const debouncedQuantity = useDebounce(quantity, 500)
+  const debouncedQuantity = useDebounce(quantity, 300)
 
   useEffect(() => {
     if (debouncedQuantity === params.value) return
