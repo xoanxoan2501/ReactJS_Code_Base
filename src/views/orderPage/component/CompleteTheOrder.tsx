@@ -1,12 +1,13 @@
+import { updateOrder } from '@/apis/order'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
 import { Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function CompleteTheOrder() {
   const dispatch = useAppDispatch()
   const user = useAppSelector((state) => state.profile.user)
-  const selectedAddress = user?.addresses?.find((addr) => addr.isDefault) || user
+  const selectedAddress = useAppSelector((state) => state.order.orderInfo.defaultAddress)
 
   return (
     <div

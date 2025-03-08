@@ -16,6 +16,14 @@ export interface Order {
   paymentDate?: string
   userId?: string
   orderDetails: OrderDetail[]
+  defaultAddress?: {
+    address: string
+    district: string
+    fullname: string
+    phoneNumber: string
+    province: string
+    isDefault: boolean
+  }
 }
 
 interface OrderDetail {
@@ -43,7 +51,15 @@ const initialState: OrderState = {
     shippingAddress: '',
     trackingNumber: '',
     paymentMethod: '',
-    orderDetails: []
+    orderDetails: [],
+    defaultAddress: {
+      address: '',
+      district: '',
+      fullname: '',
+      phoneNumber: '',
+      province: '',
+      isDefault: false
+    }
   }
 }
 

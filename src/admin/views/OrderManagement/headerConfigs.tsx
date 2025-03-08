@@ -30,6 +30,16 @@ export const headerConfigs: GridColDef[] = [
     resizable: false
   },
   {
+    field: 'customerId',
+    headerName: 'Mã KH',
+    flex: 1,
+    sortable: false,
+    align: 'center',
+    headerAlign: 'center',
+    editable: false,
+    resizable: false
+  },
+  {
     field: 'fullname',
     headerName: 'Họ và tên',
     flex: 1,
