@@ -62,6 +62,8 @@ const ProductTable = () => {
         onPaginationModelChange={(newModel) => setPaginationModel(newModel)}
         onRowSelectionModelChange={(selectedIds) => handleOnRowSelectionModelChange(selectedIds)}
         checkboxSelection
+        disableAutosize
+        disableColumnResize
         paginationMode='server'
         localeText={vietnameseLocaleText}
         getRowHeight={(params) => {

@@ -52,3 +52,13 @@ export const resetPasswordAPI = async (
 
   return response.data
 }
+
+export const changePasswordAPI = async (old_password: string, new_password: string, confirm_password: string) => {
+  const response = await httpRepoInstance.post('/users/change-password', {
+    old_password,
+    new_password,
+    confirm_password
+  })
+
+  return response.data
+}
