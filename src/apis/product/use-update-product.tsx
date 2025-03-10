@@ -25,6 +25,11 @@ import { IProduct } from '.'
 //   _destroy: boolean
 // }
 
+export interface UpdateProductResponse {
+  message: string
+  product: IProduct
+}
+
 interface UpdateProductProps {
   body: FormData
   id: string
@@ -36,7 +41,7 @@ export const useUpdateProduct = () => {
   })
 }
 
-export const updateProductAPI = async (body: FormData, id: string): Promise<IProduct> => {
+export const updateProductAPI = async (body: FormData, id: string): Promise<UpdateProductResponse> => {
   const response = await httpRepoInstance.put(`/products/edit/${id}`, body)
   return response.data
 }

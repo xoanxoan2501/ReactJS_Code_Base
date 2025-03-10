@@ -5,7 +5,13 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import { Button } from 'antd'
 import { Link } from 'react-router-dom'
 import { routerDetailPurchase } from '../page/router'
+import { fetchOrderAPI, useFetchOrders } from '@/apis/order/api'
 function AllPurchase() {
+  const { data: orders, isLoading, isError } = useFetchOrders()
+
+  if (isLoading) return <Typography>Đang tải đơn hàng...</Typography>
+  if (isError) return <Typography>Không thể tải đơn hàng. Vui lòng thử lại!</Typography>
+
   return (
     <Box sx={{ maxHeight: '470px', overflowY: 'auto', padding: '10px' }}>
       <div className='container-order'>
