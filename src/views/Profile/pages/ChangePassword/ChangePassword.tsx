@@ -2,7 +2,12 @@ import { LayoutBox } from '@/views/Profile/components/LayoutBox'
 import { Button, Stack, TextField, Typography } from '@mui/material'
 import iconBack from '@/assets/icons/iconBack.png'
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { set } from 'lodash'
+import { toast } from 'react-toastify'
+import { changePasswordAPI } from '@/apis/auth/api'
+
+// useState, useEffect
 
 const ChangePassword = () => {
   const navigate = useNavigate()
@@ -10,13 +15,25 @@ const ChangePassword = () => {
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const handleChangePassword = async () => {
+    if (newPassword !== confirmPassword) {
+      toast.error('Mật khẩu mới không khớp')
+    }
+
+    const data = await changePasswordAPI(currentPassword, newPassword, confirmPassword)
+
+    toast.success(data.message)
+
+    navigate(-1)
+  }
+
   return (
     <LayoutBox>
       <Stack direction={'column'} sx={{ padding: '2rem' }}>
         <img
           src={iconBack}
-          alt="FaceBook"
-          className="icon_hover"
+          alt='FaceBook'
+          className='icon_hover'
           style={{
             width: '48px',
             height: '48px',
@@ -31,13 +48,8 @@ const ChangePassword = () => {
           spacing={2}
           sx={{ marginTop: '2rem' }}
         >
-          <Stack
-            direction={'row'}
-            spacing={4}
-            alignItems={'center'}
-            sx={{ width: '70%' }}
-          >
-            <Typography sx={{ width: '28%' }} variant="h6">
+          <Stack direction={'row'} spacing={4} alignItems={'center'} sx={{ width: '70%' }}>
+            <Typography sx={{ width: '28%' }} variant='h6'>
               Mật khẩu hiện tại:
             </Typography>
             <TextField
@@ -65,19 +77,14 @@ const ChangePassword = () => {
                 borderColor: 'black',
                 borderRadius: '5px'
               }}
-              id="current-password"
-              type="password"
+              id='current-password'
+              type='password'
               onChange={(e) => setCurrentPassword(e.target.value)}
               value={currentPassword}
             />
           </Stack>
-          <Stack
-            direction={'row'}
-            spacing={4}
-            alignItems={'center'}
-            sx={{ width: '70%' }}
-          >
-            <Typography sx={{ width: '28%' }} variant="h6">
+          <Stack direction={'row'} spacing={4} alignItems={'center'} sx={{ width: '70%' }}>
+            <Typography sx={{ width: '28%' }} variant='h6'>
               Mật khẩu mới:
             </Typography>
             <TextField
@@ -105,19 +112,14 @@ const ChangePassword = () => {
                 borderColor: 'black',
                 borderRadius: '5px'
               }}
-              id="new-password"
-              type="password"
+              id='new-password'
+              type='password'
               onChange={(e) => setNewPassword(e.target.value)}
               value={newPassword}
             />
           </Stack>
-          <Stack
-            direction={'row'}
-            spacing={4}
-            alignItems={'center'}
-            sx={{ width: '70%' }}
-          >
-            <Typography sx={{ width: '28%' }} variant="h6">
+          <Stack direction={'row'} spacing={4} alignItems={'center'} sx={{ width: '70%' }}>
+            <Typography sx={{ width: '28%' }} variant='h6'>
               Xác nhận mật khẩu:
             </Typography>
             <TextField
@@ -145,8 +147,8 @@ const ChangePassword = () => {
                 borderColor: 'black',
                 borderRadius: '5px'
               }}
-              id="confirm-password"
-              type="password"
+              id='confirm-password'
+              type='password'
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
             />
@@ -159,8 +161,9 @@ const ChangePassword = () => {
                   color: 'black'
                 }
               }}
-              variant="contained"
-              type="button"
+              variant='contained'
+              type='button'
+              onClick={handleChangePassword}
             >
               Tiếp tục
             </Button>

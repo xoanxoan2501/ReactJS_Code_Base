@@ -85,6 +85,12 @@ const DataGridTable = ({
   getRowId,
   checkBoxColor,
   checkBoxBorderWidth,
+
+  disableColumnFilter,
+  disableColumnResize,
+  disableColumnMenu,
+  disableColumnSorting,
+  hideFooter,
   sx
 }: DataGridTableProps) => {
   return (

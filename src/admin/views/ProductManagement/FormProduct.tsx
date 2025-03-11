@@ -178,35 +178,38 @@ export default function FormProduct() {
     setSizes([...sizes, { size: '', price: '' }])
   }, [sizes])
 
-  const createFormData = useCallback((data: Product) => {
-    const formData = new FormData()
-    const images: string[] = []
+  const createFormData = useCallback(
+    (data: Product) => {
+      const formData = new FormData()
+      const images: string[] = []
 
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === 'thumbnail' && value instanceof Uint8Array) {
-        formData.append('thumbnail', new Blob([value], { type: 'image/png' }), 'thumbnail.png')
-      } else if (key === 'images' && Array.isArray(value)) {
-        value.forEach((image, index) => {
-          if (image instanceof Uint8Array) {
-            // Nếu là Uint8Array, append như file ảnh
-            formData.append('images', new Blob([image], { type: 'image/png' }), `image_${index}.png`)
-          } else if (typeof image === 'string' && image.startsWith('http')) {
-            // Nếu là URL, thêm vào mảng JSON
-            images.push(image)
+      Object.entries(data).forEach(([key, value]) => {
+        if (key === 'thumbnail' && value instanceof Uint8Array) {
+          formData.append('thumbnail', new Blob([value], { type: 'image/png' }), 'thumbnail.png')
+        } else if (key === 'images' && Array.isArray(value)) {
+          value.forEach((image, index) => {
+            if (image instanceof Uint8Array) {
+              // Nếu là Uint8Array, append như file ảnh
+              formData.append('images', new Blob([image], { type: 'image/png' }), `image_${index}.png`)
+            } else if (typeof image === 'string' && image.startsWith('http')) {
+              // Nếu là URL, thêm vào mảng JSON
+              images.push(image)
+            }
+          })
+          // Nếu có URL, thêm vào FormData dưới dạng JSON string
+          if (images.length > 0 && !isAddPage) {
+            formData.append('imagesURL', JSON.stringify(images))
           }
-        })
-        // Nếu có URL, thêm vào FormData dưới dạng JSON string
-        if (images.length > 0 && !isAddPage) {
-          formData.append('imagesURL', JSON.stringify(images))
+        } else if (key === 'sizes' && Array.isArray(value)) {
+          formData.append('sizes', JSON.stringify(data.sizes))
+        } else if (value !== undefined && value !== null) {
+          formData.append(key, String(value))
         }
-      } else if (key === 'sizes' && Array.isArray(value)) {
-        formData.append('sizes', JSON.stringify(data.sizes))
-      } else if (value !== undefined && value !== null) {
-        formData.append(key, String(value))
-      }
-    })
-    return formData
-  }, [])
+      })
+      return formData
+    },
+    [isAddPage]
+  )
 
   const onSubmit: SubmitHandler<Product> = useCallback(
     (data: Product) => {
@@ -235,22 +238,21 @@ export default function FormProduct() {
       } else {
         UpdateProduct({ body: formData, id: id || '' }).then((res) => {
           toast.success('Cập nhật sản phẩm thành công')
-          setPreviewImages([])
-          setPreviewThumbnail(null)
           reset({
-            title: res.title,
-            code: res.code,
-            categoryId: res.categoryId,
-            description: res.description,
-            thumbnail: res.thumbnail,
-            images: res.images,
-            sizes: res.sizes?.map((size) => ({
+            title: res.product.title,
+            code: res.product.code,
+            categoryId: res.product.categoryId,
+            description: res.product.description,
+            thumbnail: res.product.thumbnail,
+            images: res.product.images,
+            sizes: res.product.sizes?.map((size) => ({
               ...size,
               price: size.price,
               stock: size.stock
             })) || [{ size: '', price: 0, stock: 0 }]
           })
-          navigate(routerProductManagement.path)
+          setPreviewThumbnail(res.product.thumbnail || null)
+          setPreviewImages(res.product.images || [])
         })
       }
     },
@@ -258,7 +260,7 @@ export default function FormProduct() {
   )
 
   const onError = (errors: unknown) => {
-    toast.error('Vui lòng kiểm tra lại thông tin' + errors)
+    console.error(errors)
   }
 
   if (isPendingAdd || isPendingUpdate) return <Skeleton active />
@@ -312,7 +314,6 @@ export default function FormProduct() {
                         label='Size'
                         size={{ xs: 6, sm: 6 }}
                         name={`sizes.${index}.size`}
-                        value={item.size}
                         control={control}
                       />
                       <TextFieldCustom
