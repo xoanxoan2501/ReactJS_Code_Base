@@ -1,6 +1,6 @@
 import { deleteCartItem, removeMultipleCartItems, resetSelecdCartItem, setCart } from '@/apis/cart'
 import { updateOrder } from '@/apis/order'
-import { useAddOrder } from '@/apis/order/use-add-order'
+import { useAddOrder } from '@/apis/order/api'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
 import { Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
