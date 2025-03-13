@@ -42,34 +42,7 @@ function PaymentUser() {
         </Box>
 
       </Box>
-      {/*
 
-      <Box sx={{ maxWidth: "600px", margin: "auto", borderRadius: "10px", overflow: "hidden", background: "#f8f8f8" }}>
-        <Box sx={{ background: "#F2C2CF", padding: "15px", fontWeight: "bold", fontSize: "18px", borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}>
-          Thông tin thanh toán:
-        </Box>
-        <Box sx={{ padding: "20px", background: "white" }}>
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>Thẻ tín dụng / ghi nợ</Typography>
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: "#F2C2CF", color: "black", textTransform: "none", fontSize: "14px", borderRadius: "20px", padding: "5px 15px", minWidth: "unset", boxShadow: "none", border: "1px solid #D69AA5" }}
-            >
-              + Liên kết thẻ
-            </Button>
-          </Box>
-          <Box sx={{ borderBottom: "1px solid #777", marginTop: "5px" }} />
-          <Box sx={{ textAlign: "center", marginTop: "20px", color: "#000", fontSize: "16px", fontWeight: "bold" }}>
-            Bạn chưa liên kết thẻ
-          </Box>
-        </Box>
-        <Box sx={{ background: "#F2C2CF", padding: "15px", fontWeight: "bold", fontSize: "16px" }}>Tài khoản ngân hàng của tôi</Box>
-        <Box sx={{ padding: "20px", background: "white", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>
-          <Typography sx={{ fontSize: "14px", marginBottom: "5px" }}>Ngân hàng : <strong>SACOMBANK</strong></Typography>
-          <Typography sx={{ fontSize: "14px", marginBottom: "5px" }}>Họ tên chủ tài khoản : <strong>TRAN THI MY XOAN</strong></Typography>
-          <Typography sx={{ fontSize: "14px" }}>Số tài khoản : <strong>012345678910</strong></Typography>
-        </Box>
-      </Box> */}
     </LayoutBox>
   )
 }
