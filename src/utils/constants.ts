@@ -1,3 +1,5 @@
+import CONFIG from '@/config'
+
 export const USER_ROLES = {
   ADMIN: 'admin',
   USER: 'customer'
@@ -7,6 +9,16 @@ export const ORDER_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
 export const DEFAULT_PAGE = 1
 export const DEFAULT_LIMIT_PER_PAGE = 10
+
+let apiRoot = ''
+if (import.meta.env.DEV) {
+  apiRoot = CONFIG.API_BASE_URL
+}
+if (import.meta.env.PROD) {
+  apiRoot = ''
+}
+
+export const API_ROOT = apiRoot
 
 export const vietnameseLocaleText = {
   noRowsLabel: 'Không có dữ liệu',

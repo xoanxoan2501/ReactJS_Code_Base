@@ -476,7 +476,13 @@ export default function FormProduct() {
                 <Button type='submit' variant='contained' color='success' onClick={() => {}}>
                   Lưu
                 </Button>
-                <Button variant='contained' color='error'>
+                <Button
+                  onClick={() => {
+                    navigate(-1)
+                  }}
+                  variant='contained'
+                  color='error'
+                >
                   Hủy
                 </Button>
               </Grid>

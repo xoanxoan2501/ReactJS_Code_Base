@@ -13,6 +13,7 @@ import { routerHome } from '@/views/home/router'
 import { routerCart } from '@/views/cart/router'
 import { toast } from 'react-toastify'
 import { routerListProduct } from '@/views/ListProduct/router'
+import CustomNotification from '@/shared/components/custom-notification.tsx/custom-notification'
 
 const cakeCategories: Array<{
   title: string
@@ -78,6 +79,7 @@ const Header = () => {
                   <span>0949825991</span>
                 </div>
               </div>
+              <CustomNotification fontSize='medium' sx={{ color: 'white' }} />
               <div className='header_top_left_third'>
                 {accessToken && user ? (
                   <>
