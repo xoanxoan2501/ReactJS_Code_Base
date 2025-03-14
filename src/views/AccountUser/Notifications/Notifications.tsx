@@ -1,5 +1,5 @@
 import { LayoutBox } from '../../Profile/components/LayoutBox'
-import { Box, Button, Paper, Tab, Tabs, Typography } from '@mui/material'
+import { Box, Button, ButtonBase, Paper, Tab, Tabs, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { routerDetailPurchase } from '../purchase/page/router'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
@@ -86,7 +86,12 @@ function Notifications() {
                   ))
                 )}
               </Box>
-              <Typography sx={{ fontSize: "20px", fontWeight: "bold", color: "#000" }}>Xem chi tiết</Typography>
+              <Button sx={{ fontSize: "20px", fontWeight: "bold", color: "#000", backgroundColor: "pink",
+                "&:hover": {
+                  backgroundColor: "white"
+                }, border: "1px solid #ddd" }}>
+                  Xem chi tiết
+              </Button>
             </Box>
           ))}
         </Box>
