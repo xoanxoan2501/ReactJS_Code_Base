@@ -4,7 +4,7 @@ import { API_ROOT } from '@/utils/constants'
 
 function Notifications() {
   // Sử dụng useSocket để kết nối đến WebSocket Server
-  const { sendData } = useSocket<{ content: string }, { text: string }>('message', 'message', (data) => {
+  const { sendData } = useSocket<{ content: string }, { text: string }>('fe-message', 'be-message', (data) => {
     console.log('📩 Received message from server:', data)
   })
   return (

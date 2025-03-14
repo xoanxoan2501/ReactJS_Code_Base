@@ -79,7 +79,7 @@ const Header = () => {
                   <span>0949825991</span>
                 </div>
               </div>
-              <CustomNotification fontSize='medium' sx={{ color: 'white' }} />
+              <CustomNotification notificationCount={3} fontSize='medium' sx={{ color: 'white' }} />
               <div className='header_top_left_third'>
                 {accessToken && user ? (
                   <>

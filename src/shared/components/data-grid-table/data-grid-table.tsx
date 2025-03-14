@@ -85,7 +85,6 @@ const DataGridTable = ({
   getRowId,
   checkBoxColor,
   checkBoxBorderWidth,
-
   disableColumnFilter,
   disableColumnResize,
   disableColumnMenu,
@@ -105,6 +104,11 @@ const DataGridTable = ({
       localeText={localeText || vietnameseLocaleText}
       getRowHeight={getRowHeight}
       getRowId={getRowId}
+      disableColumnFilter={disableColumnFilter}
+      disableColumnResize={disableColumnResize}
+      disableColumnMenu={disableColumnMenu}
+      disableColumnSorting={disableColumnSorting}
+      hideFooter={hideFooter}
       slotProps={
         slotProps || {
           baseCheckbox: {
@@ -126,7 +130,6 @@ const DataGridTable = ({
           alignSelf: 'center'
         },
         backgroundColor: 'white',
-        minHeight: 550,
         maxHeight: 550,
         overflowY: 'auto',
         ...sx

@@ -7,7 +7,6 @@ const useSocket = <TReceived, TSent>(keyEmit: string, keyReceived: string, onHan
   const [socket, setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-    console.log('Connecting to Socket.IO server...')
     const socketInstance = io(API_ROOT.replace('/api/v1', ''), { transports: ['websocket'] })
 
     socketInstance.on('connect', () => {
