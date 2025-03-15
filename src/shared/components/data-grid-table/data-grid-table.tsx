@@ -11,6 +11,11 @@ import {
 } from '@mui/x-data-grid'
 import { vietnameseLocaleText } from '@/utils/constants'
 
+export enum PaginationMode {
+  CLIENT = 'client',
+  SERVER = 'server'
+}
+
 interface DataGridTableProps {
   rows: readonly any[]
   columns: readonly GridColDef<any>[]
@@ -33,6 +38,9 @@ interface DataGridTableProps {
   disableColumnMenu?: boolean
   disableColumnSorting?: boolean
   hideFooter?: boolean
+  rowCount?: number
+  disableAutosize?: boolean
+  paginationMode?: PaginationMode
 }
 
 const BoxIcon = ({ color, borderWidth }: { color?: string; borderWidth?: string }) => (
@@ -75,10 +83,10 @@ const DataGridTable = ({
   rows,
   columns: headerConfigs,
   paginationModel,
-  pageSizeOptions,
+  pageSizeOptions = [5, 10, 20],
   onPaginationModelChange,
   onRowSelectionModelChange,
-  checkboxSelection,
+  checkboxSelection = true,
   localeText,
   getRowHeight,
   slotProps,
@@ -90,11 +98,15 @@ const DataGridTable = ({
   disableColumnMenu,
   disableColumnSorting,
   hideFooter,
+  rowCount,
+  disableAutosize,
+  paginationMode = PaginationMode.SERVER,
   sx
 }: DataGridTableProps) => {
   return (
     <DataGrid
       rows={rows}
+      rowCount={rowCount}
       columns={headerConfigs}
       paginationModel={paginationModel}
       pageSizeOptions={pageSizeOptions}
@@ -104,11 +116,13 @@ const DataGridTable = ({
       localeText={localeText || vietnameseLocaleText}
       getRowHeight={getRowHeight}
       getRowId={getRowId}
+      disableAutosize={disableAutosize}
       disableColumnFilter={disableColumnFilter}
       disableColumnResize={disableColumnResize}
       disableColumnMenu={disableColumnMenu}
       disableColumnSorting={disableColumnSorting}
       hideFooter={hideFooter}
+      paginationMode={paginationMode}
       slotProps={
         slotProps || {
           baseCheckbox: {

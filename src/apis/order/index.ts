@@ -1,12 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+export enum OrderStatus {
+  PENDING = 'pending',
+  PREPARE = 'prepare',
+  SHIPPING = 'shipping',
+  COMPLETED = 'completed',
+  REFUNDED = 'refunded',
+  CANCELLED = 'cancelled'
+}
+
+export const ORDER_STATUS_VI = {
+  [OrderStatus.PENDING]: 'Chờ xác nhận',
+  [OrderStatus.PREPARE]: 'Đang chuẩn bị',
+  [OrderStatus.SHIPPING]: 'Đang giao hàng',
+  [OrderStatus.COMPLETED]: 'Hoàn thành',
+  [OrderStatus.REFUNDED]: 'Hoàn trả/đổi trả',
+  [OrderStatus.CANCELLED]: 'Đã hủy'
+} as const
+
 export interface Order {
+  _id?: string
+  orderId?: string
   fullName: string
   address: string
   email: string
   phoneNumber: string
   orderDate?: string
-  status?: string
+  status?: OrderStatus
 
   total: number
   shippingMethod: string

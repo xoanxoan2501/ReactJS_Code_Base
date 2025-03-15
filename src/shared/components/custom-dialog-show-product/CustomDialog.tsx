@@ -1,6 +1,6 @@
 import { IProduct, setShowProductDetail } from '@/apis/product'
 import { useAppDispatch } from '@/shared/hook/reduxHooks'
-import CartProductDetail from '@/views/Auth/component/CartProductDetail/CartProductDetail'
+import CartProductDetail from '@/views/user/Auth/component/CartProductDetail/CartProductDetail'
 import { Dialog, DialogContent } from '@mui/material'
 
 interface CustomDialogShowProductProps {
