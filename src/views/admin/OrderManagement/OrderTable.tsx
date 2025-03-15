@@ -7,7 +7,7 @@ import { formatNumber } from '@/utils/formatter'
 import DataGridTable from '@/shared/components/data-grid-table/data-grid-table'
 import { useOrders } from '@/shared/hook/useOrders'
 
-const formatOrderDate = (timestamp: number): string => {
+export const formatOrderDate = (timestamp: number): string => {
   const date = new Date(timestamp)
   return date.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
 }
@@ -23,7 +23,7 @@ const OrderTable = () => {
     limit: paginationModel.pageSize,
     isKeepPreviousData: true
   })
-  console.log(data?.data[0].shippingMethod)
+
   const rows = useMemo(
     () =>
       data?.data?.map((item: Order) => ({
@@ -33,9 +33,11 @@ const OrderTable = () => {
         orderDate: formatOrderDate(Number(item.orderDate) || 0),
         status: ORDER_STATUS_VI[item.status as keyof typeof ORDER_STATUS_VI],
         shippingMethod: item.shippingMethod,
-        total: formatNumber(item.total)
+        total: formatNumber(item.total),
+        page: paginationModel.page + 1,
+        limit: paginationModel.pageSize
       })) || [],
-    [data]
+    [data?.data, paginationModel.page, paginationModel.pageSize]
   )
 
   const handleOnRowSelectionModelChange = useCallback(

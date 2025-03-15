@@ -16,7 +16,7 @@ import { toast } from 'react-toastify'
 import { useUpdateProduct } from '@/apis/product/use-update-product'
 import { useGetAllProducts } from '@/apis/product/use-get-all-product'
 
-const color = {
+export const color = {
   deepBlue: '#086191'
 }
 

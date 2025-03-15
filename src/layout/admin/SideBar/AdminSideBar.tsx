@@ -10,7 +10,7 @@ import imageVoucher from '@/assets/images/SideBarAdmin/imageVoucher.png'
 import { matchPath, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { routerAdminDashboard } from '@/views/admin/Dashboard.tsx/router'
 import { routerCustomerManagement } from '@/views/admin/CustomerManagement/router'
-import { routerOrderManagement } from '@/views/admin/OrderManagement/router'
+import { routerEditOrder, routerOrderManagement } from '@/views/admin/OrderManagement/router'
 import { routerAddProduct, routerEditProduct, routerProductManagement } from '@/views/admin/ProductManagement/router'
 import { routerCategoryManagement } from '@/views/admin/CategoryManagement/router'
 import { routerVoucherManagement } from '@/views/admin/VoucherManagement/router'
@@ -22,6 +22,7 @@ const AdminSideBar = () => {
   const navigate = useNavigate()
 
   const { productId } = useParams()
+  const { orderId } = useParams()
 
   console.log('id', productId)
 
@@ -45,7 +46,10 @@ const AdminSideBar = () => {
     {
       title: 'Đơn hàng',
       icon: imageOrder,
-      path: [routerOrderManagement.path]
+      path: [
+        routerOrderManagement.path,
+        routerEditOrder.path.generatePath ? routerEditOrder.path.generatePath(orderId) : ''
+      ]
     },
     {
       title: 'Sản phẩm',

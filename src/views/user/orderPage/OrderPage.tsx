@@ -37,10 +37,13 @@ function OrderPage() {
         ...orderInfo,
         orderDetails,
         total: totalPrice,
-        shippingMethod
+        shippingMethod,
+        shippingFee,
+        voucher: '1111'
       })
     )
-  }, [dispatch, orderDetails, shippingMethod, totalPrice])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, orderDetails, shippingFee, shippingMethod, totalPrice])
   const handleNoteChange = (productId: string, newNote: string) => {
     setOrderDetails((prevDetails) =>
       prevDetails.map((product) => (product.productId === productId ? { ...product, note: newNote } : product))

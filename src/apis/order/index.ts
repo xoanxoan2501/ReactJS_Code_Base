@@ -5,8 +5,8 @@ export enum OrderStatus {
   PREPARE = 'prepare',
   SHIPPING = 'shipping',
   COMPLETED = 'completed',
-  REFUNDED = 'refunded',
-  CANCELLED = 'cancelled'
+  REFUND = 'refund',
+  CANCEL = 'cancel'
 }
 
 export const ORDER_STATUS_VI = {
@@ -14,8 +14,8 @@ export const ORDER_STATUS_VI = {
   [OrderStatus.PREPARE]: 'Đang chuẩn bị',
   [OrderStatus.SHIPPING]: 'Đang giao hàng',
   [OrderStatus.COMPLETED]: 'Hoàn thành',
-  [OrderStatus.REFUNDED]: 'Hoàn trả/đổi trả',
-  [OrderStatus.CANCELLED]: 'Đã hủy'
+  [OrderStatus.REFUND]: 'Hoàn trả/đổi trả',
+  [OrderStatus.CANCEL]: 'Đã hủy'
 } as const
 
 export interface Order {
@@ -27,7 +27,8 @@ export interface Order {
   phoneNumber: string
   orderDate?: string
   status?: OrderStatus
-
+  voucher?: string
+  shippingFee?: number
   total: number
   shippingMethod: string
   shippingAddress: string
@@ -39,7 +40,7 @@ export interface Order {
   orderDetails: OrderDetail[]
 }
 
-interface OrderDetail {
+export interface OrderDetail {
   productId: string
   quantity: number
   price: number
@@ -64,7 +65,8 @@ const initialState: OrderState = {
     shippingAddress: '',
     trackingNumber: 'TRACK123456',
     paymentMethod: '',
-    orderDetails: []
+    orderDetails: [],
+    shippingFee: 0
   }
 }
 

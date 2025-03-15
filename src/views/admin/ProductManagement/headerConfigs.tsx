@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { openModal } from '@/apis/product-management-redux'
 import { useNavigate } from 'react-router-dom'
 
-interface ActionIcon {
+export interface ActionIcon {
   icon: string
   title: string
   backgroundColor: string
