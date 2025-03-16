@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
-import './views/styles/styles.scss'
+import './views/user/styles/styles.scss'
 import { BrowserRouter as Router } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer, Bounce } from 'react-toastify'
@@ -37,7 +37,7 @@ createRoot(document.getElementById('root')!).render(
         </PersistGate>
       </Provider>
       <ToastContainer
-        position="top-right"
+        position='top-right'
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -46,7 +46,7 @@ createRoot(document.getElementById('root')!).render(
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme='light'
         transition={Bounce}
       />
     </Router>

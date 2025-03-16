@@ -87,3 +87,8 @@ export const useFetchOrders = ({
 
   return queryInfo
 }
+
+export const getOrdersAPI = async (searchPath: string) => {
+  const response = await httpRepoInstance.get(`/orders${searchPath}`)
+  return response.data
+}
