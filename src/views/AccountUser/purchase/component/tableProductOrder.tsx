@@ -1,42 +1,18 @@
+import { OrderDetail } from '@/apis/order'
+import { IProduct } from '@/apis/product'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Typography } from '@mui/material'
 
-function TableProductOrder() {
+function TableProductOrder({ products }: { products: OrderDetail[] }) {
   // Danh sách sản phẩm
-  const products = [
-    {
-      id: 1,
-      name: 'Mousse green tea',
-      size: '15 cm',
-      quantity: 1,
-      price: 250000,
-      image: '/img/banh_mau_hong.jpg'
-    },
-    {
-      id: 2,
-      name: 'Chocolate cake',
-      size: '20 cm',
-      quantity: 1,
-      price: 300000,
-      image: '/img/banh3.jpg'
-    },
-    {
-      id: 3,
-      name: 'Chocolate cake',
-      size: '20 cm',
-      quantity: 1,
-      price: 300000,
-      image: '/img/banh3.jpg'
-    }
-  ]
 
-  const subtotal = products.reduce((total, product) => total + product.price * product.quantity, 0)
+  const subtotal = products.reduce((total, product) => total + product.total, 0)
   const shippingFee = 0
-  const discount = 10000
-  const total = subtotal - discount
+  const discount = 0
+  const total = subtotal + shippingFee - discount
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-      <Box sx={{ width: '100%', maxHeight: '210px', overflowY: 'auto' }}>
+      <Box sx={{ width: '100%', maxHeight: '300px', overflowY: 'auto' }}>
         <TableContainer component={Paper} className='order-table'>
           <Table>
             <TableHead>
@@ -57,20 +33,20 @@ function TableProductOrder() {
             </TableHead>
             <TableBody>
               {products.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow key={product?.productId}>
                   <TableCell>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                       <img
-                        src={product.image}
+                        src={'/img/banh_mau_hong.jpg'}
                         alt='Product'
                         style={{ width: 50, height: 50, borderRadius: '5px', marginRight: 10 }}
                       />
-                      {product.name}
+                      {product?.title}
                     </div>
                   </TableCell>
                   <TableCell>{product.size}</TableCell>
                   <TableCell>{product.quantity}</TableCell>
-                  <TableCell>{(product.price * product.quantity).toLocaleString('vi-VN')} đ</TableCell>
+                  <TableCell>{product.total.toLocaleString('vi-VN')} đ</TableCell>
                 </TableRow>
               ))}
             </TableBody>

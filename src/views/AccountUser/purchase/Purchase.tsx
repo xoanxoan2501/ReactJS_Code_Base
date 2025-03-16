@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import { LayoutBox } from '@/views/Profile/components/LayoutBox'
 import './Purchase.css'
 import AllPurchase from './component/allPurchase'
+import { ORDER_STATUS } from '@/utils/constants'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -68,7 +69,7 @@ export default function Purchase() {
           <AllPurchase />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={4}>
-          <AllPurchase />
+          <AllPurchase status={ORDER_STATUS.CANCELED} />
         </CustomTabPanel>
       </Box>
     </LayoutBox>

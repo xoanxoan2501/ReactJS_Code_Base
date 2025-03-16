@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface Order {
+  _id?: string
   fullName: string
   address: string
   email: string
@@ -17,9 +18,10 @@ export interface Order {
   paymentDate?: string
   userId?: string
   orderDetails: OrderDetail[]
+  createdAt?: string | number
 }
 
-interface OrderDetail {
+export interface OrderDetail {
   productId: string
   quantity: number
   price: number

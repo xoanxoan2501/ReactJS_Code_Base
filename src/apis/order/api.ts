@@ -1,6 +1,21 @@
 import httpRepoInstance from '@/core/http/http'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import { Order } from './index'
+import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
+
+export const orderKeys = {
+  all: ['orders'],
+  fetchOrdersPagination: (
+    page: number | undefined | null,
+    limit: number | undefined | null,
+    status: string | undefined | null,
+    userId: string | undefined | null,
+    q: string | null | undefined
+  ) => {
+    return [...orderKeys.all, page || -1, limit || -1, status || 'all', userId || '', q || '']
+  },
+  fetchOrder: (id: string) => ['order', id]
+}
 
 export const useAddOrder = () => {
   return useMutation({
@@ -12,14 +27,63 @@ export const createOrderAPI = async (body: Order): Promise<Order> => {
   const response = await httpRepoInstance.post('/orders', body)
   return response.data
 }
-export const fetchOrderAPI = async () => {
-  const response = await httpRepoInstance.get('/orders')
+export const fetchOrderAPI = async (querypath: string) => {
+  const response = await httpRepoInstance.get(`/orders${querypath}`)
   return response.data
 }
-export const useFetchOrders = () => {
-  return useQuery({
-    queryKey: ['orders'], // Key để react-query quản lý cache
-    queryFn: fetchOrderAPI, // Hàm gọi API
-    staleTime: 5 * 60 * 1000 // Dữ liệu sẽ được cache trong 5 phút
+
+interface FetchOrdersProps {
+  page?: number
+  limit?: number
+  status?: string
+  userId?: string
+  q?: string
+  isKeepPreviousData?: boolean
+  staleTime?: number
+}
+
+export const useFetchOrders = ({
+  page,
+  limit,
+  status,
+  userId,
+  q,
+  isKeepPreviousData = false,
+  staleTime = 30
+}: FetchOrdersProps = {}) => {
+  const queryInfo = useQuery({
+    queryKey: orderKeys.fetchOrdersPagination(page, limit, status, userId, q),
+    queryFn: async (): Promise<{
+      data: Array<Order>
+      total: number
+    }> => {
+      let queryPath = `?`
+
+      if (page) {
+        queryPath += `page=${page}`
+      }
+
+      if (limit) {
+        queryPath += `&limit=${limit}`
+      }
+
+      if (status) {
+        queryPath += `&status=${status}`
+      }
+
+      if (userId) {
+        queryPath += `&userId=${userId}`
+      }
+
+      if (q) {
+        queryPath += `&q=${q}`
+      }
+
+      return await fetchOrderAPI(queryPath)
+    }, // Hàm gọi API
+    placeholderData: isKeepPreviousData ? keepPreviousData : undefined,
+    staleTime: 1000 * 60 * staleTime
   })
+
+  return queryInfo
 }

@@ -20,6 +20,14 @@ if (import.meta.env.PROD) {
 
 export const API_ROOT = apiRoot
 
+export const ORDER_STATUS = {
+  PENDING: 'pending',
+  PROCESSING: 'processing',
+  SHIPPED: 'shipped',
+  COMPLETED: 'completed',
+  CANCELED: 'canceled'
+}
+
 export const vietnameseLocaleText = {
   noRowsLabel: 'Không có dữ liệu',
   noResultsOverlayLabel: 'Không tìm thấy kết quả',
