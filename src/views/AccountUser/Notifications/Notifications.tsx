@@ -1,31 +1,54 @@
 import { LayoutBox } from '../../Profile/components/LayoutBox'
 import { Box, Button, ButtonBase, Paper, Tab, Tabs, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { routerDetailPurchase } from '../purchase/page/router'
-import LocalShippingIcon from '@mui/icons-material/LocalShipping'
-import CancelIcon from '@mui/icons-material/Cancel'
-import CheckCircleIcon from "@mui/icons-material/CheckCircle"
-import LocalOfferIcon from "@mui/icons-material/LocalOffer"
-import FireIcon from "@mui/icons-material/Whatshot"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import React, { ReactElement, useState } from 'react'
 import './notifications.css'
+import iconShip from '@/assets/icons/iconShip.png'
+import iconTick from '@/assets/icons/iconTick.png'
+import iconVoucher from '@/assets/icons/iconVoucher.png'
 
 const notifications = [
   {
-    icon: <CheckCircleIcon sx={{ color: "#3b82f6", fontSize: 40 }} />,
+    icon: <img src={iconTick} style={{
+      color: "#3b82f6",
+      fontSize: 30,
+      padding: 15,
+      borderRadius: "50%",
+      width: 70,
+      height: 70,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#dbeafe"
+    }}/>,
     title: "Giao kiện hàng thành công",
     description: "Kiện hàng SPW001 đã được giao thành công tới bạn.",
     type: "order"
   },
   {
-    icon: <LocalShippingIcon sx={{ color: "#c084fc", fontSize: 40 }} />,
+    icon: <img src={iconShip} style={{
+      color: "#3b82f6",
+      padding: 15,
+      borderRadius: "50%",
+      width: 70,
+      height: 70,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "#dbeafe"
+    }}/>,
     title: "Xác nhận đơn hàng",
     description: "Kiện hàng SPW001 đã được xác nhận.",
     type: "order"
   },
   {
-    icon: <LocalOfferIcon sx={{ color: "#ec4899", fontSize: 40 }} />,
+    icon: <img src={iconVoucher} style={{
+      width: 70,
+      height: 70,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }}/>,
     title: "SIÊU HOT! MÃ GIẢM 200K SẴN SÀNG",
     description: (
       <>
@@ -47,9 +70,9 @@ function Notifications() {
 
   // Lọc thông báo theo tab được chọn
   const filteredNotifications = notifications.filter((item) => {
-    if (selectedTab === 0) return true // Tất cả
-    if (selectedTab === 1) return item.type === "order"// Chỉ đơn hàng
-    if (selectedTab === 2) return item.type === "voucher" // Chỉ mã giảm giá
+    if (selectedTab === 0) return true
+    if (selectedTab === 1) return item.type === "order"
+    if (selectedTab === 2) return item.type === "voucher"
     return false
   })
 
@@ -68,7 +91,18 @@ function Notifications() {
           </Tabs>
         </Box>
 
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{ mt: 3, maxHeight: "470px", overflowY: "auto", pr: "5px",
+          mr: "-8px",
+          "&::-webkit-scrollbar": {
+            width: "6px"
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "transparent",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "#d1d1d1",
+            borderRadius: "6px"
+          } }}>
           {filteredNotifications.map((item, index) => (
             <Box key={index} sx={{ display: "flex", alignItems: "center", p: 2, backgroundColor: "#fff", borderRadius: 2, mb: 3, border: "1px solid #f1a4b5", padding: "30px" }}>
               <Box sx={{ mr: 2 }}>{item.icon}</Box>
@@ -86,12 +120,12 @@ function Notifications() {
                   ))
                 )}
               </Box>
-              <Button sx={{ fontSize: "20px", fontWeight: "bold", color: "#000", backgroundColor: "pink",
+              <Typography sx={{ fontSize: "30px", fontWeight: "400", color: "#000",
                 "&:hover": {
-                  backgroundColor: "white"
-                }, border: "1px solid #ddd" }}>
+                  color: "#E87091"
+                } }}>
                   Xem chi tiết
-              </Button>
+              </Typography>
             </Box>
           ))}
         </Box>
