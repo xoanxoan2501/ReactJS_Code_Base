@@ -14,7 +14,7 @@ class HttpRepository {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: CONFIG.API_BASE_URL,
+      baseURL: import.meta.env.DEV ? CONFIG.API_BASE_URL : CONFIG.API_SERVER_URL,
       timeout: 1000 * 60 * 10
     })
   }
@@ -56,10 +56,7 @@ httpRepoInstance.interceptors.response.use(
   async (error) => {
     // Xử lý lỗi response
     let errorMessage = error.message
-    if (
-      error.response?.data?.message &&
-      !error.response?.data?.message.includes('jwt expired')
-    ) {
+    if (error.response?.data?.message && !error.response?.data?.message.includes('jwt expired')) {
       errorMessage = error.response.data.message
     }
 
