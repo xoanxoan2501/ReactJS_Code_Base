@@ -3,7 +3,7 @@
 }
 
 .css-1xn7dxn-MuiButtonBase-root-MuiTab-root.Mui-selected{
-  color: #d44b70;
+  color: #D6003A;
 }
 .css-15u9q91-MuiTypography-root.MuiTypography-body1{
   font-size: 20px;
@@ -14,4 +14,8 @@
 
 .css-jprd4n-MuiTypography-root.MuiTypography-body1 {
   font-size: 25px !important;
+}
+
+.css-176kfos-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: #D6003A;
 }
