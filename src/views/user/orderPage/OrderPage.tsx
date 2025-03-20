@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
-import './orderPage.css'
+import './OrderPage.css'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
 import InfoCustomer from './component/InfoCustomer'
 import PaymentInfo from './component/PaymentInfo'
