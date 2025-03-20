@@ -46,7 +46,7 @@ httpRepoInstance.interceptors.request.use(
   }
 )
 
-let refreshTokenRequest: Promise<any> | null = null
+const refreshTokenRequest: Promise<any> | null = null
 
 // Interceptor cho response
 httpRepoInstance.interceptors.response.use(

@@ -27,9 +27,9 @@ function ProductHome() {
                 border: '1px solid #F2C2CF',
                 '&:hover': {
                   backgroundColor: '#F2C2CF',
-                  color: 'white',
+                  color: 'white'
                 },
-                margin: '5px',
+                margin: '5px'
               }}
             >
               {item}
@@ -40,10 +40,10 @@ function ProductHome() {
         {/* Hiển thị component tương ứng cho nhóm 1 */}
         {selectedCategory1 === 'Tất cả' ||
         selectedCategory1 === 'Gato kem tươi' ? (
-          <RandomProduct />
-        ) : (
-          <RandomProduct2 />
-        )}
+            <RandomProduct />
+          ) : (
+            <RandomProduct2 />
+          )}
       </div>
 
       <div className="line_home"> </div>
@@ -62,9 +62,9 @@ function ProductHome() {
                 border: '1px solid #F2C2CF',
                 '&:hover': {
                   backgroundColor: '#F2C2CF',
-                  color: 'white',
+                  color: 'white'
                 },
-                margin: '5px',
+                margin: '5px'
               }}
             >
               {item}
