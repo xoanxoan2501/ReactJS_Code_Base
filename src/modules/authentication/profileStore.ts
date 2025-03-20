@@ -123,7 +123,7 @@ export const TokenSelector: Selector<RootState, string> = (state) => {
 }
 
 interface IUser {
-  user?: UserEntity
+  user?: UserEntity | null
   status: boolean
 }
 

@@ -21,7 +21,7 @@ export const useOrders = ({
   staleTime = 30
 }: useOrdersProps) => {
   const queryInfo = useQuery({
-    queryKey: orderKeys.fetchOrdersPagination(page, limit, q, userId),
+    queryKey: orderKeys.fetchOrdersPagination(page, limit, status, userId, q),
     queryFn: async (): Promise<{
       data: Array<Order>
       total: number
