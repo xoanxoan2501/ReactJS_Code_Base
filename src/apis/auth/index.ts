@@ -105,6 +105,12 @@ const profileStore = createSlice({
         refreshToken: null,
         remember: false
       }
+    },
+    updateUser: (state, action) => {
+      state.user = {
+        ...state.user,
+        ...action.payload
+      }
     }
   },
   extraReducers: (builder) => {
@@ -181,6 +187,6 @@ export const PermissionsSelector: Selector<RootState, IPermissions> = (state) =>
   }
 }
 
-export const { fetchProfile, resetToken, updateProfile, saveImageGroup, logOut } = profileStore.actions
+export const { fetchProfile, resetToken, updateProfile, saveImageGroup, logOut, updateUser } = profileStore.actions
 
 export default profileStore
