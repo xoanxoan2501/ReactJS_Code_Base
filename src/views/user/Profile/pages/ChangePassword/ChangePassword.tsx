@@ -7,8 +7,6 @@ import { set } from 'lodash'
 import { toast } from 'react-toastify'
 import { changePasswordAPI } from '@/apis/auth/api'
 
-// useState, useEffect
-
 const ChangePassword = () => {
   const navigate = useNavigate()
   const [currentPassword, setCurrentPassword] = useState('')

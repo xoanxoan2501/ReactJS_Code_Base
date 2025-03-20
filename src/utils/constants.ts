@@ -15,7 +15,7 @@ if (import.meta.env.DEV) {
   apiRoot = CONFIG.API_BASE_URL
 }
 if (import.meta.env.PROD) {
-  apiRoot = ''
+  apiRoot = CONFIG.API_SERVER_URL
 }
 
 export const API_ROOT = apiRoot

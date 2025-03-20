@@ -6,7 +6,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { useState } from 'react'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
@@ -15,18 +15,57 @@ import FormControl from '@mui/material/FormControl'
 import iconFB from '@/assets/icons/iconFB.png'
 import iconGoogle from '@/assets/icons/iconGoogle.png'
 import { useNavigate } from 'react-router-dom'
-import { routerChangePhoneNumber } from '@/views/user/Profile/pages/ChangePhoneNumber/router'
-import { routerChangePassword } from '@/views/user/Profile/pages/ChangePassword/router'
-import './AccountInfo.css'
-const AccountInfo = () => {
-  const userLogin = useAppSelector((state) => state.profile.user)
-  const [selectedDate, setSelectedDate] = useState(dayjs('2003-01-25'))
 
+import { toast } from 'react-toastify'
+import './AccountInfo.css'
+import profileStore, { updateProfileAPI } from '@/apis/auth'
+import UserEntity from '@/modules/user/entity'
+import { AsyncThunkAction, ThunkDispatch, UnknownAction } from '@reduxjs/toolkit'
+import { changeInfomationAPI } from '@/apis/auth/api'
+import { useDispatch } from 'react-redux'
+import { routerChangePhoneNumber } from '../ChangePhoneNumber/router'
+import { routerChangePassword } from '../ChangePassword/router'
+const AccountInfo = () => {
+  const dispatch = useDispatch()
+  const userLogin = useAppSelector((state) => state.profile.user)
+  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(
+    userLogin?.dateOfBirth ? dayjs(userLogin.dateOfBirth) : dayjs()
+  )
+  const [fullname, setFullname] = useState(userLogin?.fullname)
+  const [gender, setGender] = useState('male')
   const navigate = useNavigate()
 
-  const handleDateChange = (newValue: dayjs.Dayjs | null) => {
-    if (newValue) {
-      setSelectedDate(newValue)
+  const handleDateChange = async (newValue: dayjs.Dayjs | null) => {
+    await setSelectedDate(newValue ?? dayjs())
+  }
+
+  const handleChangeInfo = async () => {
+    if (!fullname || fullname.trim() === '') {
+      toast.error('Không được để trống họ tên')
+      return
+    }
+
+    const formattedDateOfBirth = selectedDate ? selectedDate.valueOf() : Date.now()
+
+    const updatedData = {
+      fullname,
+      dateOfBirth: formattedDateOfBirth,
+      updatedAt: dayjs(),
+      createdAt: userLogin?.createdAt
+    }
+
+    try {
+      if (updatedData) {
+        await changeInfomationAPI(updatedData.fullname || ' ', updatedData.dateOfBirth)
+
+        dispatch(
+          profileStore.actions.updateUser({ fullname: updatedData.fullname, dateOfBirth: updatedData.dateOfBirth })
+        )
+
+        toast.success('Cập nhật thông tin thành công')
+      }
+    } catch (error) {
+      toast.error('Có lỗi xảy ra khi cập nhật thông tin')
     }
   }
 
@@ -43,7 +82,13 @@ const AccountInfo = () => {
         <Stack sx={{ flex: 2 }} direction={'column'} spacing={2.5}>
           <Stack direction={'column'} spacing={1}>
             <Typography variant='h6'>Họ và tên:</Typography>
-            <TextField className='input_textField' id='full-name' type='text' value={userLogin?.fullname} />
+            <TextField
+              className='input_textField'
+              id='full-name'
+              type='text'
+              onChange={(e) => setFullname(e.target.value)}
+              value={fullname}
+            />
           </Stack>
           <Stack direction={'column'} spacing={1}>
             <Typography variant='h6'>Ngày sinh:</Typography>
@@ -51,7 +96,7 @@ const AccountInfo = () => {
               <DemoContainer components={['DatePicker']}>
                 <DatePicker
                   className='input_textField'
-                  value={dayjs(selectedDate, 'DD/MM/YYYY')}
+                  value={selectedDate}
                   format='DD/MM/YYYY'
                   onChange={handleDateChange}
                 />
@@ -65,7 +110,8 @@ const AccountInfo = () => {
                 row
                 aria-labelledby='demo-row-radio-buttons-group-label'
                 name='row-radio-buttons-group'
-                defaultValue={userLogin?.gender || 'male'}
+                value={gender || 'male'}
+                onChange={(e) => setGender(e.target.value)}
               >
                 <FormControlLabel
                   value='male'
@@ -100,6 +146,7 @@ const AccountInfo = () => {
               }}
               variant='contained'
               type='button'
+              onClick={handleChangeInfo}
             >
               Chỉnh sửa
             </Button>

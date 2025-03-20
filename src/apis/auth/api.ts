@@ -1,6 +1,5 @@
 import httpRepoInstance from '@/core/http/http'
 import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
-
 export const authKeys = {
   all: ['fetchUsers'],
   fetchUsersPagination: (
@@ -59,6 +58,17 @@ export const changePasswordAPI = async (old_password: string, new_password: stri
     new_password,
     confirm_password
   })
+
+  return response.data
+}
+
+export const changeInfomationAPI = async (fullname: string, dateOfBirth: number) => {
+  const response = await httpRepoInstance.put('/users', {
+    fullname,
+    dateOfBirth
+  })
+
+  console.log(response)
 
   return response.data
 }
