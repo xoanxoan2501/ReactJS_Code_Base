@@ -7,6 +7,8 @@ class UserEntity {
 
   gender?: string
 
+  dateOfBirth?: string
+
   customerId?: string
 
   email?: string

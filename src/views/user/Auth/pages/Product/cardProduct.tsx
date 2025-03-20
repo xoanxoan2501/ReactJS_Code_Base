@@ -36,7 +36,7 @@ export default function CardProduct({ product }: ICardProduct) {
         </CardContent>
 
         <Box className='price-box'>
-          <Typography className='price-tag'>{100000} VND</Typography> {/* ✅ Giá từ API */}
+          <Typography className='price-tag'>{product.sizes?.[0].price}</Typography> {/* ✅ Giá từ API */}
           <IconButton
             color='primary'
             aria-label='add to shopping cart'

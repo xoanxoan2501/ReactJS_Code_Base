@@ -6,5 +6,6 @@ export const routerNotifications: IRouter = {
   loader: React.lazy(() => import('./Notifications')),
   exact: true,
   masterLayout: true,
-  showSideBar: true
+  showSideBar: true,
+  generatePath: () => '/notifications'
 }
