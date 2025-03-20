@@ -13,7 +13,7 @@ export default function DataTable({
   data: any
   paginationModel?: { page: number; pageSize: number }
   sx?: Record<string, unknown>
-  // eslint-disable-next-line no-unused-vars
+
   handleRowSelectionModelChange?: (selection: GridRowSelectionModel) => void
 }) {
   return (
