@@ -7,6 +7,7 @@ import ContractHome from '../Auth/component/ContractHome/ContractHome'
 import ProductHome from '../Auth/component/ProductHome/ProductHome'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
 import CustomDialogShowProduct from '@/shared/components/custom-dialog-show-product/CustomDialog'
+import ProductDetails from '../Auth/pages/ProductDetails/ProductDetails'
 
 function Home() {
   const { productDetail, isShowProductDetail } = useAppSelector((state) => state.prduct)
@@ -23,7 +24,6 @@ function Home() {
         <div className='line_home'> </div>
         <ContractHome />
       </Box>
-      {productDetail && <CustomDialogShowProduct product={productDetail} open={isShowProductDetail} />}
     </div>
   )
 }

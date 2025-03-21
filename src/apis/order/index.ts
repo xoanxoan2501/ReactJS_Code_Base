@@ -27,7 +27,7 @@ export interface Order {
   phoneNumber: string
   orderDate?: string
   status?: OrderStatus
-
+  shippingFee: number
   total: number
   shippingMethod: string
   shippingAddress: string
@@ -65,6 +65,7 @@ const initialState: OrderState = {
     shippingAddress: '',
     trackingNumber: 'TRACK123456',
     paymentMethod: '',
+    shippingFee: 0,
     orderDetails: []
   }
 }

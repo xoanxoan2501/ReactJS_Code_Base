@@ -19,6 +19,7 @@ function PaymentInfo({
   const dispatch = useAppDispatch()
   const paymentMethod = useAppSelector((state) => state.order.orderInfo.paymentMethod)
   shippingMethod = useAppSelector((state) => state.order.orderInfo.shippingMethod)
+  const shippingFee = useAppSelector((state) => state.order.orderInfo.shippingFee)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -33,7 +34,8 @@ function PaymentInfo({
             onChange={(e) =>
               dispatch(
                 updateOrder({
-                  shippingMethod: e.target.value
+                  shippingMethod: e.target.value,
+                  shippingFee: e.target.value === 'Giao hàng nhanh' ? 50000 : 0
                 })
               )
             }
@@ -119,7 +121,7 @@ function PaymentInfo({
             />
             <FormControlLabel
               className='payment-method-item'
-              value='bank'
+              value='chuyển khoản ngân hàng'
               control={<Radio />}
               label='Thanh toán qua tài khoản ngân hàng'
             />

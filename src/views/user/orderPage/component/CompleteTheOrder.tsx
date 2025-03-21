@@ -4,10 +4,13 @@ import { useAddOrder } from '@/apis/order/api'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
 import { Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
+import { useNavigate } from 'react-router-dom'
 
 import Swal from 'sweetalert2'
+import { routerOrderPageOk } from '../OrderPageOK/router'
 
 function CompleteTheOrder() {
+  const navigate = useNavigate()
   const orderInfo = useAppSelector((state) => state.order.orderInfo)
   const shippingMethodMap: Record<string, string> = {
     'Giao hàng nhanh': 'Giao hàng tận nơi',
@@ -38,7 +41,7 @@ function CompleteTheOrder() {
               icon: 'success',
               confirmButtonText: 'OK'
             })
-
+            navigate(routerOrderPageOk.path)
             // Danh sách sản phẩm cần xóa
             const itemsToRemove = orderInfo.orderDetails.map((item) => ({
               productId: item.productId,

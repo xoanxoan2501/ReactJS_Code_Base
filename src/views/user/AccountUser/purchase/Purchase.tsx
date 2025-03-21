@@ -49,11 +49,11 @@ export default function Purchase() {
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
           <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-            <Tab label='Tất cả' {...a11yProps(0)} />
-            <Tab label='Đang giao xử lý' {...a11yProps(1)} />
-            <Tab label='Đang giao' {...a11yProps(2)} />
-            <Tab label='Đã giao' {...a11yProps(3)} />
-            <Tab label='Đã hủy' {...a11yProps(4)} />
+            <Tab label='Tất cả' {...a11yProps(0)} sx={{ fontSize: '16px' }} />
+            <Tab label='Đang giao xử lý' {...a11yProps(1)} sx={{ fontSize: '16px' }} />
+            <Tab label='Đang giao' {...a11yProps(2)} sx={{ fontSize: '16px' }} />
+            <Tab label='Đã giao' {...a11yProps(3)} sx={{ fontSize: '16px' }} />
+            <Tab label='Đã hủy' {...a11yProps(4)} sx={{ fontSize: '16px' }} />
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
