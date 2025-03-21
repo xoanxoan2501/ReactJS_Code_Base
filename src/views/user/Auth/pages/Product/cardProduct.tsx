@@ -8,7 +8,6 @@ import './CardProduct.css'
 import { IProduct, setProductDetail, setShowProductDetail } from '@/apis/product'
 import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
-import CustomDialogShowProduct from '@/shared/components/custom-dialog-show-product/CustomDialog'
 
 interface ICardProduct {
   product: IProduct
