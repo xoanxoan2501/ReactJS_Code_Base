@@ -3,12 +3,21 @@
 import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
-  colorSchemes: {
-    light: {
-      palette: {}
+  palette: {
+    mode: 'light', // Đặt chế độ light mode
+    primary: {
+      main: '#1976d2' // Màu chính
     },
-    dark: {
-      palette: {}
+    secondary: {
+      main: '#dc004e' // Màu phụ
+    },
+    background: {
+      default: '#ffffff', // Màu nền mặc định
+      paper: '#f5f5f5' // Màu nền cho các thành phần như Card, Paper
+    },
+    text: {
+      primary: '#000000', // Màu chữ chính
+      secondary: '#757575' // Màu chữ phụ
     }
   },
   components: {
