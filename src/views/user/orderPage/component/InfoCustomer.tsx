@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import { routerCart } from '@/views/user/cart/router'
 import { Link } from 'react-router-dom'
-import '../orderPage.css'
+import '../OrderPage.css'
 import { updateOrder } from '@/apis/order'
 
 function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {

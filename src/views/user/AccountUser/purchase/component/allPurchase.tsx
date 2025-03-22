@@ -42,7 +42,7 @@ function AllPurchase({ status }: { status?: string }) {
               <div className='number-order'>{quantityTotal}</div>
             </div>
             <div className='details-container'>
-              <Typography sx={{ fontSize: '20px', fontWeight: 'bold' }}>Mousse gree tea </Typography>
+              <Typography sx={{ fontSize: '20px !important', fontWeight: 'bold' }}>Mousse gree tea </Typography>
               <Typography>Số sản lượng sản phẩm : {quantityTotal} </Typography>
               <Typography>Tổng tiền : {formatNumber(totalPrice)}đ </Typography>
             </div>

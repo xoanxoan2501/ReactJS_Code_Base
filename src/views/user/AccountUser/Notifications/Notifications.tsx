@@ -61,16 +61,16 @@ function Notifications() {
 
   return (
     <LayoutBox sx={{ background: '#F2C2CF' }}>
-      <Box sx={{ p: 3, borderRadius: 2, maxWidth: '100%', mx: 'auto', mt: 4, padding: 1 }}>
-        <Typography variant='h6' sx={{ pb: 2, textAlign: 'center', fontSize: '30px' }}>
+      <Box sx={{ p: 1, borderRadius: 2, maxWidth: '100%', mx: 'auto', mt: 4, padding: 1 }}>
+        <Typography variant='h6' sx={{ pb: 1, textAlign: 'center', fontSize: '30px' }}>
           Thông báo
         </Typography>
 
         <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
           <Tabs value={selectedTab} onChange={handleChange} textColor='secondary' indicatorColor='secondary'>
-            <Tab label='Tất cả' sx={{ color: '#000', fontSize: '20px' }} />
-            <Tab label='Đơn hàng' sx={{ color: '#000', fontSize: '20px' }} />
-            <Tab label='Mã giảm giá' sx={{ color: '#000', fontSize: '20px' }} />
+            <Tab label='Tất cả' sx={{ color: '#000', fontSize: '16px !important' }} />
+            <Tab label='Đơn hàng' sx={{ color: '#000', fontSize: '16px' }} />
+            <Tab label='Mã giảm giá' sx={{ color: '#000', fontSize: '16px' }} />
           </Tabs>
         </Box>
 
@@ -102,9 +102,9 @@ function Notifications() {
                 display: 'flex',
                 alignItems: 'center',
                 backgroundColor: '#fff',
-                mb: 3,
+                mb: 1,
                 padding: '30px',
-                height: '150px',
+                height: '110px',
                 width: '100%'
               }}
             >

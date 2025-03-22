@@ -1,5 +1,5 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
-import './orderPage.css'
+import './OrderPage.css'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
 import InfoCustomer from './component/InfoCustomer'
 import PaymentInfo from './component/PaymentInfo'
@@ -15,8 +15,7 @@ function OrderPage() {
   const [shippingMethod, setShippingMethod] = useState('oder')
   const productTotal = selectProducts.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
-  const shippingFee = shippingMethod === 'oder' ? 50000 : 0
-
+  const [shippingFee, setShippingFee] = useState(0)
   const dispatch = useAppDispatch()
   const totalPrice = productTotal + shippingFee
   const orderInfo = useAppSelector((state) => state.order.orderInfo)
@@ -114,7 +113,7 @@ function OrderPage() {
           </div>
           <div className='tam-tinh'>
             <Typography style={{ fontSize: '20px' }}>Phí vận chuyển</Typography>
-            <Typography style={{ fontSize: '20px' }}> {shippingFee} </Typography>
+            <Typography style={{ fontSize: '20px' }}> {orderInfo.shippingFee} </Typography>
           </div>
           <div className='tam-tinh'>
             <Typography style={{ fontSize: '20px' }}>Voucher</Typography>

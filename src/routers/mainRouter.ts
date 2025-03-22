@@ -32,6 +32,7 @@ import { routerVoucherManagement } from '@/views/admin/VoucherManagement/router'
 import { routerCustomerManagement } from '@/views/admin/CustomerManagement/router'
 import { routerAdminLogin } from '@/views/admin/login/router'
 import { routerAdmin } from '@/views/admin/router'
+import { routerOrderPageOk } from '@/views/user/orderPage/OrderPageOK/router'
 
 const privatePage: IRouter[] = [
   routerCart,
@@ -55,7 +56,8 @@ const privatePage: IRouter[] = [
   routerPaymentUser,
   routerDetailPurchase,
   routerEditAddress,
-  routerCreateAddress
+  routerCreateAddress,
+  routerOrderPageOk
 ]
 
 const publicPage: IRouter[] = [
