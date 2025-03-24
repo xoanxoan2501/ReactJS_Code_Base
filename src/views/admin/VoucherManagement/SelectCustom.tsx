@@ -1,12 +1,13 @@
 import { Grid, MenuItem, Select, FormHelperText, FormControl } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
-import { Product } from './FormZod'
+import { Voucher } from './FormZod'
 
 interface SelectCustomProps {
-  name: `sizes.${number}.price` | `sizes.${number}.size` | keyof Product // ✅ Hỗ trợ cho mảng
-  control: Control<Product>
+  name: keyof Pick<Voucher, 'discountType' | 'applicableCategories' | 'applicableProducts'>
+  control: Control<Voucher>
   size?: Size
-  options: Array<{ value: string; label: string }>
+  options: Array<{ value: string; label: string }>,
+  multiple?: boolean
 }
 
 interface Size {
@@ -14,7 +15,7 @@ interface Size {
   sm: number
 }
 
-const SelectCustom = ({ name, control, options, size = { xs: 6, sm: 3 } }: SelectCustomProps) => {
+const SelectCustom = ({ name, control, options, size = { xs: 6, sm: 3 }, multiple = false }: SelectCustomProps) => {
   return (
     <Grid item xs={size.xs} sm={size.sm}>
       <Controller
@@ -27,6 +28,7 @@ const SelectCustom = ({ name, control, options, size = { xs: 6, sm: 3 } }: Selec
               fullWidth
               value={field.value || ''}
               displayEmpty
+              multiple={multiple}
               sx={{
                 backgroundColor: 'white',
                 borderRadius: '20px',
@@ -56,6 +58,7 @@ const SelectCustom = ({ name, control, options, size = { xs: 6, sm: 3 } }: Selec
               <MenuItem value='' disabled>
                 Danh mục sản phẩm
               </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
               {options.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}

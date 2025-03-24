@@ -44,7 +44,7 @@ export const RenderAction = (params: GridRenderCellParams) => {
       <ActionIcon
         key={params.row._id}
         icon={iconDelete}
-        title={'Xoá sản phẩm'}
+        title={'Xoá voucher'}
         backgroundColor={'#FF070780'}
         handle={() => {
           dispatch(openModal({ id: params.row.id, name: params.row.productName }))
@@ -53,7 +53,7 @@ export const RenderAction = (params: GridRenderCellParams) => {
       <ActionIcon
         key={params.row._id}
         icon={iconEdit}
-        title={'Chỉnh sửa sản phẩm'}
+        title={'Chỉnh sửa voucher'}
         backgroundColor={'#F9ED6980'}
         handle={() => navigate(`/admin/product-management/edit?id=${params.row.id}`)}
       />
@@ -96,46 +96,54 @@ const renderStatus = (params: GridRenderCellParams) => {
 
 export const headerConfigs: GridColDef[] = [
   {
-    field: 'productName',
-    headerName: 'Tên sản phẩm',
-    flex: 2,
+    field: 'voucherCode',
+    headerName: 'Mã code voucher',
+    flex: 1,
     sortable: false,
     align: 'left',
     headerAlign: 'center'
   },
   {
-    field: 'quantity',
-    headerName: 'Số lượng',
+    field: 'discountType',
+    headerName: 'Loại giảm giá',
     flex: 1,
     align: 'center',
     headerAlign: 'center'
   },
   {
-    field: 'image',
-    headerName: 'Hình ảnh',
+    field: 'discountValue',
+    headerName: 'Giá trị giảm',
     flex: 1,
     align: 'center',
     headerAlign: 'center',
     renderCell: renderImage
   },
   {
-    field: 'status',
-    headerName: 'Tình trạng',
+    field: 'expirationDate',
+    headerName: 'Ngày két thúc',
     align: 'center',
     headerAlign: 'center',
     renderCell: renderStatus
   },
   {
-    field: 'price',
-    headerName: 'Giá tiền',
-    flex: 1.5,
+    field: 'usageCount',
+    headerName: 'Đã sử dụng',
+    flex: 1,
+    align: 'center',
+    headerAlign: 'center',
+    renderCell: renderImage
+  },
+  {
+    field: 'minOrderValue',
+    headerName: 'Đơn hàng tối thiếu',
+    flex: 1,
     align: 'center',
     headerAlign: 'center'
   },
   {
-    field: 'category',
-    headerName: 'Danh mục',
-    flex: 1.5,
+    field: 'isActive',
+    headerName: 'Tình trạng',
+    flex: 1,
     align: 'center',
     headerAlign: 'center'
   },

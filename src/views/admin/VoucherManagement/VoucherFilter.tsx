@@ -32,7 +32,7 @@ const VoucherFilter = () => {
         </FormControl>
       </Stack>
       <TextField
-        placeholder='Tìm kiếm sản phẩm'
+        placeholder='Tìm kiếm voucher'
         sx={{
           width: '20%',
           borderRadius: '5px',

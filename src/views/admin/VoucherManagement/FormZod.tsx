@@ -1,13 +1,6 @@
 import z from 'zod'
 
 export const VoucherSchema = z.object({
-  title: z
-    .string()
-    .min(1, 'Bạn cần nhập tên sản phẩm')
-    .max(400, 'Tên sản phẩm tối đa 200 ký tự')
-    .refine((value) => value.trim() !== '', {
-      message: 'Tên sản phẩm không được chỉ là khoảng trắng'
-    }),
   code: z
     .string()
     .min(1, 'Bạn cần nhập mã code')
@@ -15,33 +8,26 @@ export const VoucherSchema = z.object({
     .refine((value) => value.trim() !== '', {
       message: 'Mã code không được chỉ là khoảng trắng'
     }),
-  categoryId: z.string().min(1, 'Bạn cần chọn danh mục sản phẩm'),
-  sizes: z.array(
-    z.object({
-      size: z.string().min(1, 'Bạn cần nhập size sản phẩm'),
-      stock: z
-        .preprocess((val) => Number(val), z.number().min(1, 'Bạn cần phải nhập số lượng'))
-        .refine((val) => !isNaN(Number(val)), {
-          message: 'Số lượng sản phẩm phải là một số'
-        })
-        .transform((val) => Number(val))
-        .refine((val) => val >= 0, {
-          message: 'Số lượng sản phẩm phải lớn hơn 0'
-        }),
-      price: z
-        .preprocess((val) => Number(val), z.number().min(1, 'Bạn cần phải nhập giá tiền'))
-        .refine((val) => !isNaN(Number(val)), {
-          message: 'Giá sản phẩm phải là một số' // Kiểm tra nếu nhập chữ
-        })
-        .transform((val) => Number(val)) // Chuyển về số
-        .refine((val) => val >= 0, {
-          message: 'Giá sản phẩm phải lớn hơn 0' // Kiểm tra số >= 0
-        })
-    })
-  ),
-  description: z.string().min(1, 'Bạn cần nhập mô tả sản phẩm'),
-  thumbnail: z.union([z.instanceof(Uint8Array), z.string()]), // Hỗ trợ cả link ảnh
-  images: z.array(z.union([z.instanceof(Uint8Array), z.string()])).min(0, 'Bạn cần chọn ít nhất 1 ảnh chi tiết')
+  description: z.string().max(500, 'Mô tả tối đa 500 ký tự').default(''),
+  discountType: z.enum(['percent', 'fixed'], {
+    errorMap: () => ({ message: 'Loại giảm giá phải là "percent" hoặc "fixed"' })
+  }),
+  discountValue: z
+    .number()
+    .min(0, 'Giá trị giảm giá phải lớn hơn hoặc bằng 0'),
+  minOrderValue: z.number().min(0, 'Giá trị đơn hàng tối thiểu phải lớn hơn hoặc bằng 0').default(0),
+  maxDiscount: z.number().min(0, 'Giá trị giảm giá tối đa phải lớn hơn hoặc bằng 0').nullable(),
+  expirationDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
+    message: 'Ngày hết hạn không hợp lệ'
+  }),
+  isActive: z.boolean().default(true),
+  createdAt: z.date().default(() => new Date()),
+  updatedAt: z.date().nullable().default(null),
+  _destroy: z.boolean().default(false),
+  usageLimit: z.number().nullable().default(null),
+  usageCount: z.number().min(0, 'Số lần sử dụng phải lớn hơn hoặc bằng 0').default(0),
+  applicableCategories: z.array(z.string()).default([]),
+  applicableProducts: z.array(z.string()).default([])
 })
 
 export type Voucher = z.infer<typeof VoucherSchema>
