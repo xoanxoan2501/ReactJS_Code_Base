@@ -21,10 +21,7 @@ export const useVouchers = ({
   const queryKey = voucherKeys.fetchVouchersPagination(page, limit, q)
   const queryInfo = useQuery({
     queryKey,
-    queryFn: async (): Promise<{
-      data: Array<IVoucher>
-      total: number
-    }> => {
+    queryFn: async (): Promise<Array<IVoucher>> => {
       return await getVouchersAPI()
     },
     placeholderData: isKeepPreviousData ? keepPreviousData : undefined,
@@ -36,14 +33,9 @@ export const useVouchers = ({
 
 
 export const useVoucher = (id: string) => {
-  // return useQuery<IVoucher>({
-  //   queryKey: voucherKeys.fetchVoucher(id),
-  //   queryFn: () => getVoucherIdAPI(id),
-  //   staleTime: 1000 * 60
-  // })
   return useQuery<IVoucher>({
     queryKey: id ? voucherKeys.fetchVoucher(id) : [],
-    queryFn: () => id ? getVoucherIdAPI(id) : Promise.reject('Invalid ID'),
+    queryFn: () => (id ? getVoucherIdAPI(id) : Promise.reject('Invalid ID')),
     enabled: !!id,
     staleTime: 1000 * 60
   })

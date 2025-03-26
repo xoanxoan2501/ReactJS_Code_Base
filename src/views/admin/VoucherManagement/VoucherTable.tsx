@@ -23,7 +23,8 @@ const VoucherTable = () => {
 
   const rows = useMemo(
     () =>
-      data?.data?.map((item: IVoucher) => ({
+      data?.map((item: IVoucher) => ({
+        id: item._id,
         code: item.code,
         discountType: item.discountType,
         discountValue: item.discountValue,
@@ -34,8 +35,6 @@ const VoucherTable = () => {
       })) || [],
     [data]
   )
-
-  console.log(rows)
 
   const handleOnRowSelectionModelChange = useCallback(
     (selectedIds: GridRowSelectionModel) => {
@@ -55,7 +54,7 @@ const VoucherTable = () => {
       <DataGrid
         rows={rows}
         columns={headerConfigs}
-        rowCount={data?.total || rows.length} // Tổng số hàng thực tế
+        rowCount={data?.length || 0} // Tổng số hàng thực tế
         paginationModel={paginationModel}
         pageSizeOptions={[5, 10, 20]}
         onPaginationModelChange={(newModel) => setPaginationModel(newModel)}
