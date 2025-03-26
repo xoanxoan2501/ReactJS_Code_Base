@@ -21,16 +21,19 @@ const VoucherTable = () => {
     isKeepPreviousData: true
   })
 
+  console.log('data', data)
+
   const rows = useMemo(
     () =>
-      data?.data?.map((item: IVoucher) => ({
+      data?.map((item: IVoucher) => ({
         code: item.code,
         discountType: item.discountType,
         discountValue: item.discountValue,
         expirationDate: item.expirationDate,
         usageCount: item.usageCount,
         minOrderValue: item.minOrderValue,
-        isActive: item.isActive
+        isActive: item.isActive,
+        id: item._id
       })) || [],
     [data]
   )
@@ -55,7 +58,7 @@ const VoucherTable = () => {
       <DataGrid
         rows={rows}
         columns={headerConfigs}
-        rowCount={data?.total || rows.length} // Tổng số hàng thực tế
+        rowCount={rows?.length || 0} // Tổng số hàng thực tế
         paginationModel={paginationModel}
         pageSizeOptions={[5, 10, 20]}
         onPaginationModelChange={(newModel) => setPaginationModel(newModel)}

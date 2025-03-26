@@ -80,7 +80,7 @@ const renderStatus = (params: GridRenderCellParams) => {
 
 export const headerConfigs: GridColDef[] = [
   {
-    field: 'voucherCode',
+    field: 'code',
     headerName: 'Mã code voucher',
     flex: 1,
     sortable: false,

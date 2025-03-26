@@ -1,5 +1,4 @@
 import httpRepoInstance from '@/core/http/http'
-import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
 
 export const voucherKeys = {
   all: ['fetchVouchers'],
@@ -8,7 +7,7 @@ export const voucherKeys = {
     limit: number | undefined | null,
     q: string | undefined | null
   ) => {
-    return [...voucherKeys.all, page || DEFAULT_PAGE, limit || DEFAULT_LIMIT_PER_PAGE, q ?? '']
+    return [...voucherKeys.all, page ?? -1, limit ?? -1, q ?? '']
   },
   fetchVoucher: (id: string) => ['fetchVoucher', id]
 }

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export interface IVoucher {
+  _id?: string
   code?: string
   description?: string
   discountType?: 'percent' | 'fixed'
