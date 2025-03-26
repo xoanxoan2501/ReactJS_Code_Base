@@ -109,6 +109,16 @@ const theme = createTheme({
         disableScrollLock: true
       }
     },
+    MuiPopover: {
+      defaultProps: {
+        disableScrollLock: true
+      }
+    },
+    MuiModal: {
+      defaultProps: {
+        disableScrollLock: true
+      }
+    },
     MuiTextField: {
       styleOverrides: {
         root: {

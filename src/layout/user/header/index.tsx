@@ -15,6 +15,12 @@ import { toast } from 'react-toastify'
 import { routerListProduct } from '@/views/user/ListProduct/router'
 import CustomNotification from '@/shared/components/custom-notification.tsx/custom-notification'
 
+const notifications = [
+  { id: 1, title: 'Đơn hàng đã được xác nhận', description: 'Mã đơn hàng: DH12345' },
+  { id: 2, title: 'Gói hàng đang trên đường giao', description: 'Đơn hàng của bạn sẽ đến sớm' },
+  { id: 3, title: 'Bạn có ưu đãi mới', description: 'Nhận ngay mã giảm giá 10% hôm nay' }
+]
+
 const cakeCategories: Array<{
   title: string
   isMenu: boolean
@@ -79,16 +85,11 @@ const Header = () => {
                   <span>0949825991</span>
                 </div>
               </div>
-              {accessToken && user && (
-                <CustomNotification notificationCount={3} fontSize='medium' sx={{ color: 'white' }} />
-              )}
+              {accessToken && user && <CustomNotification notificationCount={3} />}
               <div className='header_top_left_third'>
                 {accessToken && user ? (
                   <>
                     <UserAvatar />
-                    <div className='header_top_left_third_content'>
-                      <span>Tài khoản</span>
-                    </div>
                   </>
                 ) : (
                   <CustomButton variant='outlined' onClick={() => navigate(routerLogin.path)}>

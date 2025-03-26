@@ -176,6 +176,7 @@ const CustomerManagement = () => {
           paginationModel={paginationModel}
           onPaginationModelChange={(newModel) => setPaginationModel(newModel)}
           rows={rows || []}
+          rowCount={data?.total || 0}
           onRowSelectionModelChange={(selectedIds) => console.log(selectedIds)}
           sx={{
             '& .MuiDataGrid-row:hover': {
