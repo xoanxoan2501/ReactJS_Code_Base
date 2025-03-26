@@ -3,8 +3,6 @@ import { Stack } from "@mui/material"
 import VoucherTable from "./VoucherTable"
 import VoucherActions from "./VoucherActions"
 import VoucherFilter from "./VoucherFilter"
-import ProductActions from "../ProductManagement/ProductActions"
-
 const VoucherManagement = () => {
   return (
     <VoucherManagementLayout>

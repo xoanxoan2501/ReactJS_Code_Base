@@ -55,25 +55,9 @@ export const RenderAction = (params: GridRenderCellParams) => {
         icon={iconEdit}
         title={'Chỉnh sửa voucher'}
         backgroundColor={'#F9ED6980'}
-        handle={() => navigate(`/admin/product-management/edit?id=${params.row.id}`)}
+        handle={() => navigate(`/admin/voucher-management/edit?id=${params.row.id}`)}
       />
     </Stack>
-  )
-}
-
-const renderImage = (params: GridRenderCellParams) => {
-  return (
-    <Box
-      component='img'
-      src={params.value}
-      alt='Thumbnail'
-      sx={{
-        width: '70px',
-        height: '70px',
-        borderRadius: '20px',
-        objectFit: 'cover'
-      }}
-    />
   )
 }
 
@@ -81,7 +65,7 @@ const renderStatus = (params: GridRenderCellParams) => {
   return (
     <Typography
       sx={{
-        backgroundColor: params.value === 'available' ? '#1AFB9A' : '#FF0707',
+        backgroundColor: params.value === true ? '#1AFB9A' : '#FF0707',
         color: 'white',
         padding: '4px 8px',
         borderRadius: '4px',
@@ -89,7 +73,7 @@ const renderStatus = (params: GridRenderCellParams) => {
         display: 'inline-block'
       }}
     >
-      {params.value === 'available' ? 'Còn hàng' : 'Hết hàng'}
+      {params.value === true ? 'Active' : 'Unactive'}
     </Typography>
   )
 }
@@ -115,23 +99,21 @@ export const headerConfigs: GridColDef[] = [
     headerName: 'Giá trị giảm',
     flex: 1,
     align: 'center',
-    headerAlign: 'center',
-    renderCell: renderImage
+    headerAlign: 'center'
   },
   {
     field: 'expirationDate',
     headerName: 'Ngày két thúc',
+    flex: 1,
     align: 'center',
-    headerAlign: 'center',
-    renderCell: renderStatus
+    headerAlign: 'center'
   },
   {
     field: 'usageCount',
     headerName: 'Đã sử dụng',
     flex: 1,
     align: 'center',
-    headerAlign: 'center',
-    renderCell: renderImage
+    headerAlign: 'center'
   },
   {
     field: 'minOrderValue',
@@ -145,7 +127,8 @@ export const headerConfigs: GridColDef[] = [
     headerName: 'Tình trạng',
     flex: 1,
     align: 'center',
-    headerAlign: 'center'
+    headerAlign: 'center',
+    renderCell: renderStatus
   },
   {
     field: 'action',
