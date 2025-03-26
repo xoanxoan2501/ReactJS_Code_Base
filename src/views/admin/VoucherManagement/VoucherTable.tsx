@@ -1,6 +1,4 @@
-import { IProduct } from '@/apis/product'
 import { IVoucher } from '@/apis/voucher'
-import { useProducts } from '@/shared/hook/useProducts'
 import { useVouchers } from '@/shared/hook/useVouchers'
 import { DataGrid, GridRowSelectionModel } from '@mui/x-data-grid'
 import { headerConfigs } from './headerConfigs'
