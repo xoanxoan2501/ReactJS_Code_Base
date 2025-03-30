@@ -7,6 +7,5 @@ export const getVouchersAPI = async () => {
 }
 export const getVoucherIdAPI = async (id: string) => {
   const response = await httpRepoInstance.get(`/vouchers/${id}`)
-
   return response.data
 }
