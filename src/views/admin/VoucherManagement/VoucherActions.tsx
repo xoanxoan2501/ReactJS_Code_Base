@@ -31,7 +31,7 @@ const VoucherActions = () => {
         type='button'
         onClick={() => navigate(routerAddVoucher.path)}
       >
-        + Tạo mới sản phẩm
+        + Tạo mới voucher
       </Button>
       <Button
         sx={{

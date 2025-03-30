@@ -1,5 +1,5 @@
-import { IProduct } from '@/apis/product'
-import { useProducts } from '@/shared/hook/useProducts'
+import { IVoucher } from '@/apis/voucher'
+import { useVouchers } from '@/shared/hook/useVouchers'
 import { DataGrid, GridRowSelectionModel } from '@mui/x-data-grid'
 import { headerConfigs } from './headerConfigs'
 import { DEFAULT_LIMIT_PER_PAGE, ORDER_SIZES, vietnameseLocaleText } from '@/utils/constants'
@@ -13,27 +13,23 @@ const VoucherTable = () => {
     page: 0
   })
 
-  const { data, isLoading } = useProducts({
+  const { data, isLoading } = useVouchers({
     page: paginationModel.page + 1, // Chuyển thành one-based index
     limit: paginationModel.pageSize,
     isKeepPreviousData: true
   })
-  const choosePriceProduct = (product: IProduct) => {
-    product?.sizes?.sort((a, b) => ORDER_SIZES.indexOf(a.size) - ORDER_SIZES.indexOf(b.size))
-
-    return product?.sizes?.[0]?.price
-  }
 
   const rows = useMemo(
     () =>
-      data?.data?.map((item: IProduct) => ({
+      data?.map((item: IVoucher) => ({
         id: item._id,
-        productName: item.title,
-        quantity: item?.sizes?.reduce((total, size) => total + size.stock, 0),
-        image: item.thumbnail,
-        price: `${formatNumber(choosePriceProduct(item) || 0)}₫`,
-        category: item?.category?.[0]?.name || 'Unknown',
-        status: item.status
+        code: item.code,
+        discountType: item.discountType,
+        discountValue: item.discountValue,
+        expirationDate: item.expirationDate,
+        usageCount: item.usageCount,
+        minOrderValue: item.minOrderValue,
+        isActive: item.isActive
       })) || [],
     [data]
   )
@@ -56,7 +52,7 @@ const VoucherTable = () => {
       <DataGrid
         rows={rows}
         columns={headerConfigs}
-        rowCount={data?.total || rows.length} // Tổng số hàng thực tế
+        rowCount={data?.length || 0} // Tổng số hàng thực tế
         paginationModel={paginationModel}
         pageSizeOptions={[5, 10, 20]}
         onPaginationModelChange={(newModel) => setPaginationModel(newModel)}

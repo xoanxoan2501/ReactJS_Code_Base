@@ -44,7 +44,7 @@ export const RenderAction = (params: GridRenderCellParams) => {
       <ActionIcon
         key={params.row._id}
         icon={iconDelete}
-        title={'Xoá sản phẩm'}
+        title={'Xoá voucher'}
         backgroundColor={'#FF070780'}
         handle={() => {
           dispatch(openModal({ id: params.row.id, name: params.row.productName }))
@@ -53,27 +53,11 @@ export const RenderAction = (params: GridRenderCellParams) => {
       <ActionIcon
         key={params.row._id}
         icon={iconEdit}
-        title={'Chỉnh sửa sản phẩm'}
+        title={'Chỉnh sửa voucher'}
         backgroundColor={'#F9ED6980'}
-        handle={() => navigate(`/admin/product-management/edit?id=${params.row.id}`)}
+        handle={() => navigate(`/admin/voucher-management/edit?id=${params.row.id}`)}
       />
     </Stack>
-  )
-}
-
-const renderImage = (params: GridRenderCellParams) => {
-  return (
-    <Box
-      component='img'
-      src={params.value}
-      alt='Thumbnail'
-      sx={{
-        width: '70px',
-        height: '70px',
-        borderRadius: '20px',
-        objectFit: 'cover'
-      }}
-    />
   )
 }
 
@@ -81,7 +65,7 @@ const renderStatus = (params: GridRenderCellParams) => {
   return (
     <Typography
       sx={{
-        backgroundColor: params.value === 'available' ? '#1AFB9A' : '#FF0707',
+        backgroundColor: params.value === true ? '#1AFB9A' : '#FF0707',
         color: 'white',
         padding: '4px 8px',
         borderRadius: '4px',
@@ -89,55 +73,62 @@ const renderStatus = (params: GridRenderCellParams) => {
         display: 'inline-block'
       }}
     >
-      {params.value === 'available' ? 'Còn hàng' : 'Hết hàng'}
+      {params.value === true ? 'Active' : 'Unactive'}
     </Typography>
   )
 }
 
 export const headerConfigs: GridColDef[] = [
   {
-    field: 'productName',
-    headerName: 'Tên sản phẩm',
-    flex: 2,
+    field: 'code',
+    headerName: 'Mã code voucher',
+    flex: 1,
     sortable: false,
     align: 'left',
     headerAlign: 'center'
   },
   {
-    field: 'quantity',
-    headerName: 'Số lượng',
+    field: 'discountType',
+    headerName: 'Loại giảm giá',
     flex: 1,
     align: 'center',
     headerAlign: 'center'
   },
   {
-    field: 'image',
-    headerName: 'Hình ảnh',
+    field: 'discountValue',
+    headerName: 'Giá trị giảm',
     flex: 1,
     align: 'center',
-    headerAlign: 'center',
-    renderCell: renderImage
+    headerAlign: 'center'
   },
   {
-    field: 'status',
+    field: 'expirationDate',
+    headerName: 'Ngày két thúc',
+    flex: 1,
+    align: 'center',
+    headerAlign: 'center'
+  },
+  {
+    field: 'usageCount',
+    headerName: 'Đã sử dụng',
+    flex: 1,
+    align: 'center',
+    headerAlign: 'center'
+  },
+  {
+    field: 'minOrderValue',
+    headerName: 'Đơn hàng tối thiếu',
+    flex: 1,
+    align: 'center',
+    headerAlign: 'center'
+  },
+  {
+    field: 'isActive',
     headerName: 'Tình trạng',
+    flex: 1,
     align: 'center',
     headerAlign: 'center',
     renderCell: renderStatus
-  },
-  {
-    field: 'price',
-    headerName: 'Giá tiền',
-    flex: 1.5,
-    align: 'center',
-    headerAlign: 'center'
-  },
-  {
-    field: 'category',
-    headerName: 'Danh mục',
-    flex: 1.5,
-    align: 'center',
-    headerAlign: 'center'
   },
   {
     field: 'action',

@@ -22,13 +22,13 @@ const ModalCustom = () => {
   const handleDeleteProduct = useCallback(() => {
     deleteProduct(content.id)
       .then(() => {
-        toast.success('Xoá sản phẩm thành công')
+        toast.success('Xoá voucher thành công')
         queryClient.invalidateQueries({ queryKey: productKeys.all })
 
         dispatch(closeModal())
       })
       .catch((error) => {
-        toast.error('Xoá sản phẩm thất bại' + error.message)
+        toast.error('Xoá voucher thất bại' + error.message)
       })
   }, [content.id, deleteProduct, dispatch, queryClient])
 
@@ -54,7 +54,7 @@ const ModalCustom = () => {
         }}
       >
         <Typography id='modal-modal-title' variant='h6' component='h2' textAlign={'center'}>
-          Bạn có muốn chắc chắn xoá sản phẩm
+          Bạn có muốn chắc chắn xoá voucher
           <br></br>
           <Typography variant='h6' component='span' color='error'>
             {content.name}

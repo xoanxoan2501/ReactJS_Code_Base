@@ -23,12 +23,12 @@ const VoucherManagementLayout = ({ children }: { children: React.ReactNode }) =>
       >
         <Breadcrumbs separator='>'>
           <Link underline='hover' color='inherit' onClick={() => navigate(routerVoucherManagement.path)}>
-            Danh sách sản phẩm
+            Danh sách mã giảm giá
           </Link>
 
           {(isAddVoucherPage || isEditVoucherPage) && (
             <Typography color='text.primary'>
-              {isAddVoucherPage ? 'Tạo mới sản phẩm' : isEditVoucherPage ? 'Thông tin sản phẩm' : null}
+              {isAddVoucherPage ? 'Tạo mới voucher' : isEditVoucherPage ? 'Thông tin voucher' : null}
             </Typography>
           )}
         </Breadcrumbs>

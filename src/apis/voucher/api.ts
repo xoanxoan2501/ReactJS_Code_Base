@@ -1,5 +1,16 @@
 import httpRepoInstance from '@/core/http/http'
 
+export const voucherKeys = {
+  all: ['fetchVouchers'],
+  fetchVouchersPagination: (
+    page: number | undefined | null,
+    limit: number | undefined | null,
+    q: string | undefined | null
+  ) => {
+    return [...voucherKeys.all, page ?? -1, limit ?? -1, q ?? '']
+  },
+  fetchVoucher: (id: string) => ['fetchVoucher', id]
+}
 export const getVouchersAPI = async () => {
   const response = await httpRepoInstance.get('/vouchers')
   console.log(response.data)

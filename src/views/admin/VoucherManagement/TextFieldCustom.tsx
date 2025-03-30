@@ -1,12 +1,12 @@
 import { Grid, TextField, TextFieldProps } from '@mui/material'
 import { Control, Controller } from 'react-hook-form'
-import { Product } from './FormZod'
+import { Voucher } from './FormZod'
 
 interface TextFieldCustomProps extends Omit<TextFieldProps, 'size'> {
   label?: string
   size?: Size
-  control: Control<Product>
-  name: keyof Product | `sizes.${number}.price` | `sizes.${number}.size` | `sizes.${number}.stock`
+  control: Control<Voucher>
+  name: keyof Pick<Voucher, 'discountType' | 'applicableCategories' | 'applicableProducts'>
 }
 
 interface Size {
