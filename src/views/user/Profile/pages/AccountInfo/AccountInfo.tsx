@@ -33,7 +33,12 @@ const AccountInfo = () => {
   )
   const [fullname, setFullname] = useState(userLogin?.fullname)
   const [gender, setGender] = useState('male')
+  const [isEditing, setIsEditing] = useState(false)
   const navigate = useNavigate()
+
+  const handleEditClick = () => {
+    setIsEditing(true)
+  }
 
   const handleDateChange = async (newValue: dayjs.Dayjs | null) => {
     await setSelectedDate(newValue ?? dayjs())
@@ -63,6 +68,7 @@ const AccountInfo = () => {
         )
 
         toast.success('Cập nhật thông tin thành công')
+        setIsEditing(false)
       }
     } catch (error) {
       toast.error('Có lỗi xảy ra khi cập nhật thông tin')
@@ -88,6 +94,7 @@ const AccountInfo = () => {
               type='text'
               onChange={(e) => setFullname(e.target.value)}
               value={fullname}
+              disabled={!isEditing}
             />
           </Stack>
           <Stack direction={'column'} spacing={1}>
@@ -99,6 +106,7 @@ const AccountInfo = () => {
                   value={selectedDate}
                   format='DD/MM/YYYY'
                   onChange={handleDateChange}
+                  disabled={!isEditing}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -118,12 +126,14 @@ const AccountInfo = () => {
                   control={<Radio className='radio' />}
                   label='Male'
                   sx={{ marginLeft: '1.5rem' }}
+                  disabled={!isEditing}
                 />
                 <FormControlLabel
                   value='female'
                   control={<Radio className='radio' />}
                   label='Female'
                   sx={{ marginLeft: '1.5rem' }}
+                  disabled={!isEditing}
                 />
               </RadioGroup>
             </FormControl>
@@ -146,9 +156,9 @@ const AccountInfo = () => {
               }}
               variant='contained'
               type='button'
-              onClick={handleChangeInfo}
+              onClick={isEditing ? handleChangeInfo : handleEditClick}
             >
-              Chỉnh sửa
+              {isEditing ? 'Cập nhật' : 'Chỉnh sửa'}
             </Button>
           </Stack>
         </Stack>
