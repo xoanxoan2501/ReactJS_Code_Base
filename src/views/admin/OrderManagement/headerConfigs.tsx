@@ -1,22 +1,8 @@
+import { ORDER_STATUS } from '@/utils/constants'
 import { Typography } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
-const renderCustomerType = (params: GridRenderCellParams) => {
-  return (
-    <Typography
-      sx={{
-        backgroundColor: params.value === 'available' ? '#1AFB9A' : '#1AFB9A',
-        color: 'white',
-        padding: '4px 8px',
-        borderRadius: '4px',
-        textAlign: 'center',
-        display: 'inline-block'
-      }}
-    >
-      {params.value === 'available' ? 'VIP' : 'VIP'}
-    </Typography>
-  )
-}
+const RenderStatus = (params: GridRenderCellParams) => {}
 
 export const headerConfigs: GridColDef[] = [
   {

@@ -24,7 +24,10 @@ export const useCategoryInfo = () => {
 }
 
 export const categoryApi = {
-  async getCategoryInfo(): Promise<CategoryResponse[]> {
+  async getCategoryInfo(): Promise<{
+    data: CategoryResponse[]
+    total: number
+  }> {
     const res = await httpRepoInstance.get('/categories/getAll').then((res) => res.data)
     return res
   }

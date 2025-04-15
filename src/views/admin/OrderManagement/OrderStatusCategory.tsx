@@ -30,7 +30,7 @@ const OrderStatusCategory = () => {
       >
         <Stack direction={'row'} spacing={1.5} alignItems={'center'}>
           <img style={{ marginRight: '8px' }} src={iconClock} alt='logo' className='icon_hover' />
-          Chờ xác nhận
+          Chờ xác nhận abcd
         </Stack>
         <Typography variant='subtitle1'>Tổng số đơn hàng: 10</Typography>
         <Typography variant='subtitle1'>Tổng số tiền: 1.150.000 đ</Typography>

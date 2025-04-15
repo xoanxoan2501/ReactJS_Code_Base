@@ -25,6 +25,8 @@ const CategoryManagement = () => {
     limit: paginationModel.pageSize
   })
 
+  console.log('data', data)
+
   const rows = useMemo(() => {
     return data?.data?.map((category: ICategory) => {
       return {
@@ -32,7 +34,7 @@ const CategoryManagement = () => {
         id: category._id
       }
     })
-  }, [])
+  }, [data])
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelection(event.target.value as string)

@@ -300,7 +300,7 @@ export default function FormVoucher() {
                 size={{ xs: 6, sm: 3 }}
                 options={
                   categories
-                    ? categories.map((category) => ({ value: category._id, label: category.name }))
+                    ? categories?.data.map((category) => ({ value: category._id, label: category.name }))
                     : [{ value: '', label: '' }]
                 }
               />
