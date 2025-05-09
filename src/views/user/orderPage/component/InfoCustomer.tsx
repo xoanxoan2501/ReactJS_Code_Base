@@ -36,8 +36,19 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
   const open = Boolean(anchorEl)
   const id = open ? 'customer-info-popover' : undefined
   useEffect(() => {
-    const defaultAddr = user?.addresses?.find((addr) => addr.isDefault)
-    if (defaultAddr) {
+    if (!user || !user.addresses || user.addresses.length === 0) return
+
+    const defaultAddr = user.addresses.find((addr) => addr.isDefault)
+    if (!defaultAddr) return
+
+    const isSame =
+      selectedAddress?.fullName === defaultAddr.fullname &&
+      selectedAddress?.phoneNumber === defaultAddr.phoneNumber &&
+      selectedAddress?.address === defaultAddr.address &&
+      selectedAddress?.shippingAddress === `${defaultAddr.address}, ${defaultAddr.district}, ${defaultAddr.province}` &&
+      selectedAddress?.email === (user?.email || '')
+
+    if (!isSame) {
       dispatch(
         updateOrder({
           fullName: defaultAddr.fullname,
@@ -48,7 +59,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
         })
       )
     }
-  }, [dispatch, user?.addresses])
+  }, [user?.addresses?.length])
 
   return (
     <div>

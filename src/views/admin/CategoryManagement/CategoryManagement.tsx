@@ -13,7 +13,11 @@ import iconDelete from '@/assets/icons/ProductManagement/iconDelete.png'
 import { useAppDispatch } from '@/shared/hook/reduxHooks'
 import { ICategory } from '@/apis/category'
 
+import { routerCategoryManagementAdd } from './router'
+import { useNavigate } from 'react-router-dom'
+
 const CategoryManagement = () => {
+  const navigate = useNavigate()
   const [selection, setSelection] = useState('all')
   const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
     pageSize: DEFAULT_LIMIT_PER_PAGE,
@@ -56,6 +60,7 @@ const CategoryManagement = () => {
             }}
             variant='contained'
             type='button'
+            onClick={() => navigate(routerCategoryManagementAdd.path)}
           >
             + Tạo mới danh mục
           </Button>

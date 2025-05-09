@@ -41,15 +41,23 @@ export const RenderAction = (params: GridRenderCellParams) => {
   return (
     <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
       <ActionIcon
-        key={params.row._id}
+        // key={params.row._id}
         icon={iconDelete}
-        title={'Xoá sản phẩm'}
+        title={'Xoá danh mục'}
         backgroundColor={'#FF070780'}
         handle={() => {
           dispatch(openModal({ id: params.row.id, name: params.row.productName }))
         }}
       />
-      <ActionIcon key={params.row._id} icon={iconEdit} title={'Chỉnh sửa sản phẩm'} backgroundColor={'#F9ED6980'} />
+      <ActionIcon
+        // key={params.row._id}
+        icon={iconEdit}
+        title={'Chỉnh sửa danh mục'}
+        backgroundColor={'#F9ED6980'}
+        handle={() => {
+          navigate(`/admin/category-management/edit/${params.row.id}`)
+        }}
+      />
     </Stack>
   )
 }
@@ -80,7 +88,7 @@ export const headerConfigs: GridColDef[] = [
     resizable: false
   },
   {
-    field: 'discount',
+    field: 'productQuantity',
     headerName: 'Số lượng sản phẩm',
     flex: 1,
     align: 'center',

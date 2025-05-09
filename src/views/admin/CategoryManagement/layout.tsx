@@ -5,7 +5,6 @@ import { routerCategoryManagement } from './router'
 
 const CategoryManagementLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
-  const location = useLocation()
 
   return (
     <Stack direction={'column'} spacing={3} sx={{ padding: '20px 24px' }}>
@@ -32,7 +31,7 @@ const CategoryManagementLayout = ({ children }: { children: React.ReactNode }) =
         sx={{
           backgroundColor: '#7CCCF840',
           borderRadius: '10px',
-          height: '800px',
+          minHeight: '800px',
           padding: '10px 20px'
         }}
       >

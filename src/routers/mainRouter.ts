@@ -26,7 +26,7 @@ import { routerOrderPage } from '@/views/user/orderPage/router'
 // AdminRouter
 import { routerAddProduct, routerProductManagement, routerEditProduct } from '@/views/admin/ProductManagement/router'
 import { routerAdminDashboard } from '@/views/admin/Dashboard.tsx/router'
-import { routerCategoryManagement } from '@/views/admin/CategoryManagement/router'
+import { routerCategoryManagement, routerCategoryManagementAdd } from '@/views/admin/CategoryManagement/router'
 import { routerOrderManagement } from '@/views/admin/OrderManagement/router'
 import { routerVoucherManagement } from '@/views/admin/VoucherManagement/router'
 import { routerCustomerManagement } from '@/views/admin/CustomerManagement/router'
@@ -57,6 +57,7 @@ const privatePage: IRouter[] = [
   routerDetailPurchase,
   routerEditAddress,
   routerCreateAddress,
+  routerCategoryManagementAdd,
   routerOrderPageOk
 ]
 
