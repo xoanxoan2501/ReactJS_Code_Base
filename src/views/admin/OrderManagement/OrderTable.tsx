@@ -23,7 +23,7 @@ const OrderTable = () => {
     limit: paginationModel.pageSize,
     isKeepPreviousData: true
   })
-  console.log(data?.data[0].shippingMethod)
+
   const rows = useMemo(
     () =>
       data?.data?.map((item: Order) => ({

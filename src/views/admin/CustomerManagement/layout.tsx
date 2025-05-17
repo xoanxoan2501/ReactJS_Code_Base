@@ -1,11 +1,13 @@
 import { routerAddProduct, routerProductManagement } from '@/views/admin/ProductManagement/router'
 import { Typography, Breadcrumbs, Link, Stack } from '@mui/material'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { routerAddCustomer, routerCustomerManagement, routerEditCustomer } from './router'
 
 const CustomerManagementLayout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
   const location = useLocation()
-  const isAddProductPage = location.pathname.includes(routerAddProduct.path)
+  const isAddCustomerPage = location.pathname.includes(routerAddCustomer.path)
+  const isEditCustomerPage = location.pathname.includes(routerEditCustomer.path)
 
   return (
     <Stack direction={'column'} spacing={3} sx={{ padding: '20px 24px' }}>
@@ -21,7 +23,7 @@ const CustomerManagementLayout = ({ children }: { children: React.ReactNode }) =
         alignItems={'center'}
       >
         <Breadcrumbs separator='>'>
-          <Link underline='hover' color='inherit' onClick={() => navigate(routerProductManagement.path)}>
+          <Link underline='hover' color='inherit' onClick={() => navigate(routerCustomerManagement.path)}>
             Danh sách khách hàng
           </Link>
 

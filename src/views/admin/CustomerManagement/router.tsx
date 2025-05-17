@@ -9,3 +9,20 @@ export const routerCustomerManagement: IRouter = {
   adminLayout: true,
   isAdminRouter: true
 }
+
+export const routerAddCustomer: IRouter = {
+  path: '/admin/customer-management/add',
+  loader: React.lazy(() => import('./FormCustom')),
+  exact: true,
+  adminLayout: true,
+  isAdminRouter: true
+}
+
+export const routerEditCustomer: IRouter = {
+  path: '/admin/customer-management/edit',
+  loader: React.lazy(() => import('./FormCustom')),
+  exact: true,
+  adminLayout: true,
+  isAdminRouter: true,
+  generatePath: (id: string) => `/admin/customer-management/edit/${id}`
+}

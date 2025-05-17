@@ -1,6 +1,38 @@
-import { Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import iconDelete from '@/assets/icons/ProductManagement/iconDelete.png'
+import iconEdit from '@/assets/icons/ProductManagement/iconEdit.png'
+import { openModal } from '@/apis/product-management-redux'
+interface ActionIcon {
+  icon: string
+  title: string
+  backgroundColor: string
+  handle?: () => void
+}
+const ActionIcon = ({ icon, title, backgroundColor, handle }: ActionIcon) => {
+  return (
+    <img
+      src={icon}
+      alt={title}
+      style={{
+        width: '30px',
+        height: '30px',
+        cursor: 'pointer',
+        borderRadius: '40px',
+        backgroundColor: backgroundColor,
+        padding: '3px'
+      }}
+      onClick={(event) => {
+        event.stopPropagation()
+        if (handle) {
+          handle()
+        }
+      }}
+    />
+  )
+}
 const renderCustomerType = (params: GridRenderCellParams) => {
   return (
     <Typography
@@ -15,6 +47,33 @@ const renderCustomerType = (params: GridRenderCellParams) => {
     >
       {params.value === 'available' ? 'VIP' : 'VIP'}
     </Typography>
+  )
+}
+
+export const RenderAction = (params: GridRenderCellParams) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  return (
+    <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
+      <ActionIcon
+        key={`${params.row.id}-delete`}
+        // key={params.row.id}
+        icon={iconDelete}
+        title={'Xoá khách hàng'}
+        backgroundColor={'#FF070780'}
+        handle={() => {
+          dispatch(openModal({ id: params.row.id, name: params.row.productName }));
+        }}
+      />
+      <ActionIcon
+        key={`${params.row.id}-edit`}
+        // key={params.row.id}
+        icon={iconEdit}
+        title={'Chỉnh sửa sản phẩm'}
+        backgroundColor={'#F9ED6980'}
+        handle={() => navigate(`/admin/custom-management/edit?id=${params.row.id}`)}
+      />
+    </Stack>
   )
 }
 
@@ -61,7 +120,7 @@ export const headerConfigs: GridColDef[] = [
     resizable: false
   },
   {
-    field: 'orders',
+    field: 'ordersNumber',
     headerName: 'Tổng số đơn hàng',
     flex: 1,
     align: 'center',
@@ -71,7 +130,7 @@ export const headerConfigs: GridColDef[] = [
     resizable: false
   },
   {
-    field: 'orders',
+    field: 'ordersTotal',
     headerName: 'Tổng tiền',
     flex: 1,
     align: 'center',
@@ -89,5 +148,13 @@ export const headerConfigs: GridColDef[] = [
     renderCell: renderCustomerType,
     editable: false,
     resizable: false
+  },
+  {
+    field: 'action',
+    headerName: 'Hành động',
+    flex: 1,
+    align: 'center',
+    headerAlign: 'center',
+    renderCell: RenderAction
   }
 ]
