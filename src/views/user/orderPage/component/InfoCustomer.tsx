@@ -48,7 +48,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
         })
       )
     }
-  }, [dispatch, user?.addresses])
+  }, [dispatch, user?.addresses, user?.email])
 
   return (
     <div>
