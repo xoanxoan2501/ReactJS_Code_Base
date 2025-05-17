@@ -9,6 +9,7 @@ import { updateOrder } from '@/apis/order'
 
 function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
   const user = useAppSelector((state) => state.profile.user)
+  console.log('user---', user)
   const dispatch = useAppDispatch()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -35,20 +36,6 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
   }
   const open = Boolean(anchorEl)
   const id = open ? 'customer-info-popover' : undefined
-  useEffect(() => {
-    const defaultAddr = user?.addresses?.find((addr) => addr.isDefault)
-    if (defaultAddr) {
-      dispatch(
-        updateOrder({
-          fullName: defaultAddr.fullname,
-          phoneNumber: defaultAddr.phoneNumber,
-          address: defaultAddr.address,
-          shippingAddress: `${defaultAddr.address}, ${defaultAddr.district}, ${defaultAddr.province}`,
-          email: user?.email || ''
-        })
-      )
-    }
-  }, [dispatch, user?.addresses, user?.email])
 
   return (
     <div>

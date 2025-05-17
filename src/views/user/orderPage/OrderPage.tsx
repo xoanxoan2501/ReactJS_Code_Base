@@ -14,6 +14,7 @@ function OrderPage() {
   const [showCompleteOrder, setShowCompleteOrder] = useState(false)
   const [shippingMethod, setShippingMethod] = useState('oder')
   const productTotal = selectProducts.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const user = useAppSelector((state) => state.profile.user)
 
   const [shippingFee, setShippingFee] = useState(0)
   const dispatch = useAppDispatch()
@@ -31,12 +32,18 @@ function OrderPage() {
     }))
   )
   useEffect(() => {
+    const defaultAddr = user?.addresses?.find((addr) => addr.isDefault)
     dispatch(
       updateOrder({
         ...orderInfo,
         orderDetails,
         total: totalPrice,
-        shippingMethod
+        shippingMethod,
+        fullName: defaultAddr?.fullname || '',
+        phoneNumber: defaultAddr?.phoneNumber || '',
+        address: defaultAddr?.address || '',
+        shippingAddress: `${defaultAddr?.address}, ${defaultAddr?.district}, ${defaultAddr?.province}`,
+        email: user?.email || ''
       })
     )
   }, [dispatch, orderDetails, shippingMethod, totalPrice])
