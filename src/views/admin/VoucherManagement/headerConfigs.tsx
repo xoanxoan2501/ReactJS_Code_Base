@@ -42,7 +42,7 @@ export const RenderAction = (params: GridRenderCellParams) => {
   return (
     <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
       <ActionIcon
-        key={params.row._id}
+        key={`${params.row.id}-delete`}
         icon={iconDelete}
         title={'Xoá voucher'}
         backgroundColor={'#FF070780'}
@@ -51,7 +51,7 @@ export const RenderAction = (params: GridRenderCellParams) => {
         }}
       />
       <ActionIcon
-        key={params.row._id}
+        key={`${params.row.id}-edit`}
         icon={iconEdit}
         title={'Chỉnh sửa voucher'}
         backgroundColor={'#F9ED6980'}

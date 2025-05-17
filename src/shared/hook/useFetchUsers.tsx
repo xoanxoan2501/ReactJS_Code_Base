@@ -1,4 +1,4 @@
-import { authKeys, getUsersApi } from '@/apis/auth/api'
+import { authKeys, getUserByIdApi, getUsersApi } from '@/apis/auth/api'
 import UserEntity from '@/modules/user/entity'
 import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
@@ -36,11 +36,21 @@ export const useFetchUsers = ({
         querypath += `&type=${customerType}`
       }
 
-      return await getUsersApi(querypath)
+      const response = await getUsersApi(querypath)
+      return response
     },
     placeholderData: isKeepPreviousData ? keepPreviousData : undefined,
     staleTime: 1000 * 60 * staleTime
   })
 
   return queryInfo
+}
+
+export const useUser = (id: string) => {
+  return useQuery<UserEntity>({
+    queryKey: id ? authKeys.fetchUser(id) : [],
+    queryFn: () => (id ? getUserByIdApi(id) : Promise.reject('Invalid ID')),
+    enabled: !!id,
+    staleTime: 1000 * 60
+  })
 }

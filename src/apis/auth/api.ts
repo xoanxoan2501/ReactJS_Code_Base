@@ -13,6 +13,12 @@ export const authKeys = {
   fetchUser: (id: string) => ['fetchUser', id]
 }
 
+export const getUserByIdApi = async (id: string) => {
+  const response = await httpRepoInstance.get(`/users/${id}`)
+
+  return response.data
+}
+
 export const getUsersApi = async (querypath: string) => {
   const response = await httpRepoInstance.get(`/users${querypath}`)
 

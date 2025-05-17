@@ -41,7 +41,7 @@ export const RenderAction = (params: GridRenderCellParams) => {
   return (
     <Stack sx={{ height: '100%' }} direction='row' spacing={2} alignItems='center'>
       <ActionIcon
-        key={params.row._id}
+        key={`${params.row.id}-delete`}
         icon={iconDelete}
         title={'Xoá sản phẩm'}
         backgroundColor={'#FF070780'}
@@ -49,7 +49,7 @@ export const RenderAction = (params: GridRenderCellParams) => {
           dispatch(openModal({ id: params.row.id, name: params.row.productName }))
         }}
       />
-      <ActionIcon key={params.row._id} icon={iconEdit} title={'Chỉnh sửa sản phẩm'} backgroundColor={'#F9ED6980'} />
+      <ActionIcon key={`${params.row.id}-edit`} icon={iconEdit} title={'Chỉnh sửa sản phẩm'} backgroundColor={'#F9ED6980'} />
     </Stack>
   )
 }
