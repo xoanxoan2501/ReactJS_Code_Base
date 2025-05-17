@@ -1,6 +1,3 @@
-
-import { ICustomer } from '@/apis/customer'
-import { useCustomers } from '@/shared/hook/useCustomers'
 import { DataGrid, GridRowSelectionModel } from '@mui/x-data-grid'
 import { headerConfigs } from './headerConfigs'
 import { DEFAULT_LIMIT_PER_PAGE, ORDER_SIZES, vietnameseLocaleText } from '@/utils/constants'
@@ -24,7 +21,11 @@ const CustomerTable = () => {
     isKeepPreviousData: true
   })
 
-  const { data: dataOrders, isLoading: isLoadingOrders, isError: isErrorOrders } = useOrders({
+  const {
+    data: dataOrders,
+    isLoading: isLoadingOrders,
+    isError: isErrorOrders
+  } = useOrders({
     page: paginationModel.page + 1,
     limit: paginationModel.pageSize,
     isKeepPreviousData: true
@@ -43,15 +44,16 @@ const CustomerTable = () => {
         stats.total += order.total || 0
       })
     }
-    const result = data?.users.map((item: UserEntity) => {
-      const stats = orderStats.get(item._id) || { count: 0, total: 0 }
-      return {
-        ...item,
-        id: item._id,
-        ordersNumber: stats.count,
-        ordersTotal: stats.total
-      }
-    }) || []
+    const result =
+      data?.users.map((item: UserEntity) => {
+        const stats = orderStats.get(item._id) || { count: 0, total: 0 }
+        return {
+          ...item,
+          id: item._id,
+          ordersNumber: stats.count,
+          ordersTotal: stats.total
+        }
+      }) || []
     return result
   }, [data, dataOrders])
 
@@ -91,7 +93,7 @@ const CustomerTable = () => {
         paginationModel={paginationModel}
         onPaginationModelChange={(newModel) => setPaginationModel(newModel)}
         rows={rows || []}
-        rowCount={data?.total || 0}/* eslint-disable no-console */
+        rowCount={data?.total || 0} /* eslint-disable no-console */
         onRowSelectionModelChange={(selectedIds) => console.log(selectedIds)}
         sx={{
           '& .MuiDataGrid-row:hover': {
