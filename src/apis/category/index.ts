@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import httpRepoInstance from '@/core/http/http'
 import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
+import { IProduct } from '@/apis/product'
 
 export const authKeys = {
   all: ['fetchCategories'],
@@ -17,6 +18,7 @@ export interface ICategory {
   _id: string
   name: string
   description: string
+  products: IProduct[]
 }
 
 export interface ICategoryStore {

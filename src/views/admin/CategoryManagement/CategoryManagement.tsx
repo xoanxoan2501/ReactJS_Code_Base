@@ -29,10 +29,11 @@ const CategoryManagement = () => {
     return data?.data?.map((category: ICategory) => {
       return {
         ...category,
-        id: category._id
+        id: category._id,
+        productQuantity: category.products?.length
       }
     })
-  }, [])
+  }, [data?.data])
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelection(event.target.value as string)

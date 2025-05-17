@@ -22,10 +22,11 @@ export const API_ROOT = apiRoot
 
 export const ORDER_STATUS = {
   PENDING: 'pending',
-  PROCESSING: 'processing',
-  SHIPPED: 'shipped',
+  PREPARE: 'prepare',
+  SHIPPING: 'shipping',
   COMPLETED: 'completed',
-  CANCELED: 'canceled'
+  REFUND: 'refund',
+  CANCEL: 'cancel'
 }
 
 export const vietnameseLocaleText = {

@@ -80,7 +80,7 @@ export const headerConfigs: GridColDef[] = [
     resizable: false
   },
   {
-    field: 'discount',
+    field: 'productQuantity',
     headerName: 'Số lượng sản phẩm',
     flex: 1,
     align: 'center',

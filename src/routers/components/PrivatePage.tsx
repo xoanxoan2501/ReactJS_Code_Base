@@ -42,6 +42,12 @@ const PrivatePage: React.FC = () => {
     return r?.showSideBar
   }, [location.pathname, routes])
 
+  const objectA = {
+    course_name: 'js',
+    course_id: 1,
+    list_price: {}
+  }
+
   return (
     <>
       {showAdminLayout ? (

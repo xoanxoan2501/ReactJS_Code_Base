@@ -60,16 +60,16 @@ export default function Purchase() {
           <AllPurchase />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <AllPurchase />
+          <AllPurchase status={ORDER_STATUS.PENDING} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <AllPurchase />
+          <AllPurchase status={ORDER_STATUS.SHIPPING} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
-          <AllPurchase />
+          <AllPurchase status={ORDER_STATUS.COMPLETED} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={4}>
-          <AllPurchase status={ORDER_STATUS.CANCELED} />
+          <AllPurchase status={ORDER_STATUS.CANCEL} />
         </CustomTabPanel>
       </Box>
     </LayoutBox>

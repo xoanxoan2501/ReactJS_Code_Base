@@ -63,7 +63,7 @@ const initialState: OrderState = {
     total: 0,
     shippingMethod: '',
     shippingAddress: '',
-    trackingNumber: 'TRACK123456',
+    trackingNumber: 'TRACKING123456',
     paymentMethod: '',
     shippingFee: 0,
     orderDetails: []

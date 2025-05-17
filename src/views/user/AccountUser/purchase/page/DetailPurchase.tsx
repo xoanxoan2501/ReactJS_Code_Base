@@ -59,7 +59,11 @@ function DetailPurchase() {
         </div>
       </div>
 
-      <TableProductOrder products={order?.orderDetails || []} />
+      <TableProductOrder
+        products={order?.orderDetails || []}
+        shippingFee={order?.shippingFee}
+        totalPrice={order?.total}
+      />
     </LayoutBox>
   )
 }

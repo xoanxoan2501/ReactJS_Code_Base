@@ -2,13 +2,19 @@ import { OrderDetail } from '@/apis/order'
 import { IProduct } from '@/apis/product'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Typography } from '@mui/material'
 
-function TableProductOrder({ products }: { products: OrderDetail[] }) {
+function TableProductOrder({
+  products,
+  shippingFee = 0,
+  totalPrice = 0
+}: {
+  products: OrderDetail[]
+  shippingFee?: number
+  totalPrice?: number
+}) {
   // Danh sách sản phẩm
 
   const subtotal = products.reduce((total, product) => total + product.total, 0)
-  const shippingFee = 0
   const discount = 0
-  const total = subtotal + shippingFee - discount
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
@@ -22,6 +28,9 @@ function TableProductOrder({ products }: { products: OrderDetail[] }) {
                 </TableCell>
                 <TableCell>
                   <strong>Size</strong>
+                </TableCell>
+                <TableCell>
+                  <strong>Đơn giá</strong>
                 </TableCell>
                 <TableCell>
                   <strong>Số lượng</strong>
@@ -45,6 +54,7 @@ function TableProductOrder({ products }: { products: OrderDetail[] }) {
                     </div>
                   </TableCell>
                   <TableCell>{product.size}</TableCell>
+                  <TableCell>{product.price.toLocaleString('vi-VN')} đ</TableCell>
                   <TableCell>{product.quantity}</TableCell>
                   <TableCell>{product.total.toLocaleString('vi-VN')} đ</TableCell>
                 </TableRow>
@@ -80,7 +90,7 @@ function TableProductOrder({ products }: { products: OrderDetail[] }) {
         </div>
         <div style={{ borderTop: ' 2px solid #DC567A  ' }}>
           <Typography variant='h6' sx={{ color: '#DC567A', fontWeight: 'bold', marginTop: 1 }}>
-            Tổng cộng: {total.toLocaleString('vi-VN')} đ
+            Tổng cộng: {totalPrice.toLocaleString('vi-VN')} đ
           </Typography>
         </div>
       </Box>

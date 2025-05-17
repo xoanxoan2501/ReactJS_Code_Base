@@ -34,14 +34,18 @@ function CompleteTheOrder() {
     }).then((result) => {
       if (result.isConfirmed) {
         createOrder(orderInfo, {
-          onSuccess: async () => {
+          onSuccess: async (order) => {
             Swal.fire({
               title: 'Đặt hàng thành công!',
               text: 'Đơn hàng của bạn đã được tạo.',
               icon: 'success',
               confirmButtonText: 'OK'
             })
-            navigate(routerOrderPageOk.path)
+            navigate(routerOrderPageOk.path, {
+              state: {
+                orderId: order._id
+              }
+            })
             // Danh sách sản phẩm cần xóa
             const itemsToRemove = orderInfo.orderDetails.map((item) => ({
               productId: item.productId,

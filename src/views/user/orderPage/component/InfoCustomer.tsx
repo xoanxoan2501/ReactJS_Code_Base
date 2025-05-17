@@ -15,8 +15,8 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
     setAnchorEl(event.currentTarget)
   }
 
-  const selectedAddress = useAppSelector((state) => state.order.orderInfo)
-  console.log(selectedAddress)
+  const orderInfo = useAppSelector((state) => state.order.orderInfo)
+  console.log('orderInfo---', orderInfo)
   const handleClose = () => {
     setAnchorEl(null)
   }
@@ -60,7 +60,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           className='textField'
           sx={{ width: '90%' }}
           InputProps={{ readOnly: true }}
-          value={selectedAddress?.fullName || user?.fullname}
+          value={orderInfo?.fullName || user?.fullname}
         />
         <IconButton onClick={handleClick}>
           <AccountBoxIcon className='icon-account' />
@@ -112,7 +112,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           variant='outlined'
           className='textField'
           sx={{ width: '30%' }}
-          value={selectedAddress?.phoneNumber || user?.phoneNumber}
+          value={orderInfo?.phoneNumber || user?.phoneNumber}
           InputProps={{ readOnly: true }}
         />
       </Box>
@@ -123,7 +123,7 @@ function InfoCustomer({ onShowPayment }: { onShowPayment: () => void }) {
           className='textField'
           sx={{ width: '100%' }}
           InputProps={{ readOnly: true }}
-          value={selectedAddress?.address || user?.address}
+          value={orderInfo?.address || user?.address}
         />
       </Box>
       <Box className='registerRow'>

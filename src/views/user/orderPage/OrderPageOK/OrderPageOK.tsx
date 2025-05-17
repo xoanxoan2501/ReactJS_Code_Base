@@ -2,12 +2,20 @@ import { Box } from '@mui/system'
 import React from 'react'
 import CheckIcon from '@mui/icons-material/Check'
 import { Button, Typography } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { routerHome } from '../../home/router'
 import { routerDetailPurchase } from '../../AccountUser/purchase/page/router'
 
 function OrderPageOK() {
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const { orderId } = location.state || {}
+
+  if (!orderId) {
+    return <Navigate to={routerHome.path} />
+  }
+
   return (
     <Box
       sx={{
@@ -78,7 +86,11 @@ function OrderPageOK() {
               backgroundColor: 'white'
             }
           }}
-          onClick={() => navigate(routerDetailPurchase.path)}
+          onClick={() => {
+            if (routerDetailPurchase && routerDetailPurchase.generatePath) {
+              navigate(routerDetailPurchase?.generatePath?.(orderId))
+            }
+          }}
         >
           ĐƠN MUA
         </Button>
