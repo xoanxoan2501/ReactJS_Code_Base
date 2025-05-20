@@ -42,6 +42,6 @@ export const useUpdateProduct = () => {
 }
 
 export const updateProductAPI = async (body: FormData, id: string): Promise<UpdateProductResponse> => {
-  const response = await customHttpInstance('http://localhost:8082/api/v1').put(`/products/edit/${id}`, body)
+  const response = await customHttpInstance('http://13.114.2.60:8082/api/v1').put(`/products/edit/${id}`, body)
   return response.data
 }

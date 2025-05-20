@@ -25,7 +25,7 @@ export const useCategoryInfo = () => {
 
 export const categoryApi = {
   async getCategoryInfo(): Promise<CategoryResponse[]> {
-    const res = await customHttpInstance('http://localhost:8082/api/v1')
+    const res = await customHttpInstance('http://13.114.2.60:8082/api/v1')
       .get('/categories/getAll')
       .then((res) => res.data)
     return res

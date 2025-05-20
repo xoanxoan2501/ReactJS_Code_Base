@@ -22,6 +22,6 @@ export const useGetAllProducts = () => {
 }
 
 export const getAllProductsAPI = async (): Promise<GetAllProductsResponse> => {
-  const response = await customHttpInstance('http://localhost:8082/api/v1').get('/products')
+  const response = await customHttpInstance('http://13.114.2.60:8082/api/v1').get('/products')
   return response.data
 }

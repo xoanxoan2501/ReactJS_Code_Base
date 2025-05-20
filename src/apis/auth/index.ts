@@ -29,24 +29,24 @@ interface IStore {
 }
 
 export const loginAPI = createAsyncThunk('profile/login', async (data: ILogin) => {
-  const response = await customHttpInstance('http://localhost:8083/api/v1').post('/users/login', data)
+  const response = await customHttpInstance('http://13.114.2.60:8083/api/v1').post('/users/login', data)
 
   return response.data
 })
 
 export const logoutAPI = createAsyncThunk('profile/logout', async () => {
-  const response = await customHttpInstance('http://localhost:8083/api/v1').post('/users/logout')
+  const response = await customHttpInstance('http://13.114.2.60:8083/api/v1').post('/users/logout')
 
   return response.data
 })
 
 export const updateProfileAPI = createAsyncThunk('profile/updateProfile', async (data: Partial<UserEntity>) => {
-  const response = await customHttpInstance('http://localhost:8083/api/v1').put('/users', data)
+  const response = await customHttpInstance('http://13.114.2.60:8083/api/v1').put('/users', data)
   return response.data
 })
 
 export const registerAPI = createAsyncThunk('profile/register', async (data: IRegister) => {
-  const response = await customHttpInstance('http://localhost:8083/api/v1').post('/users/register', data)
+  const response = await customHttpInstance('http://13.114.2.60:8083/api/v1').post('/users/register', data)
   return response.data
 })
 

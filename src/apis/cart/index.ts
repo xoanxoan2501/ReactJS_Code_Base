@@ -20,7 +20,7 @@ interface ICartStore {
 }
 
 export const getCartAPI = createAsyncThunk('cart/getCart', async () => {
-  const response = await customHttpInstance('http://localhost:8082/api/v1').get('/cart/get-cart')
+  const response = await customHttpInstance('http://13.114.2.60:8082/api/v1').get('/cart/get-cart')
   return response.data
 })
 
@@ -35,14 +35,14 @@ const initialState: ICartStore = {
 export const updateProductQuantity = createAsyncThunk(
   'cart/updateProductQuantity',
   async (data: { productId: string; quantity: number; size: string }) => {
-    const response = await customHttpInstance('http://localhost:8082/api/v1').put('/cart/edit-cart', data)
+    const response = await customHttpInstance('http://13.114.2.60:8082/api/v1').put('/cart/edit-cart', data)
     return response.data
   }
 )
 export const deleteCartItem = createAsyncThunk(
   'cart/deleteCartItem',
   async ({ productId, size }: { productId: string; size: string }) => {
-    await customHttpInstance('http://localhost:8082/api/v1').delete(`/cart/delete-cart`, {
+    await customHttpInstance('http://13.114.2.60:8082/api/v1').delete(`/cart/delete-cart`, {
       data: { productId, size }
     })
     return productId
