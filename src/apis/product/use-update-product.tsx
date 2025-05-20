@@ -1,4 +1,4 @@
-import httpRepoInstance from '@/core/http/http'
+import httpRepoInstance, { customHttpInstance } from '@/core/http/http'
 import { useMutation } from '@tanstack/react-query'
 import { IProduct } from '.'
 
@@ -42,6 +42,6 @@ export const useUpdateProduct = () => {
 }
 
 export const updateProductAPI = async (body: FormData, id: string): Promise<UpdateProductResponse> => {
-  const response = await httpRepoInstance.put(`/products/edit/${id}`, body)
+  const response = await customHttpInstance('http://localhost:8082/api/v1').put(`/products/edit/${id}`, body)
   return response.data
 }

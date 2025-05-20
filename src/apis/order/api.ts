@@ -1,4 +1,4 @@
-import httpRepoInstance from '@/core/http/http'
+import httpRepoInstance, { customHttpInstance } from '@/core/http/http'
 import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
 import { Order } from './index'
 import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
@@ -9,10 +9,9 @@ export const orderKeys = {
     page: number | undefined | null,
     limit: number | undefined | null,
     status: string | undefined | null,
-    userId: string | undefined | null,
     q: string | null | undefined
   ) => {
-    return [...orderKeys.all, page || -1, limit || -1, status || 'all', userId || '', q || '']
+    return [...orderKeys.all, page || -1, limit || -1, status || 'all', q || '']
   },
   fetchOrder: (id: string) => ['order', id]
 }
@@ -24,11 +23,11 @@ export const useAddOrder = () => {
 }
 
 export const createOrderAPI = async (body: Order): Promise<Order> => {
-  const response = await httpRepoInstance.post('/orders', body)
+  const response = await customHttpInstance('http://localhost:8082/api/v1').post('/orders', body)
   return response.data
 }
 export const fetchOrderAPI = async (querypath: string) => {
-  const response = await httpRepoInstance.get(`/orders${querypath}`)
+  const response = await customHttpInstance('http://localhost:8082/api/v1').get(`/orders${querypath}`)
   return response.data
 }
 
@@ -46,13 +45,12 @@ export const useFetchOrders = ({
   page,
   limit,
   status,
-  userId,
   q,
   isKeepPreviousData = false,
   staleTime = 30
 }: FetchOrdersProps = {}) => {
   const queryInfo = useQuery({
-    queryKey: orderKeys.fetchOrdersPagination(page, limit, status, userId, q),
+    queryKey: orderKeys.fetchOrdersPagination(page, limit, status, q),
     queryFn: async (): Promise<{
       data: Array<Order>
       total: number
@@ -71,10 +69,6 @@ export const useFetchOrders = ({
         queryPath += `&status=${status}`
       }
 
-      if (userId) {
-        queryPath += `&userId=${userId}`
-      }
-
       if (q) {
         queryPath += `&q=${q}`
       }
@@ -89,6 +83,6 @@ export const useFetchOrders = ({
 }
 
 export const getOrdersAPI = async (searchPath: string) => {
-  const response = await httpRepoInstance.get(`/orders${searchPath}`)
+  const response = await customHttpInstance('http://localhost:8082/api/v1').get(`/orders${searchPath}`)
   return response.data
 }

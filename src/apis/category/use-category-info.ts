@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import httpRepoInstance from '@/core/http/http'
+import httpRepoInstance, { customHttpInstance } from '@/core/http/http'
 
 const categoryKeys = {
   categories: ['categories']
@@ -25,7 +25,9 @@ export const useCategoryInfo = () => {
 
 export const categoryApi = {
   async getCategoryInfo(): Promise<CategoryResponse[]> {
-    const res = await httpRepoInstance.get('/categories/getAll').then((res) => res.data)
+    const res = await customHttpInstance('http://localhost:8082/api/v1')
+      .get('/categories/getAll')
+      .then((res) => res.data)
     return res
   }
 }

@@ -1,4 +1,4 @@
-import httpRepoInstance from '@/core/http/http'
+import httpRepoInstance, { customHttpInstance } from '@/core/http/http'
 import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
 export const authKeys = {
   all: ['fetchUsers'],
@@ -14,19 +14,19 @@ export const authKeys = {
 }
 
 export const getUserByIdApi = async (id: string) => {
-  const response = await httpRepoInstance.get(`/users/${id}`)
+  const response = await customHttpInstance('http://localhost:8083/api/v1').get(`/users/${id}`)
 
   return response.data
 }
 
 export const getUsersApi = async (querypath: string) => {
-  const response = await httpRepoInstance.get(`/users${querypath}`)
+  const response = await customHttpInstance('http://localhost:8083/api/v1').get(`/users${querypath}`)
 
   return response.data
 }
 
 export const forgotPasswordAPI = async (email: string) => {
-  const response = await httpRepoInstance.post('/users/forgot-password', {
+  const response = await customHttpInstance('http://localhost:8083/api/v1').post('/users/forgot-password', {
     email
   })
 
@@ -34,7 +34,7 @@ export const forgotPasswordAPI = async (email: string) => {
 }
 
 export const verifyOTPAPI = async (userId: string, otp: string) => {
-  const response = await httpRepoInstance.post('/users/verify-otp', {
+  const response = await customHttpInstance('http://localhost:8083/api/v1').post('/users/verify-otp', {
     userId,
     otp
   })
@@ -48,7 +48,7 @@ export const resetPasswordAPI = async (
   confirmPassword: string,
   verifyToken: string
 ) => {
-  const response = await httpRepoInstance.post('/users/reset-password', {
+  const response = await customHttpInstance('http://localhost:8083/api/v1').post('/users/reset-password', {
     userId,
     password,
     confirmPassword,
@@ -59,7 +59,7 @@ export const resetPasswordAPI = async (
 }
 
 export const changePasswordAPI = async (old_password: string, new_password: string, confirm_password: string) => {
-  const response = await httpRepoInstance.post('/users/change-password', {
+  const response = await customHttpInstance('http://localhost:8083/api/v1').post('/users/change-password', {
     old_password,
     new_password,
     confirm_password
@@ -69,7 +69,7 @@ export const changePasswordAPI = async (old_password: string, new_password: stri
 }
 
 export const changeInfomationAPI = async (fullname: string, dateOfBirth: number) => {
-  const response = await httpRepoInstance.put('/users', {
+  const response = await customHttpInstance('http://localhost:8083/api/v1').put('/users', {
     fullname,
     dateOfBirth
   })

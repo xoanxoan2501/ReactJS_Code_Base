@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import httpRepoInstance from '@/core/http/http'
+import httpRepoInstance, { customHttpInstance } from '@/core/http/http'
 import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
 import { IProduct } from '@/apis/product'
 
@@ -46,7 +46,7 @@ export const getCategoryAPI = createAsyncThunk(
   async ({ page, limit, q }: { page: number; limit: number; q?: string }) => {
     let querypath = `?page=${page}&limit=${limit}`
     if (q) querypath += `&q=${q}`
-    const response = await httpRepoInstance.get(`/categories${querypath}`)
+    const response = await customHttpInstance('http://localhost:8082/api/v1').get(`/categories${querypath}`)
     return response.data
   }
 )

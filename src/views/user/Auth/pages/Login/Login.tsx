@@ -25,7 +25,10 @@ const Login = () => {
   const handleLogin = (data: LoginSchemaType) => {
     dispatch(loginAPI(data))
       .unwrap()
-      .then(() => navigate(routerHome.path))
+      .then((data) => {
+        localStorage.setItem('accessToken', data.accessToken)
+        navigate(routerHome.path)
+      })
   }
 
   return (

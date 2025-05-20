@@ -1,4 +1,4 @@
-import httpRepoInstance from '@/core/http/http'
+import httpRepoInstance, { customHttpInstance } from '@/core/http/http'
 import { useQuery } from '@tanstack/react-query'
 import { IProduct } from '.'
 
@@ -22,6 +22,6 @@ export const useGetAllProducts = () => {
 }
 
 export const getAllProductsAPI = async (): Promise<GetAllProductsResponse> => {
-  const response = await httpRepoInstance.get('/products')
+  const response = await customHttpInstance('http://localhost:8082/api/v1').get('/products')
   return response.data
 }

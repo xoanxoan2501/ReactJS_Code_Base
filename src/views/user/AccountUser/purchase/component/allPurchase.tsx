@@ -20,8 +20,7 @@ function AllPurchase({ status }: { status?: string }) {
     isError
   } = useFetchOrders({
     status,
-    isKeepPreviousData: true,
-    userId: userLogin?._id
+    isKeepPreviousData: true
   })
 
   console.log('orders', orders)
@@ -33,7 +32,7 @@ function AllPurchase({ status }: { status?: string }) {
     <Box sx={{ maxHeight: '600px', overflowY: 'auto', padding: '10px' }}>
       {orders?.data?.map((order: Order) => {
         const quantityTotal = order.orderDetails.reduce((acc, product) => acc + product.quantity, 0)
-        const totalPrice = order.orderDetails.reduce((acc, product) => acc + product.total, 0)
+        const totalPrice = order.total
 
         return (
           <div className='container-order'>

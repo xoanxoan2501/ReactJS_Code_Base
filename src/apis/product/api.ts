@@ -1,4 +1,4 @@
-import httpRepoInstance from '@/core/http/http'
+import httpRepoInstance, { customHttpInstance } from '@/core/http/http'
 import { DEFAULT_LIMIT_PER_PAGE, DEFAULT_PAGE } from '@/utils/constants'
 
 export const productKeys = {
@@ -15,13 +15,13 @@ export const productKeys = {
 }
 
 export const getProductsAPI = async (searchPath: string) => {
-  const response = await httpRepoInstance.get(`/products${searchPath}`)
+  const response = await customHttpInstance('http://localhost:8082/api/v1').get(`/products${searchPath}`)
 
   return response.data
 }
 
 export const fetchProductByIdAPI = async (id: string) => {
-  const response = await httpRepoInstance.get(`/products/${id}`)
+  const response = await customHttpInstance('http://localhost:8082/api/v1').get(`/products/${id}`)
 
   return response.data
 }

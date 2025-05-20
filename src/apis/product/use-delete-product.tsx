@@ -1,4 +1,4 @@
-import httpRepoInstance from '@/core/http/http'
+import httpRepoInstance, { customHttpInstance } from '@/core/http/http'
 import { useMutation } from '@tanstack/react-query'
 import { IProduct } from '.'
 
@@ -9,7 +9,7 @@ export const useDeleteProduct = () => {
 }
 
 export const deleteProductAPI = async (id: string): Promise<IProduct> => {
-  const response = await httpRepoInstance.delete(`/products/delete/${id}`)
+  const response = await customHttpInstance('http://localhost:8082/api/v1').delete(`/products/delete/${id}`)
 
   return response.data
 }
