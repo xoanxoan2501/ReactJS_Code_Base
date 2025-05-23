@@ -14,7 +14,7 @@ import { configureStore } from '@reduxjs/toolkit'
 //   'remember'
 // ])
 const persistConfig: PersistConfig<RootState> = {
-  key: CONFIG.APP_NAME,
+  key: 'cake store',
   storage,
   blacklist: [],
   whitelist: ['profile', 'payment']

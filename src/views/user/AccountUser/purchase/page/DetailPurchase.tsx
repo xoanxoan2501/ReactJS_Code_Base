@@ -9,23 +9,23 @@ import { routerPurchase } from '../router'
 import { Order } from '@/apis/order'
 import { useFetchOrders } from '@/apis/order/api'
 import { useAppSelector } from '@/shared/hook/reduxHooks'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { formatDateTimeStamp } from '@/utils/formatter'
+import httpRepoInstance from '@/core/http/http'
 
 function DetailPurchase() {
   const { orderId } = useParams<{ orderId: string }>()
   const userLogin = useAppSelector((state) => state.profile.user)
+  const [order, setOrder] = useState<Order | null>(null)
 
-  const { data: orders } = useFetchOrders({
-    isKeepPreviousData: true,
-    userId: userLogin?._id
-  })
-
-  const order = useMemo(() => {
-    return orders?.data?.find((order: Order) => order._id === orderId)
-  }, [orderId, orders?.data])
-
-  console.log('order-detail', order)
+  useEffect(() => {
+    if (orderId) {
+      httpRepoInstance
+        .get(`/orders/${orderId}`)
+        .then((res) => setOrder(res.data))
+        .catch((err) => console.error('Error fetching order details:', err))
+    }
+  }, [orderId])
 
   return (
     <LayoutBox>

@@ -14,7 +14,7 @@ class HttpRepository {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: import.meta.env.DEV ? CONFIG.API_BASE_URL : CONFIG.API_SERVER_URL,
+      baseURL: import.meta.env.DEV ? CONFIG.API_BASE_URL : 'https://shopapp-be-node.onrender.com',
       timeout: 1000 * 60 * 10
     })
   }

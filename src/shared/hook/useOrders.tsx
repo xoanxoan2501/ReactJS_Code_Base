@@ -17,11 +17,10 @@ export const useOrders = ({
   page = DEFAULT_PAGE,
   limit = DEFAULT_LIMIT_PER_PAGE,
   q,
-  userId,
   staleTime = 30
 }: useOrdersProps) => {
   const queryInfo = useQuery({
-    queryKey: orderKeys.fetchOrdersPagination(page, limit, status, userId, q),
+    queryKey: orderKeys.fetchOrdersPagination(page, limit, status, q),
     queryFn: async (): Promise<{
       data: Array<Order>
       total: number
@@ -30,10 +29,6 @@ export const useOrders = ({
 
       if (q) {
         querypath += `&q=${q}`
-      }
-
-      if (userId) {
-        querypath += `&userId=${userId}`
       }
 
       return await getOrdersAPI(querypath)

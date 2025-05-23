@@ -1,6 +1,6 @@
 import { deleteCartItem, removeMultipleCartItems, resetSelecdCartItem, setCart } from '@/apis/cart'
 import { updateOrder } from '@/apis/order'
-import { useAddOrder } from '@/apis/order/api'
+import { orderKeys, useAddOrder } from '@/apis/order/api'
 import { useAppDispatch, useAppSelector } from '@/shared/hook/reduxHooks'
 import { Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 
 import Swal from 'sweetalert2'
 import { routerOrderPageOk } from '../OrderPageOK/router'
+import { useQueryClient } from '@tanstack/react-query'
 
 function CompleteTheOrder() {
   const navigate = useNavigate()
@@ -19,6 +20,7 @@ function CompleteTheOrder() {
     ship3: 'Đến cửa hàng (4 Điện Biên Phủ) quận Bình Thạnh lấy bánh'
   }
   const dispatch = useAppDispatch()
+  const queryClient = useQueryClient()
 
   const { mutate: createOrder } = useAddOrder()
   const handlePlaceOrder = () => {
@@ -40,6 +42,9 @@ function CompleteTheOrder() {
               text: 'Đơn hàng của bạn đã được tạo.',
               icon: 'success',
               confirmButtonText: 'OK'
+            })
+            queryClient.invalidateQueries({
+              queryKey: orderKeys.all
             })
             navigate(routerOrderPageOk.path, {
               state: {

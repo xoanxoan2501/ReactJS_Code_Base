@@ -9,10 +9,9 @@ export const orderKeys = {
     page: number | undefined | null,
     limit: number | undefined | null,
     status: string | undefined | null,
-    userId: string | undefined | null,
     q: string | null | undefined
   ) => {
-    return [...orderKeys.all, page || -1, limit || -1, status || 'all', userId || '', q || '']
+    return [...orderKeys.all, page || -1, limit || -1, status || 'all', q || '']
   },
   fetchOrder: (id: string) => ['order', id]
 }
@@ -52,7 +51,7 @@ export const useFetchOrders = ({
   staleTime = 30
 }: FetchOrdersProps = {}) => {
   const queryInfo = useQuery({
-    queryKey: orderKeys.fetchOrdersPagination(page, limit, status, userId, q),
+    queryKey: orderKeys.fetchOrdersPagination(page, limit, status, q),
     queryFn: async (): Promise<{
       data: Array<Order>
       total: number
